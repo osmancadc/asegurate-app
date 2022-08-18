@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/settings', page: () => SettingsPage()),
         GetPage(name: '/report', page: () => ReportPage()),
         GetPage(name: '/logout', page: () => LogoutPage()),
+        GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,
