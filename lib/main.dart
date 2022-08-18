@@ -33,8 +33,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/logout', page: () => LogoutPage()),
       ],
       theme: ThemeData(
-        
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.blue,
           primaryColor: HexColor('#005074'),
           colorScheme: ColorScheme(
               primary: HexColor('#005074'),

@@ -17,6 +17,7 @@ var colorOnSecondaryVariant = HexColor('#00fedf');
 var colorOnSurfaceVariant = HexColor('#000000');
 var colorOnErrorVariant = HexColor('#000000');
 var colorOnBackgroundVariant = HexColor('#000000');
+var colorFont = HexColor('#FFFFFF');
 
 var textTitle = Row(
   mainAxisAlignment: MainAxisAlignment.center,
