@@ -1,3 +1,4 @@
+import 'package:app_asegurate/pages/news/news_page_controller.dart';
 import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
 import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,13 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/consult', page: () => ConsultPage()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
-        GetPage(name: '/news', page: () => NewsPage()),
         GetPage(name: '/settings', page: () => SettingsPage()),
         GetPage(name: '/report', page: () => ReportPage()),
         GetPage(name: '/logout', page: () => LogoutPage()),
+        GetPage(
+            name: '/news',
+            page: () => NewsPage(),
+            arguments: NewsPageController( )),
         GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
       ],
       theme: ThemeData(
