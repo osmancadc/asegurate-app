@@ -41,7 +41,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomRegister(BuildContext context) {
-    RegisterPageController con = Get.put(RegisterPageController());
+   LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -67,7 +67,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomEnter(BuildContext context) {
-    RegisterPageController con = Get.put(RegisterPageController());
+ LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),

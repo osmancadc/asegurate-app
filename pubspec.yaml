@@ -24,6 +24,7 @@ dev_dependencies:
   file_picker: ^4.6.1
   flutter_carousel_slider: ^1.0.9
   image_picker: ^0.8.5+3
+  sn_progress_dialog: ^1.0.7
 
   shimmer: ^2.0.0
 
