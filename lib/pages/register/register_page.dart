@@ -68,6 +68,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+
   Widget _imageUser(BuildContext context) {
     return SafeArea(
       child: Container(
