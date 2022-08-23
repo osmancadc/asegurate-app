@@ -14,7 +14,7 @@ class LogoutPage extends StatelessWidget {
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
-      body: Center(
+      body: const Center(
         child: Text('LogoutPage'),
       ),
     );

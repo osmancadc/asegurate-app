@@ -305,7 +305,7 @@ Widget _buttomSearch(BuildContext context) {
   QualifyController con = Get.put(QualifyController());
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
       onPressed: () => register(context),
       style: ElevatedButton.styleFrom(
@@ -313,7 +313,7 @@ Widget _buttomSearch(BuildContext context) {
           borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnPrimaryVariant,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
       ),
       child: const Text(
         'Enviar',

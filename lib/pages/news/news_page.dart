@@ -9,7 +9,7 @@ import '../../utils.dart';
 import 'news_page_controller.dart';
 
 class NewsPage extends StatelessWidget {
-  NewsPage({Key? key}) : super(key: key);
+  const NewsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
@@ -65,7 +65,7 @@ class NewsPage extends StatelessWidget {
                             'title': dataNews[index].toString(),
                             'id': idNotice[index]['id'],
                             'img': 'assets/images/notices_img$index.jpg',
-                            'description':  dataNewsDetail[index].toString(),
+                            'description': dataNewsDetail[index].toString(),
                           });
                         },
                         child: Center(
