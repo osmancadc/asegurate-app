@@ -1,9 +1,12 @@
+import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePageController con = Get.put(ProfilePageController());
+  ProfilePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +53,7 @@ class ProfilePage extends StatelessWidget {
                   _boxFormEmail(context),
                   _boxFormCellPhone(context),
                   _boxFormIdentification(context),
+                  _buttomProfileEdit(context)
                 ],
               )
             ],
@@ -241,6 +245,31 @@ class ProfilePage extends StatelessWidget {
           fit: BoxFit.cover,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buttomProfileEdit(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: ElevatedButton(
+        onPressed: () => gotoProfilePageEdit(context),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          primary: colorOnPrimaryVariant,
+          padding: EdgeInsets.symmetric(vertical: 15),
+        ),
+        child: const Text(
+          'Editar  Perfil',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
         ),
       ),
     );

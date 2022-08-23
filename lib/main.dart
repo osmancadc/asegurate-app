@@ -34,8 +34,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/news',
             page: () => NewsPage(),
-            arguments: NewsPageController( )),
+            arguments: NewsPageController()),
         GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
+        GetPage(name: '/edit', page: () => ProfilePageEdit()),
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,
