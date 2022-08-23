@@ -1,4 +1,6 @@
+import 'package:app_asegurate/pages/logout/logout_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils.dart';
 
@@ -31,7 +33,7 @@ class LogoutPage extends StatelessWidget {
       children: [
         _boxFormUser(context),
         _boxFormPassword(context),
-        _boxFormConfirmPassword(context),
+
         _buttomEnter(context),
         _buttomRegister(context),
       ],
@@ -39,11 +41,12 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomRegister(BuildContext context) {
+    RegisterPageController con = Get.put(RegisterPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: ElevatedButton(
-        onPressed: () => {},
+        onPressed: () => con.gotoRegisterPage(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -64,11 +67,12 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomEnter(BuildContext context) {
+    RegisterPageController con = Get.put(RegisterPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: ElevatedButton(
-        onPressed: () => {},
+        onPressed: () => con.gotoInitiPage(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -104,6 +108,7 @@ class LogoutPage extends StatelessWidget {
         top: MediaQuery.of(context).size.height * 0.05,
         left: 30,
         right: 30,
+        bottom: 10
       ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -134,6 +139,7 @@ class LogoutPage extends StatelessWidget {
       ),
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.01,
+        bottom: 20,
         left: 30,
         right: 30,
       ),
