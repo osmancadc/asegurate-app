@@ -1,5 +1,5 @@
 import 'package:app_asegurate/pages/news/news_page_controller.dart';
-import 'package:app_asegurate/pages/register/register_page.dart';
+
 import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
 import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
