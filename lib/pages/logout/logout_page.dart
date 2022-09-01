@@ -33,7 +33,6 @@ class LogoutPage extends StatelessWidget {
       children: [
         _boxFormUser(context),
         _boxFormPassword(context),
-
         _buttomEnter(context),
         _buttomRegister(context),
       ],
@@ -41,7 +40,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomRegister(BuildContext context) {
-   LogoutPageController con = Get.put(LogoutPageController());
+    LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -67,12 +66,12 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomEnter(BuildContext context) {
- LogoutPageController con = Get.put(LogoutPageController());
+    LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: ElevatedButton(
-        onPressed: () => con.gotoInitiPage(),
+        onPressed: () => con.getOut(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -93,6 +92,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _boxFormUser(BuildContext context) {
+    LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -105,14 +105,14 @@ class LogoutPage extends StatelessWidget {
         ],
       ),
       margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.05,
-        left: 30,
-        right: 30,
-        bottom: 10
-      ),
+          top: MediaQuery.of(context).size.height * 0.05,
+          left: 30,
+          right: 30,
+          bottom: 10),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
+          controller: con.userController,
           decoration: InputDecoration(
             labelText: 'Usuario',
             labelStyle: TextStyle(
@@ -126,6 +126,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _boxFormPassword(BuildContext context) {
+    LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -146,6 +147,7 @@ class LogoutPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
+          controller: con.passwordController,
           obscureText: true,
           decoration: InputDecoration(
             labelText: 'Contraseña',

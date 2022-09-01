@@ -1,22 +1,140 @@
+import 'package:app_asegurate/models/models.dart';
+import 'package:app_asegurate/models/response_api.dart';
+import 'package:app_asegurate/providers/providers.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
+import 'dart:convert';
+
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import '../../utils.dart';
 
 class RegisterPageController extends GetxController {
-  TextEditingController textIdentification = TextEditingController();
+  TextEditingController userController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController identificationController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  UsersProvider usersProvider = UsersProvider();
+
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
     selectedRadio.value = value;
   }
 
+  void register(BuildContext context) async {
+    String user = userController.text.trim();
+    String name = nameController.text;
+    String lastname = lastNameController.text;
+    String identification = identificationController.text.trim();
+    String password = passwordController.text.trim();
+    String passwordConfirm = passwordConfirmController.text.trim();
+    print('Confirm Password: ${passwordConfirm}');
+    print('Password: ${password}');
+    print('Email:  ${user}');
+
+    if (isvalidForm(
+      user,
+      password,
+      name,
+      lastname,
+      identification,
+      passwordConfirm,
+    )) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Registrando Datos...');
+      User user2 = User(
+        user: user,
+        name: name,
+        role: selectedRadio.value,
+        lastname: lastname,
+        document: identification,
+        password: password,
+      );
+
+      Response response = await usersProvider.create(user2);
+
+      progressDialog.close();
+      if (response.statusCode == 200) {
+        Get.offAllNamed('/logout');
+        print(response.body);
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text(response.statusText!),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
+
+  void gotoLoginPage() {
+    Get.offNamedUntil('/logout', (route) => false);
+  }
+
   bool isvalidForm(
-    String textIdentification,
- 
+    String user,
+    String name,
+    String lastName,
+    String identification,
+    String password,
+    String confirmPassword,
   ) {
-    if (textIdentification.isEmpty) {
+    if (user.isEmpty) {
       Get.snackbar('formulario no valido ',
           'Debes ingresar un numero de cedula o Celular',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (name.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes ingresar el nombre',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (lastName.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes ingresar el apellido',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (identification.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes ingresar el numero de cedula',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (password.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes ingresar la contraseña',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (confirmPassword.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes confirmar la contraseña',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (password.toString() != confirmPassword.toString()) {
+      Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -26,25 +144,9 @@ class RegisterPageController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-          print(selectedRadio.value );
+      print(selectedRadio.value);
     }
 
     return true;
-  }
-}
-
-void register(BuildContext context) async {
-  String textIdentification =
-      Get.find<RegisterPageController>().textIdentification.text;
-  if (Get.find<RegisterPageController>().isvalidForm(textIdentification)) {
-    Get.find<RegisterPageController>().selectedRadio.value;
-    Get.find<RegisterPageController>().textIdentification.text;
-    Get.find<RegisterPageController>().textIdentification.clear();
-    Get.back();
-
-    print('formulario valido' +
-        textIdentification +
-        ' ' +
-        Get.find<RegisterPageController>().selectedRadio.value);
   }
 }

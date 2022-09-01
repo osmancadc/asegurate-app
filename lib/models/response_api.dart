@@ -6,21 +6,29 @@ ResponseApi responseApiFromJson(String str) =>
 String responseApiToJson(ResponseApi data) => json.encode(data.toJson());
 
 class ResponseApi {
+  dynamic message;
+  String? error;
   bool? success;
-  String? message;
   dynamic data;
 
-  ResponseApi({this.success, this.message, this.data});
+  ResponseApi({
+    this.message,
+    this.error,
+    this.success,
+  });
 
-  factory ResponseApi.fromJson(Map<String, dynamic> json) => ResponseApi(
-        success: json["success"],
-        message: json["message"],
-        data: json["data"],
-      );
+  ResponseApi.fromJson(Map<String, dynamic> json) {
+    message = json["message"];
+    error = json["error"];
+    success = json["success"];
 
-  Map<String, dynamic> toJson() => {
-        "success": success,
-        "message": message,
-        "data": data,
-      };
+    try {
+      data = json['data'];
+    } catch (e) {
+      print('Exception data $e');
+    }
+  }
+
+  Map<String, dynamic> toJson() =>
+      {"message": message, "error": error, "success": success, "data": data};
 }

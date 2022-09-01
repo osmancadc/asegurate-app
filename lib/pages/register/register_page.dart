@@ -40,10 +40,12 @@ class RegisterPage extends StatelessWidget {
                   _logoImage(context),
                   _boxFormUser(context),
                   _boxFormIdentification(context),
+                  _boxFormRegisterNameLastname(context),
                   _boxFormPassword(context),
                   _boxFormConfirmPassword(context),
                   _radioButton(context),
-                  _buttomProfileEdit(context)
+                  _buttomRegister(context),
+                  _buttomGetInto(context),
                 ],
               )
             ],
@@ -58,13 +60,14 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.04,
-        left: MediaQuery.of(context).size.width * 0.2,
+        left: MediaQuery.of(context).size.width * 0.1,
         right: MediaQuery.of(context).size.width * 0.1,
       ),
       child: Row(
         children: [
           Text(
-            '''Cual es tu  
+            '''
+            Cual es tu  
             Perfil Principal''',
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.035,
@@ -205,147 +208,207 @@ class RegisterPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _boxFormCellPhone(context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.02,
-        left: 30,
-        right: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [_textCellPhone(context)],
-      ),
-    );
-  }
+Widget _boxFormUser(context) {
+  return Container(
+    width: double.infinity,
+    margin: EdgeInsets.only(
+      top: MediaQuery.of(context).size.height * 0.05,
+      left: 30,
+      right: 30,
+    ),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black54,
+          blurRadius: 15,
+          offset: Offset(0, 0.75),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [_textUser(context)],
+    ),
+  );
+}
 
-  Widget _boxFormUser(context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.05,
-        left: 30,
-        right: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [_textUser(context)],
-      ),
-    );
-  }
+Widget _boxFormRegisterNameLastname(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    decoration: const BoxDecoration(
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          spreadRadius: -25,
+          color: Colors.black54,
+          blurRadius: 30,
+          offset: Offset(0, 0.25),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        Expanded(child: _textName(context)),
+        Expanded(
+          child: _texLastName(context),
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget _textUser(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
-          hintText: 'Usuario',
+Widget _textName(BuildContext context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    color: Colors.white,
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    margin: EdgeInsets.only(
+      top: MediaQuery.of(context).size.height * 0.01,
+      left: MediaQuery.of(context).size.width * 0.02,
+      right: MediaQuery.of(context).size.width * 0.01,
+    ),
+    child: TextField(
+      controller: con.nameController,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        hintText: 'Nombre',
+      ),
+    ),
+  );
+}
+
+Widget _texLastName(BuildContext context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    color: Colors.white,
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    margin: EdgeInsets.only(
+      top: MediaQuery.of(context).size.height * 0.01,
+      left: MediaQuery.of(context).size.width * 0.02,
+      right: MediaQuery.of(context).size.width * 0.01,
+    ),
+    child: TextField(
+      controller: con.lastNameController,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        hintText: 'Apellido',
+      ),
+    ),
+  );
+}
+
+Widget _textUser(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.userController,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: 'Usuario',
+      ),
+    ),
+  );
+}
+
+Widget _textPassword(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.passwordController,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: 'Contraseña',
+      ),
+    ),
+  );
+}
+
+Widget _textConfirmPassword(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.passwordConfirmController,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: 'Confirmar Contraseña',
+      ),
+    ),
+  );
+}
+
+Widget _textIdentification(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.identificationController,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        hintText: 'Numero de Identificación',
+      ),
+    ),
+  );
+}
+
+Widget _buttomRegister(BuildContext context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    child: ElevatedButton(
+      onPressed: () => con.register(context),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        primary: colorOnPrimaryVariant,
+        padding: EdgeInsets.symmetric(vertical: 15),
+      ),
+      child: const Text(
+        'Registrar',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _textCellPhone(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          hintText: 'Numero de Celular',
+Widget _buttomGetInto(BuildContext context) {
+  return Container(
+    width: double.infinity,
+    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    child: ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        primary: colorOnPrimaryVariant,
+        padding: EdgeInsets.symmetric(vertical: 15),
+      ),
+      child: const Text(
+        'Ingresar',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
         ),
       ),
-    );
-  }
-
-  Widget _textPassword(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
-          hintText: 'Contraseña',
-        ),
-      ),
-    );
-  }
-
-  Widget _textConfirmPassword(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
-          hintText: 'Confirmar Contraseña',
-        ),
-      ),
-    );
-  }
-
-  Widget _textIdentification(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          hintText: 'Numero de Identificación',
-        ),
-      ),
-    );
-  }
-
-  Widget _buttomProfileEdit(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          primary: colorOnPrimaryVariant,
-          padding: EdgeInsets.symmetric(vertical: 15),
-        ),
-        child: const Text(
-          'Confirmar',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-      ),
-    );
-  }
+    ),
+  );
 }
