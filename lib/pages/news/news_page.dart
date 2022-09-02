@@ -19,6 +19,7 @@ class NewsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+          backgroundColor: colorPrimary,
           leading: IconButton(
             icon: Icon(
               Icons.menu,

@@ -17,10 +17,12 @@ class MenuPage extends StatelessWidget {
   }
 
   Widget _buildGrid(context) => GridView.extent(
-        maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.all(4),
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
+
+        maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.50,
+      
+        padding: const EdgeInsets.all(3),
+        mainAxisSpacing: 0.0,
+        crossAxisSpacing: 0.0,
         children: [
           GestureDetector(
               onTap: () => gotoConsultPage(),
@@ -48,6 +50,10 @@ class MenuPage extends StatelessWidget {
             onTap: () => gotoLogoutPage(),
             child: _iconMenu(Icons.exit_to_app, 'Salir', context),
           ),
+                GestureDetector(
+            onTap: () => gotoHelpPage(),
+            child: _iconMenu(Icons.help, 'Ayuda', context),
+          ),
         ],
       );
 
@@ -56,7 +62,7 @@ class MenuPage extends StatelessWidget {
           Icon(
             icon,
             color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.2,
+            size: MediaQuery.of(context).size.width * 0.22,
           ),
           Text(
             text,

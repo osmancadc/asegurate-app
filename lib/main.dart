@@ -1,5 +1,4 @@
 import 'package:app_asegurate/pages/news/news_page_controller.dart';
-
 import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
 import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
@@ -39,13 +38,14 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
+         GetPage(name: '/help', page: () =>  HelpPage()),
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: HexColor('#005074'),
+          primaryColor: HexColor('#583BB6'),
           colorScheme: ColorScheme(
               primary: HexColor('#005074'),
-              secondary: HexColor('#00b0c2'),
+              secondary: HexColor('#664FB2'),
               brightness: Brightness.light,
               onBackground: Colors.grey,
               onPrimary: Colors.grey,
@@ -55,8 +55,8 @@ class _MyAppState extends State<MyApp> {
               onSecondary: Colors.grey,
               background: Colors.grey,
               onSurface: Colors.grey,
-              primaryVariant: HexColor('#00fbf6'),
-              secondaryVariant: HexColor('#00fedf'))),
+              primaryVariant: HexColor('#3FD7B2'),
+              secondaryVariant: HexColor('#00FFB4'))),
     );
   }
 }

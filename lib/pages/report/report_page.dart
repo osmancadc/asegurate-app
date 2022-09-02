@@ -11,6 +11,7 @@ class ReportPage extends StatelessWidget {
     ReportPageController con = Get.put(ReportPageController());
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -285,10 +286,8 @@ Widget _textRating(context) {
 Widget _buttonSearchArchive(context) {
   return Center(
     child: Container(
-
       // margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: const BoxDecoration(
-        
         boxShadow: <BoxShadow>[
           BoxShadow(
             spreadRadius: -25,
@@ -301,16 +300,14 @@ Widget _buttonSearchArchive(context) {
       child: Row(
         children: [
           Container(
-              decoration: const BoxDecoration(
-                color: Colors.cyanAccent
-              ),
+            decoration: const BoxDecoration(color: Colors.cyanAccent),
             width: MediaQuery.of(context).size.width * 0.40,
             height: MediaQuery.of(context).size.height * 0.091,
             child: TextButton(
               child: const Text(
                 'Seleccionar Archivo(s)',
                 style: TextStyle(
-                  color: Colors.white ,
+                  color: Colors.white,
                   fontSize: 12,
                 ),
               ),

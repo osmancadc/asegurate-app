@@ -11,6 +11,7 @@ class LogoutPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorSecondary,
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         title: textTitle,
         titleSpacing: 00.3,
         centerTitle: true,

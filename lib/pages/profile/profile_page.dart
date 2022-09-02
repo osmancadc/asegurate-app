@@ -12,6 +12,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorSecondary,
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
             Icons.menu,

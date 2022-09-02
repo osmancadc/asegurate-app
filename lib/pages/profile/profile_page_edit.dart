@@ -13,6 +13,7 @@ class ProfilePageEdit extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorSecondary,
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
