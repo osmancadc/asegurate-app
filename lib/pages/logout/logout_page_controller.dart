@@ -23,7 +23,7 @@ class LogoutPageController extends GetxController {
       password,
     )) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Cerrando Sesión...');
+      progressDialog.show(max: 100, msg: 'Login...');
       Login login = Login(
         user: user,
         password: password,
