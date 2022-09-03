@@ -1,23 +1,23 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 
-var colorPrimary = HexColor('#005074');
-var colorSecondary = HexColor('#00b0c2');
+var colorPrimary = HexColor('#583BB6');
+var colorSecondary = HexColor('#664FB2');
 var colorError = HexColor('#ff0000');
-var colorBackground = HexColor('#f5f5f5');
-var colorFontIcon = HexColor('#ffffff');
+var colorBackground = HexColor('#E2E4E5');
+var colorFontIcon = HexColor('#E2E4E5');
 var colorOnBackground = HexColor('#000000');
-var colorErrorText = HexColor('#00ffb4');
+var colorErrorText = HexColor('#3FD7B2');
 var colorOnPrimary = HexColor('#000000');
 var colorOnSecondary = HexColor('#000000');
 var colorOnSurface = HexColor('#000000');
 var colorOnError = HexColor('#000000');
-var colorOnPrimaryVariant = HexColor('#00fbf6');
-var colorOnSecondaryVariant = HexColor('#00fedf');
+var colorOnPrimaryVariant = HexColor('#3FD7B2');
+var colorOnSecondaryVariant = HexColor('#00FFB4');
 var colorOnSurfaceVariant = HexColor('#000000');
 var colorOnErrorVariant = HexColor('#000000');
 var colorOnBackgroundVariant = HexColor('#000000');
-var colorFont = HexColor('#FFFFFF');
+var colorFont = HexColor('#E2E4E5');
 
 var textTitle = Row(
   mainAxisAlignment: MainAxisAlignment.center,

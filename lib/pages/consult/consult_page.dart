@@ -10,6 +10,7 @@ class ConsultPage extends StatelessWidget {
     ConsultController con = Get.put(ConsultController());
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
             Icons.menu,

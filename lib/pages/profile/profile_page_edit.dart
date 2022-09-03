@@ -1,12 +1,13 @@
 import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
+import 'package:app_asegurate/pages/profile/profile_page_edit_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePageController con = Get.put(ProfilePageController());
-  ProfilePage({Key? key}) : super(key: key);
+class ProfilePageEdit extends StatelessWidget {
+  ProfilePageEditController con = Get.put(ProfilePageEditController());
+  ProfilePageEdit({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +16,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
-            Icons.menu,
+            Icons.arrow_back,
             color: colorFontIcon,
             size: MediaQuery.of(context).size.width * 0.12,
           ),
@@ -31,11 +32,9 @@ class ProfilePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Stack(children: [
-          _profileBackgroundImage(context),
-          _profileShapeImage(context),
           Column(
             children: [
-              _profileCircleImage(context),
+              _imageUser(context),
               _profileName(),
               _profileCityCountryText(),
               Column(
@@ -210,47 +209,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _profileCircleImage(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 0, left: 70, right: 70, bottom: 0),
-      width: MediaQuery.of(context).size.width * 0.6,
-      height: MediaQuery.of(context).size.height * 0.35,
-      child: CircleAvatar(
-        backgroundImage: AssetImage('assets/images/profile.png'),
-      ),
-    );
-  }
-
-  Widget _profileShapeImage(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.7),
-            blurRadius: 20.0,
-            spreadRadius: 5.0)
-      ]),
-    );
-  }
-
-  Widget _profileBackgroundImage(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 0),
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Hero(
-        tag: 'profile',
-        child: Image.asset(
-          'assets/images/profile.png',
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
-        ),
-      ),
-    );
-  }
-
   Widget _buttomProfileEdit(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -265,7 +223,7 @@ class ProfilePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
         child: const Text(
-          'Editar  Perfil',
+          'Confirmar',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -273,6 +231,32 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _imageUser(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.29,
+      child: GestureDetector(
+          onTap: () => con.showAlertDialog(context),
+          child: GetBuilder<ProfilePageEditController>(
+            builder: (value) => Container(
+              margin: EdgeInsets.only(top: 20, left: 70, right: 70, bottom: 0),
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: con.imageFile == null
+                  ? Image.asset(
+                      'assets/images/no_image.png',
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                    )
+                  : Image.file(
+                      con.imageFile!,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                    ),
+            ),
+          )),
     );
   }
 }

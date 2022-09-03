@@ -9,7 +9,9 @@ class QualifyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     QualifyController con = Get.put(QualifyController());
     return Scaffold(
+      
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         leading: IconButton(
           icon: Icon(
             Icons.menu,

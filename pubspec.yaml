@@ -23,16 +23,21 @@ dev_dependencies:
   http: ^0.13.5
   file_picker: ^4.6.1
   flutter_carousel_slider: ^1.0.9
+  image_picker: ^0.8.5+3
 
-  shimmer: ^2.0.0
+  get_storage: ^2.0.3
 
-  hexcolor: ^2.0.7
+  flutter_dotenv: ^5.0.2
 
+
+  hexcolor: ^2.0.5
+  sn_progress_dialog: ^1.0.8
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
+    - .env
 
 
   

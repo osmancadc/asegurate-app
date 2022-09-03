@@ -29,3 +29,6 @@ void gotoSettingsPage() {
 void gotoLogoutPage() {
   Get.toNamed('/logout');
 }
+void gotoHelpPage() {
+  Get.toNamed('/help');
+}

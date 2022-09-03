@@ -10,6 +10,7 @@ class NewsDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorSecondary,
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         title: Text(Get.arguments['title'].toString()),
       ),
       body: SingleChildScrollView(
