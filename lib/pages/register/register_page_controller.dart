@@ -15,6 +15,8 @@ class RegisterPageController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController identificationController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
@@ -30,6 +32,8 @@ class RegisterPageController extends GetxController {
     String lastname = lastNameController.text;
     String identification = identificationController.text.trim();
     String password = passwordController.text.trim();
+    String email = emailController.text.trim();
+    String phone = phoneController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
     print('Confirm Password: ${passwordConfirm}');
     print('Password: ${password}');
@@ -40,16 +44,20 @@ class RegisterPageController extends GetxController {
       password,
       name,
       lastname,
+      email,
+      phone,
       identification,
       passwordConfirm,
     )) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos...');
       User user2 = User(
-        user: user,
+        username: user,
         name: name,
         role: selectedRadio.value,
         lastname: lastname,
+        email: email,
+        phone: phone,
         document: identification,
         password: password,
       );
@@ -91,6 +99,8 @@ class RegisterPageController extends GetxController {
     String name,
     String lastName,
     String identification,
+    String email,
+    String phone,
     String password,
     String confirmPassword,
   ) {
@@ -109,6 +119,18 @@ class RegisterPageController extends GetxController {
     }
     if (lastName.isEmpty) {
       Get.snackbar('formulario no valido ', 'Debes ingresar el apellido',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (email.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes ingresar el email',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    }
+    if (phone.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes ingresar el telefono',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);

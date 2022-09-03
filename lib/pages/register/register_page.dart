@@ -42,6 +42,8 @@ class RegisterPage extends StatelessWidget {
                   _boxFormUser(context),
                   _boxFormIdentification(context),
                   _boxFormRegisterNameLastname(context),
+                  _boxFormRegisterEmail(context),
+                  _boxFormRegisterPhone(context),
                   _boxFormPassword(context),
                   _boxFormConfirmPassword(context),
                   _radioButton(context),
@@ -130,6 +132,60 @@ class RegisterPage extends StatelessWidget {
         'assets/images/logo.png',
         width: MediaQuery.of(context).size.width * 0.6,
         height: MediaQuery.of(context).size.height * 0.2,
+      ),
+    );
+  }
+
+
+
+
+    Widget   _boxFormRegisterPhone(context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.02,
+        left: 30,
+        right: 30,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _textFormRegisterPhone(context),
+        ],
+      ),
+    );
+  }
+    Widget  _boxFormRegisterEmail(context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.02,
+        left: 30,
+        right: 30,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _textFormRegisterEmail(context),
+        ],
       ),
     );
   }
@@ -342,6 +398,39 @@ Widget _textConfirmPassword(context) {
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         hintText: 'Confirmar Contraseña',
+      ),
+    ),
+  );
+}
+
+
+ Widget  _textFormRegisterPhone(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.phoneController,
+      keyboardType: TextInputType.phone,
+      decoration: const InputDecoration(
+        hintText: 'Telefono',
+      ),
+    ),
+  );
+}
+
+Widget _textFormRegisterEmail(context) {
+  RegisterPageController con = Get.put(RegisterPageController());
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.05,
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextField(
+      controller: con.emailController,
+      keyboardType: TextInputType.emailAddress,
+      decoration: const InputDecoration(
+        hintText: 'Email',
       ),
     ),
   );
