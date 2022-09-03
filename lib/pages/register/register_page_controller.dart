@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import '../../utils.dart';
 
@@ -49,7 +49,7 @@ class RegisterPageController extends GetxController {
       identification,
       passwordConfirm,
     )) {
-      ProgressDialog progressDialog = ProgressDialog(context);
+      ProgressDialog progressDialog = ProgressDialog(context: context);
       User user2 = User(
         username: user,
         name: name,
@@ -63,7 +63,7 @@ class RegisterPageController extends GetxController {
 
       Response response = await usersProvider.create(user2);
 
-      progressDialog.hide();
+      progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/logout');
         print(response.body);

@@ -2,7 +2,7 @@ import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import 'package:get/get.dart';
 
@@ -22,15 +22,18 @@ class LogoutPageController extends GetxController {
       user,
       password,
     )) {
-      ProgressDialog progressDialog = ProgressDialog(context);
-     progressDialog.show();
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+     progressDialog.show(
+        max: 100,
+        msg: 'Cargando...',
+      );
       Login login = Login(
         user: user,
         password: password,
       );
 
       Response response = await usersProvider.login(login);
-      progressDialog.hide();
+      progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/menu');
       } else {

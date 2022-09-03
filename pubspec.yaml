@@ -30,7 +30,7 @@ dev_dependencies:
   
 
   hexcolor: ^2.0.5
-  progress_dialog: ^1.2.4
+  sn_progress_dialog: ^1.0.8
 flutter:
   uses-material-design: true
 
