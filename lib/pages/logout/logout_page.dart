@@ -119,7 +119,7 @@ class LogoutPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
           controller: con.userController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Usuario',
             labelStyle: TextStyle(
               color: Colors.black,

@@ -11,24 +11,6 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorSecondary,
-      appBar: AppBar(
-        backgroundColor: colorPrimary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.12,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: textTitle,
-        titleSpacing: 00.3,
-        centerTitle: true,
-        toolbarHeight: 60.2,
-        toolbarOpacity: 0.8,
-      ),
       body: SingleChildScrollView(
         child: Stack(children: [
           Column(
@@ -38,7 +20,9 @@ class RegisterPage extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                   ),
-                  _logoImage(context),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  ),
                   _boxFormUser(context),
                   _boxFormIdentification(context),
                   _boxFormRegisterNameLastname(context),
@@ -63,21 +47,27 @@ class RegisterPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.04,
-        left: MediaQuery.of(context).size.width * 0.1,
+        left: MediaQuery.of(context).size.width * 0.00,
         right: MediaQuery.of(context).size.width * 0.1,
       ),
       child: Row(
         children: [
-          Text(
-            '''
-            Cual es tu  
-            Perfil Principal''',
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.035,
-              color: colorFont,
-            ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text('''
+               Cual es tu Perfil
+                    Principal 
+            ''',
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width * 0.036,
+                  color: colorFont,
+                )),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.2,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -136,10 +126,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-
-
-
-    Widget   _boxFormRegisterPhone(context) {
+  Widget _boxFormRegisterPhone(context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
@@ -164,7 +151,8 @@ class RegisterPage extends StatelessWidget {
       ),
     );
   }
-    Widget  _boxFormRegisterEmail(context) {
+
+  Widget _boxFormRegisterEmail(context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
@@ -328,8 +316,12 @@ Widget _textName(BuildContext context) {
     child: TextField(
       controller: con.nameController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        hintText: 'Nombre',
+      decoration: const InputDecoration(
+        labelText: 'Nombre',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -348,8 +340,12 @@ Widget _texLastName(BuildContext context) {
     child: TextField(
       controller: con.lastNameController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        hintText: 'Apellido',
+      decoration: const InputDecoration(
+        labelText: 'Apellido',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -358,14 +354,15 @@ Widget _texLastName(BuildContext context) {
 Widget _textUser(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.userController,
-      keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        hintText: 'Usuario',
+        labelText: 'Usuario',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -374,14 +371,17 @@ Widget _textUser(context) {
 Widget _textPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
+      obscureText: true,
       controller: con.passwordController,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.visiblePassword,
       decoration: const InputDecoration(
-        hintText: 'Contraseña',
+        labelText: 'Contraseña',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -390,31 +390,34 @@ Widget _textPassword(context) {
 Widget _textConfirmPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.passwordConfirmController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        hintText: 'Confirmar Contraseña',
+        labelText: 'Confirmar Contraseña',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
 }
 
-
- Widget  _textFormRegisterPhone(context) {
+Widget _textFormRegisterPhone(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.phoneController,
       keyboardType: TextInputType.phone,
       decoration: const InputDecoration(
-        hintText: 'Telefono',
+        labelText: 'Telefono',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -423,14 +426,16 @@ Widget _textConfirmPassword(context) {
 Widget _textFormRegisterEmail(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
-        hintText: 'Email',
+        labelText: 'Email',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -439,14 +444,16 @@ Widget _textFormRegisterEmail(context) {
 Widget _textIdentification(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.05,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.identificationController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        hintText: 'Numero de Identificación',
+        labelText: 'Numero de Identificación',
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
       ),
     ),
   );
@@ -479,11 +486,12 @@ Widget _buttomRegister(BuildContext context) {
 }
 
 Widget _buttomGetInto(BuildContext context) {
+  RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: () => con.gotoLoginPage(),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
