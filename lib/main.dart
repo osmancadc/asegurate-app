@@ -4,10 +4,12 @@ import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:app_asegurate/pages/pages.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -38,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
-         GetPage(name: '/help', page: () =>  HelpPage()),
+        GetPage(name: '/help', page: () => HelpPage()),
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -1,6 +1,7 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 class Environment {
-  static String base_url = String.fromEnvironment("BASE_URL");
+  static String BASE_URL = dotenv.env['BASE_URL'].toString();
 }

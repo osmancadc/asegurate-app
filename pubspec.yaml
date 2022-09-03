@@ -27,7 +27,8 @@ dev_dependencies:
 
   get_storage: ^2.0.3
 
-  
+  flutter_dotenv: ^5.0.2
+
 
   hexcolor: ^2.0.5
   sn_progress_dialog: ^1.0.8
@@ -36,6 +37,7 @@ flutter:
 
   assets:
     - assets/images/
+    - .env
 
 
   

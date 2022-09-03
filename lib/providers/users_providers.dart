@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class UsersProvider extends GetConnect {
-  String url = Environment.base_url;
+  String url = Environment.BASE_URL;
+
   User userSession = User.fromJson(GetStorage().read('user') ?? {});
   Future<Response> create(User user) async {
     Response response = await post(
@@ -23,6 +24,9 @@ class UsersProvider extends GetConnect {
   }
 
   Future<Response> login(Login login) async {
+    print("==========================================================");
+    print(url);
+    print("==========================================================");
     Response response = await post(
       '$url/authenticate-user',
       userSession.toJson(),
