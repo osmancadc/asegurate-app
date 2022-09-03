@@ -20,7 +20,7 @@ class MenuPage extends StatelessWidget {
 
         maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.50,
       
-        padding: const EdgeInsets.all(3),
+        padding: const EdgeInsets.all(29),
         mainAxisSpacing: 0.0,
         crossAxisSpacing: 0.0,
         children: [
