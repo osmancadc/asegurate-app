@@ -10,20 +10,20 @@ String loginToJson(Login data) => json.encode(data.toJson());
 
 class Login {
     Login({
-        this.user,
+        this.username,
         this.password,
     });
 
-    String? user;
+    String? username;
     String? password;
 
     factory Login.fromJson(Map<String, dynamic> json) => Login(
-        user: json.containsKey('user') ? json['user'] as String : null,
+        username: json.containsKey('username') ? json['username'] as String : null,
         password: json.containsKey('password') ? json['password'] as String : null,
     );
 
     Map<String, dynamic> toJson() => {
-        "user": user,
+        "username": username,
         "password": password,
     };
 }

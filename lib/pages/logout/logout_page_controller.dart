@@ -15,11 +15,11 @@ class LogoutPageController extends GetxController {
   }
 
   void getOut(BuildContext context) async {
-    String user = userController.text.trim();
+    String username = userController.text.trim();
     String password = passwordController.text.trim();
 
     if (isvalidForm(
-      user,
+      username,
       password,
     )) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
@@ -28,9 +28,10 @@ class LogoutPageController extends GetxController {
         msg: 'Cargando...',
       );
       Login login = Login(
-        user: user,
+        username: username,
         password: password,
       );
+      print(login.toJson());
 
       Response response = await usersProvider.login(login);
       progressDialog.close();
