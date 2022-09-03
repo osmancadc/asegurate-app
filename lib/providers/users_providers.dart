@@ -29,11 +29,14 @@ class UsersProvider extends GetConnect {
     print("==========================================================");
     Response response = await post(
       '$url/authenticate-user',
-      userSession.toJson(),
+      login.toJson(),
+
       // headers: {
       //   'content-type': 'application/json',
       // },
+   
     ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
     print('Response: ${response.body}');
     return response;
   }
