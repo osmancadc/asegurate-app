@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:app_asegurate/models/models.dart';
-import 'package:app_asegurate/models/response_api.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import "package:get_storage/get_storage.dart";

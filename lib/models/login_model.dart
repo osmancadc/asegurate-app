@@ -9,20 +9,21 @@ Login loginFromJson(String str) => Login.fromJson(json.decode(str));
 String loginToJson(Login data) => json.encode(data.toJson());
 
 class Login {
-  String? user;
-  String? password;
-  Login({
-    this.user,
-    this.password,
-  });
+    Login({
+        this.user,
+        this.password,
+    });
 
-  factory Login.fromJson(Map<String, dynamic> json) => Login(
-        user: json["name"],
-        password: json["password"],
-      );
+    String? user;
+    String? password;
 
-  Map<String, dynamic> toJson() => {
-        "name": user,
+    factory Login.fromJson(Map<String, dynamic> json) => Login(
+        user: json.containsKey('user') ? json['user'] as String : null,
+        password: json.containsKey('password') ? json['password'] as String : null,
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user": user,
         "password": password,
-      };
+    };
 }
