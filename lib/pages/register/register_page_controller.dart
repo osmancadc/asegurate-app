@@ -1,3 +1,4 @@
+import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:get_storage/get_storage.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
@@ -20,6 +22,14 @@ class RegisterPageController extends GetxController {
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
+  String ENCRIPT_KEY = Environment.ENCRIPT_KEY;
+  _encrypt(String text) {
+    final key = encrypt.Key.fromUtf8(ENCRIPT_KEY);
+    final iv = encrypt.IV.fromLength(16);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    final encrypted = encrypter.encrypt(text, iv: iv);
+    return encrypted.base64;
+  }
 
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
@@ -35,9 +45,54 @@ class RegisterPageController extends GetxController {
     String email = emailController.text.trim();
     String phone = phoneController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
+
     print('Confirm Password: ${passwordConfirm}');
     print('Password: ${password}');
     print('Email:  ${user}');
+    bool isvalidForm(
+      String user,
+      String name,
+      String lastName,
+      String identification,
+      String email,
+      String phone,
+      String password,
+      String confirmPassword,
+    ) {
+      if (user.isEmpty ||
+          name.isEmpty ||
+          lastName.isEmpty ||
+          identification.isEmpty ||
+          email.isEmpty ||
+          phone.isEmpty ||
+          password.isEmpty ||
+          confirmPassword.isEmpty) {
+        Get.snackbar('formulario no valido ',
+            'Todos los datos son requeridos para el registro',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
+        return false;
+      }
+
+      if (password != confirmPassword) {
+        Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
+        return false;
+      }
+      if (selectedRadio.value == "") {
+        Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white);
+        print(selectedRadio.value);
+        return false;
+      }
+
+      return true;
+    }
 
     if (isvalidForm(
       user,
@@ -58,9 +113,9 @@ class RegisterPageController extends GetxController {
         email: email,
         phone: phone,
         document: identification,
-        password: password,
+        password: _encrypt(password),
       );
-
+      print(user2.toJson());
       Response response = await usersProvider.create(user2);
 
       progressDialog.close();
@@ -91,82 +146,5 @@ class RegisterPageController extends GetxController {
 
   void gotoLoginPage() {
     Get.offNamedUntil('/logout', (route) => false);
-  }
-
-  bool isvalidForm(
-    String user,
-    String name,
-    String lastName,
-    String identification,
-    String email,
-    String phone,
-    String password,
-    String confirmPassword,
-  ) {
-    if (user.isEmpty) {
-      Get.snackbar('formulario no valido ',
-          'Debes ingresar un numero de cedula o Celular',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (name.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el nombre',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (lastName.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el apellido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (email.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el email',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (phone.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el telefono',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (identification.isEmpty) {
-      Get.snackbar(
-          'formulario no valido ', 'Debes ingresar el numero de cedula',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (password.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar la contraseña',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (confirmPassword.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes confirmar la contraseña',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (password.toString() != confirmPassword.toString()) {
-      Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-    if (selectedRadio.value == "") {
-      Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      print(selectedRadio.value);
-    }
-
-    return true;
   }
 }

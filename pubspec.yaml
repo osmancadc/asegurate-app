@@ -28,6 +28,7 @@ dev_dependencies:
   get_storage: ^2.0.3
 
   flutter_dotenv: ^5.0.2
+  encrypt: ^5.0.1
 
 
   hexcolor: ^2.0.5
