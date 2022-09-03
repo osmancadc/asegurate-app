@@ -8,22 +8,21 @@ class LogoutPage extends StatelessWidget {
   const LogoutPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorSecondary,
-      appBar: AppBar(
-        backgroundColor: colorPrimary,
-        title: textTitle,
-        titleSpacing: 00.3,
-        centerTitle: true,
-        toolbarHeight: 60.2,
-        toolbarOpacity: 0.8,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _logoImage(context),
-            _formBox(context),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: colorSecondary,
+      
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+               SizedBox(
+                height: MediaQuery.of(context).size.height * 0.07,
+              
+              ),
+              _logoImage(context),
+              _formBox(context),
+            ],
+          ),
         ),
       ),
     );
@@ -34,7 +33,13 @@ class LogoutPage extends StatelessWidget {
       children: [
         _boxFormUser(context),
         _boxFormPassword(context),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         _buttomEnter(context),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        ),
         _buttomRegister(context),
       ],
     );
@@ -44,7 +49,7 @@ class LogoutPage extends StatelessWidget {
     LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       child: ElevatedButton(
         onPressed: () => con.gotoRegisterPage(),
         style: ElevatedButton.styleFrom(
@@ -58,8 +63,8 @@ class LogoutPage extends StatelessWidget {
           'Registrarse',
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
+        
+            fontSize: 18,
           ),
         ),
       ),
