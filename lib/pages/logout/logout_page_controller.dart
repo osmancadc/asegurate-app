@@ -11,10 +11,10 @@ import 'package:get/get.dart';
 class LogoutPageController extends GetxController {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String ENCRIPT_KEY = Environment.ENCRIPT_KEY;
+  String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
 
   _encrypt(String text) {
-    final key = encrypt.Key.fromUtf8(ENCRIPT_KEY);
+    final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
     final iv = encrypt.IV.fromLength(16);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
     final encrypted = encrypter.encrypt(text, iv: iv);

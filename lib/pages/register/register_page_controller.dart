@@ -22,9 +22,9 @@ class RegisterPageController extends GetxController {
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
-  String ENCRIPT_KEY = Environment.ENCRIPT_KEY;
+  String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
   _encrypt(String text) {
-    final key = encrypt.Key.fromUtf8(ENCRIPT_KEY);
+    final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
     final iv = encrypt.IV.fromLength(16);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
     final encrypted = encrypter.encrypt(text, iv: iv);
@@ -41,10 +41,10 @@ class RegisterPageController extends GetxController {
     String name = nameController.text;
     String lastname = lastNameController.text;
     String identification = identificationController.text.trim();
-    String password = passwordController.text.trim();
+    String password = passwordController.text;
     String email = emailController.text.trim();
     String phone = phoneController.text.trim();
-    String passwordConfirm = passwordConfirmController.text.trim();
+    String passwordConfirm = passwordConfirmController.text;
 
     print('Confirm Password: ${passwordConfirm}');
     print('Password: ${password}');
@@ -66,6 +66,7 @@ class RegisterPageController extends GetxController {
           email.isEmpty ||
           phone.isEmpty ||
           password.isEmpty ||
+          password != confirmPassword ||
           confirmPassword.isEmpty) {
         Get.snackbar('formulario no valido ',
             'Todos los datos son requeridos para el registro',
@@ -75,13 +76,13 @@ class RegisterPageController extends GetxController {
         return false;
       }
 
-      if (password != confirmPassword) {
-        Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white);
-        return false;
-      }
+      // if (password != confirmPassword) {
+      //   Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
+      //       snackPosition: SnackPosition.BOTTOM,
+      //       backgroundColor: Colors.green,
+      //       colorText: Colors.white);
+      //   return false;
+      // }
       if (selectedRadio.value == "") {
         Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
             snackPosition: SnackPosition.BOTTOM,
