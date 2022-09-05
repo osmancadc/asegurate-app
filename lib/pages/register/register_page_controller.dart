@@ -1,3 +1,4 @@
+import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:get_storage/get_storage.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
@@ -20,6 +22,14 @@ class RegisterPageController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
+   String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
+  _encrypt(String text) {
+    final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
+    final iv = encrypt.IV.fromLength(16);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    final encrypted = encrypter.encrypt(text, iv: iv);
+    return encrypted.base64;
+  }
 
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
@@ -68,10 +78,10 @@ class RegisterPageController extends GetxController {
         lastname: lastname,
         email: email,
         phone: phone,
-        password: password,
+        password: _encrypt(password),
         role: selectedRadio.value,
       );
-
+print(user2.toJson());
       Response response = await usersProvider.create(user2);
 
       progressDialog.close();
