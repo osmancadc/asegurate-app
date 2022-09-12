@@ -14,7 +14,6 @@ class MenuDrawer extends GetxController {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
           child: Container(
-            
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
             child: GridView(
@@ -23,9 +22,6 @@ class MenuDrawer extends GetxController {
                 childAspectRatio: 1,
               ),
               children: [
-                // SizedBox(
-                //   height: 10,
-                // ),
                 GestureDetector(
                     onTap: () => gotoConsultPage(),
                     child: _iconMenu(Icons.list, 'Consultar', context)),
