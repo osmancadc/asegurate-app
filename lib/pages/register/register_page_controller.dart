@@ -22,7 +22,7 @@ class RegisterPageController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
-   String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
+  String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
   _encrypt(String text) {
     final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
     final iv = encrypt.IV.fromLength(16);
@@ -45,15 +45,6 @@ class RegisterPageController extends GetxController {
     String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
-    print('user: $user');
-    print('name: $name');
-    print('lastname: $lastname');
-    print('document: $document');
-    print('email: $email');
-    print('phone: $phone');
-    print('Confirm Password: ${passwordConfirm}');
-    print('Password: ${password}');
-    print('Email:  ${user}');
 
     if (isvalidForm(
       user,
@@ -81,7 +72,7 @@ class RegisterPageController extends GetxController {
         password: _encrypt(password),
         role: selectedRadio.value,
       );
-print(user2.toJson());
+
       Response response = await usersProvider.create(user2);
 
       progressDialog.close();
@@ -98,8 +89,6 @@ print(user2.toJson());
         Future.delayed(Duration(seconds: 2), () {
           Get.offAllNamed('/logout');
         });
-
-        print(response.body);
       } else {
         showDialog(
           context: context,
@@ -249,7 +238,7 @@ print(user2.toJson());
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-      print(selectedRadio.value);
+
       return false;
     }
 
