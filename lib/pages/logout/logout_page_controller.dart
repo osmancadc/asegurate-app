@@ -43,7 +43,6 @@ class LogoutPageController extends GetxController {
         username: username,
         password: _encrypt(password),
       );
-      
 
       Response response = await usersProvider.login(login);
       progressDialog.close();
@@ -54,28 +53,29 @@ class LogoutPageController extends GetxController {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text(
-                'Error',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.nearby_error,
+                    size: MediaQuery.of(context).size.width * 0.18,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '''Usuario o contraseña 
+incorrectos''',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              content: const Text(
-                "Usuario o contraseña incorrectos",
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-              ],
             );
           },
         );
