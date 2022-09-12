@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/', page: () => MenuPage()),
+        //  GetPage(name: '/', page: () => LogoutPage()),
         GetPage(name: '/consult', page: () => ConsultPage()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),

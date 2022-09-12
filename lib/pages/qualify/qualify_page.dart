@@ -1,4 +1,5 @@
 import 'package:app_asegurate/pages/qualify/qualify_page_controller.dart';
+import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,18 +10,17 @@ class QualifyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     QualifyController con = Get.put(QualifyController());
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.12,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: colorFontIcon,
+              size: MediaQuery.of(context).size.width * 0.12,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
         title: textTitle,
         titleSpacing: 00.3,
@@ -28,6 +28,7 @@ class QualifyPage extends StatelessWidget {
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
+      drawer: MenuDrawer().menuDrawer(context),
       backgroundColor: colorSecondary,
       body: SingleChildScrollView(
         child: Column(
