@@ -50,10 +50,10 @@ class RegisterPage extends StatelessWidget {
         left: MediaQuery.of(context).size.width * 0.00,
         right: MediaQuery.of(context).size.width * 0.1,
       ),
-      child: Row(
+      child: Column(
         children: [
           Align(
-            alignment: Alignment.topLeft,
+            alignment: Alignment.topCenter,
             child: Text('''
                Cual es tu Perfil
                     Principal 
@@ -66,8 +66,9 @@ class RegisterPage extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.2,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -88,6 +89,9 @@ class RegisterPage extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.1,
               ),
               Row(
                 children: [
