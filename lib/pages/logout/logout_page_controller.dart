@@ -43,19 +43,31 @@ class LogoutPageController extends GetxController {
         username: username,
         password: _encrypt(password),
       );
-      print(login.toJson());
+      
 
       Response response = await usersProvider.login(login);
       progressDialog.close();
       if (response.statusCode == 200) {
-        Get.offAllNamed('/menu');
+        Get.offAllNamed('/consult');
       } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error'),
-              content: Text(response.statusText!),
+              title: const Text(
+                'Error',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: const Text(
+                "Usuario o contraseña incorrectos",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               actions: <Widget>[
                 ElevatedButton(
                   child: Text('Ok'),
@@ -78,7 +90,7 @@ class LogoutPageController extends GetxController {
     if (user.isEmpty) {
       userController.text = '';
       userController.selection = TextSelection.fromPosition(
-        TextPosition(
+        const TextPosition(
           offset: 0,
         ),
       );
@@ -86,7 +98,7 @@ class LogoutPageController extends GetxController {
     } else if (password.isEmpty) {
       passwordController.text = '';
       passwordController.selection = TextSelection.fromPosition(
-        TextPosition(
+        const TextPosition(
           offset: 0,
         ),
       );

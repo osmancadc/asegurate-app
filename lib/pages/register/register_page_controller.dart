@@ -81,8 +81,9 @@ class RegisterPageController extends GetxController {
           context: context,
           builder: (BuildContext context) {
             return const AlertDialog(
-              title: Text('Registro ok'),
-              content: Text('Usuario registrado correctamente'),
+              content: Text('Usuario registrado correctamente',
+                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  textAlign: TextAlign.center),
             );
           },
         );
@@ -95,10 +96,15 @@ class RegisterPageController extends GetxController {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text('Error'),
-              content: Text(response.statusText!),
+              content: Text(response.statusText!,
+                  style: const TextStyle(fontSize: 20, color: Colors.green),
+                  textAlign: TextAlign.center),
               actions: <Widget>[
                 ElevatedButton(
-                  child: const Text('Ok'),
+                  child: const Text('Ok',
+                 style:  TextStyle(fontSize: 20, color: Colors.green),
+                 textAlign: TextAlign.center,
+                  ),
                   onPressed: () {
                     Get.back();
                   },
