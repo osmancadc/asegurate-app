@@ -1,4 +1,6 @@
 import 'package:app_asegurate/pages/consult/consult_controller.dart';
+import 'package:app_asegurate/widgets/widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +13,15 @@ class ConsultPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.12,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: colorFontIcon,
+              size: MediaQuery.of(context).size.width * 0.12,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
         title: textTitle,
         titleSpacing: 00.3,
@@ -27,6 +29,7 @@ class ConsultPage extends StatelessWidget {
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
+      drawer: MenuDrawer().menuDrawer(context),
       backgroundColor: colorSecondary,
       body: SingleChildScrollView(
         child: Column(children: [

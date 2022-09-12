@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/', page: () => MenuPage()),
+        GetPage(name: '/', page: () => const MenuPage()),
         GetPage(name: '/consult', page: () => ConsultPage()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),

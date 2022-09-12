@@ -1,4 +1,5 @@
 import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
+import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,15 +14,15 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: colorSecondary,
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.12,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: colorFontIcon,
+              size: MediaQuery.of(context).size.width * 0.12,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
         title: textTitle,
         titleSpacing: 00.3,
@@ -29,6 +30,7 @@ class ProfilePage extends StatelessWidget {
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
+      drawer: MenuDrawer().menuDrawer(context),
       body: SingleChildScrollView(
         child: Stack(children: [
           _profileBackgroundImage(context),
