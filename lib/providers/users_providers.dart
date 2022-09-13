@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:app_asegurate/models/models.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -40,7 +41,7 @@ class UsersProvider extends GetConnect {
     return response;
   }
 
-  Future<Response> getScore(GetScore getScore) async {
+  Future<Response> getScore(GetScore getScore      ) async {
     Response response = await post(
       '$url/get-score',
       getScore.toJson(),
@@ -48,7 +49,16 @@ class UsersProvider extends GetConnect {
       //   'content-type': 'application/json',
       // },
     ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
-    print(response.body);
+    name : response.body['name'];
+    document : response.body['document'];
+    score : response.body['score'];
+    stars : response.body['stars'];
+    reputacion : response.body['reputacion'];
+    certified: response.body['certified'];
+    photo: response.body['photo'];
     return response;
   }
+
+  
+
 }

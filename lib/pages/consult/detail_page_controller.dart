@@ -1,0 +1,28 @@
+import 'dart:io' as Io;
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class DetailpageController extends GetxController {
+  var arguments = Get.arguments;
+  var name = "".obs;
+  var document = "".obs;
+  var score = "".obs;
+  var stars = "".obs;
+  var reputation = "".obs;
+  var certified = "".obs;
+  var photo = "".obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    print(arguments);
+    name.value = arguments['name'];
+    document.value = arguments['document'];
+   stars.value = arguments['stars'].toString();
+    // reputation.value = arguments['reputation'];
+    // score.value = arguments['score'];
+    // certified.value = arguments['certified'];
+     photo.value = arguments['photo'];
+  }
+}

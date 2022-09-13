@@ -30,11 +30,11 @@ class ConsultController extends GetxController {
       );
       print(getscore.toJson());
 
-      Response response = await usersProvider.getScore(getscore);
+      Response response = await usersProvider.getScore(getscore );
       print(response.body);
       progressDialog.close();
       if (response.statusCode == 200) {
-        Get.offAllNamed('/result');
+        Get.offAllNamed('/consultDetail', arguments: response.body);
       } else {
         showDialog(
           context: context,
