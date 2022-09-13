@@ -6,6 +6,7 @@ import 'dart:ui' show ImageFilter;
 
 class MenuDrawer extends GetxController {
   Widget menuDrawer(BuildContext context) {
+    MenuDrawerController con = Get.put(MenuDrawerController());
     return Container(
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
@@ -45,7 +46,7 @@ class MenuDrawer extends GetxController {
                 //   child: _iconMenu(Icons.settings, 'Ajustes', context),
                 // ),
                 GestureDetector(
-                  onTap: () => gotoLogoutPage(),
+                  onTap: () =>  con.logout(),
                   child: _iconMenu(Icons.exit_to_app, 'Salir', context),
                 ),
                 // GestureDetector(
