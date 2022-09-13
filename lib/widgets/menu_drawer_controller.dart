@@ -1,6 +1,17 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class MenuPageController extends GetxController {}
+import 'package:get/get.dart';
+
+class MenuDrawerController extends GetxController {
+
+    logout() {
+    GetStorage().remove('token');
+    GetStorage().remove('user');
+    Get.offAllNamed('/login');
+
+  }
+}
 
 void gotoConsultPage() {
   Get.toNamed('/consult');
