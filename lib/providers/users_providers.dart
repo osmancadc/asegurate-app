@@ -34,10 +34,21 @@ class UsersProvider extends GetConnect {
       // headers: {
       //   'content-type': 'application/json',
       // },
-   
     ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
 
     print('Response: ${response.body}');
+    return response;
+  }
+
+  Future<Response> getScore(GetScore getScore) async {
+    Response response = await post(
+      '$url/get-score',
+      getScore.toJson(),
+      // headers: {
+      //   'content-type': 'application/json',
+      // },
+    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+    print(response.body);
     return response;
   }
 }

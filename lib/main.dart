@@ -41,6 +41,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
+         GetPage(name: '/result', page: () => const ConsultPageDetail()),
+         
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,
