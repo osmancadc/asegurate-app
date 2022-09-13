@@ -321,7 +321,7 @@ Widget _textName(BuildContext context) {
       controller: con.nameController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'Nombre',
+        labelText: 'Nombres',
         labelStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,
@@ -345,7 +345,7 @@ Widget _texLastName(BuildContext context) {
       controller: con.lastNameController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        labelText: 'Apellido',
+        labelText: 'Apellidos',
         labelStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,
@@ -396,8 +396,9 @@ Widget _textConfirmPassword(context) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
+      obscureText: true,
       controller: con.passwordConfirmController,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.visiblePassword,
       decoration: const InputDecoration(
         labelText: 'Confirmar Contraseña',
         labelStyle: TextStyle(
@@ -417,7 +418,7 @@ Widget _textFormRegisterPhone(context) {
       controller: con.phoneController,
       keyboardType: TextInputType.phone,
       decoration: const InputDecoration(
-        labelText: 'Telefono',
+        labelText: 'Número de Celular',
         labelStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,
@@ -435,7 +436,7 @@ Widget _textFormRegisterEmail(context) {
       controller: con.emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
-        labelText: 'Email',
+        labelText: 'Correo Electrónico',
         labelStyle: TextStyle(
           color: Colors.black,
           fontSize: 16,

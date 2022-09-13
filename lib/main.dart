@@ -26,13 +26,14 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/', page: () => const MenuPage()),
+ 
+           GetPage(name: '/', page: () => const LogoutPage()),
         GetPage(name: '/consult', page: () => ConsultPage()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
-        GetPage(name: '/settings', page: () => SettingsPage()),
+        GetPage(name: '/settings', page: () => const SettingsPage()),
         GetPage(name: '/report', page: () => ReportPage()),
-        GetPage(name: '/logout', page: () => LogoutPage()),
+        GetPage(name: '/logout', page: () => const LogoutPage()),
         GetPage(
             name: '/news',
             page: () => NewsPage(),
