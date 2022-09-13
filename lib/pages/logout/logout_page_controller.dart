@@ -5,10 +5,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:get_storage/get_storage.dart';
 
 import 'package:get/get.dart';
 
 class LogoutPageController extends GetxController {
+  String token = GetStorage().read('token') ?? "";
+  logout() {
+    GetStorage().remove('token');
+    GetStorage().remove('user');
+    Get.offAllNamed('/login');
+  }
+
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
@@ -22,6 +30,23 @@ class LogoutPageController extends GetxController {
   }
 
   UsersProvider usersProvider = UsersProvider();
+  void logouts(BuildContext context) async {
+    ProgressDialog progressDialog = ProgressDialog(context: context);
+    progressDialog.show(
+      max: 100,
+      msg: 'Cerrando sesión',
+    );
+
+    print(token);
+    progressDialog.close();
+    if (token != "") {
+      GetStorage().remove('token');
+      Get.offAllNamed('/login');
+    } else {
+      Get.snackbar('Error', 'No se pudo cerrar sesión');
+    }
+  }
+
   void gotoRegisterPage() {
     Get.toNamed('/register');
   }
@@ -43,27 +68,43 @@ class LogoutPageController extends GetxController {
         username: username,
         password: _encrypt(password),
       );
-      print(login.toJson());
 
       Response response = await usersProvider.login(login);
+
       progressDialog.close();
       if (response.statusCode == 200) {
-        Get.offAllNamed('/menu');
+        GetStorage().write('token', response.body["token"]);
+        print("token: ${GetStorage().read('token')}");
+
+        Get.offAllNamed('/consult');
       } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error'),
-              content: Text(response.statusText!),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-              ],
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.nearby_error,
+                    size: MediaQuery.of(context).size.width * 0.18,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '''Usuario o contraseña 
+incorrectos''',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -78,7 +119,7 @@ class LogoutPageController extends GetxController {
     if (user.isEmpty) {
       userController.text = '';
       userController.selection = TextSelection.fromPosition(
-        TextPosition(
+        const TextPosition(
           offset: 0,
         ),
       );
@@ -86,7 +127,7 @@ class LogoutPageController extends GetxController {
     } else if (password.isEmpty) {
       passwordController.text = '';
       passwordController.selection = TextSelection.fromPosition(
-        TextPosition(
+        const TextPosition(
           offset: 0,
         ),
       );
