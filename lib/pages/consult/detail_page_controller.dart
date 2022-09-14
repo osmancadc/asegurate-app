@@ -8,8 +8,8 @@ class DetailpageController extends GetxController {
   var name = "".obs;
   var document = "".obs;
   var score = "".obs;
-  var stars = "".obs;
-  var reputation = "".obs;
+  var stars = 0.obs;
+  var reputation = 0.obs;
   var certified = "".obs;
   var photo = "".obs;
 
@@ -19,10 +19,11 @@ class DetailpageController extends GetxController {
     print(arguments);
     name.value = arguments['name'];
     document.value = arguments['document'];
-   stars.value = arguments['stars'].toString();
-    // reputation.value = arguments['reputation'];
+    stars.value = arguments['stars'];
+
+    reputation.value = arguments['reputation'];
     // score.value = arguments['score'];
     // certified.value = arguments['certified'];
-     photo.value = arguments['photo'];
+    photo.value = arguments['photo'];
   }
 }
