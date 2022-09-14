@@ -158,7 +158,8 @@ class ConsultPageDetail extends StatelessWidget {
     return con.name.value == ''
         ? Container()
         : Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.02),
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(Get.context!).size.height * 0.02),
             child: Text(
               con.name.value,
               style: const TextStyle(

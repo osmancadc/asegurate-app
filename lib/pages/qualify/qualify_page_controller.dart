@@ -1,49 +1,214 @@
+import 'package:app_asegurate/models/models.dart';
+import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import '../../utils.dart';
 
 class QualifyController extends GetxController {
-  TextEditingController textIdentification = TextEditingController();
+  TextEditingController documentController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController puntuationController = TextEditingController();
+  TextEditingController commentsController = TextEditingController();
+  QualifyProviders qualifyProviders = QualifyProviders();
+
   var selectedRadio = "".obs;
+
   onChangedRadio(var value) {
     selectedRadio.value = value;
   }
 
-  bool isvalidForm(
-    String textIdentification,
-  ) {
-    if (textIdentification.isEmpty) {
-      Get.snackbar('formulario no valido ',
-          'Debes ingresar un numero de cedula o Celular',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+  void upload(BuildContext context) async {
+    String document = documentController.text.trim();
+    String name = nameController.text;
+    String lastName = lastNameController.text;
+    int score =
+        puntuationController != "" ? int.parse(puntuationController.text) : 0;
+    String comments = commentsController.text.trim();
+
+    if (isValidForm(
+      document,
+      selectedRadio.value,
+      name,
+      lastName,
+      score,
+      comments,
+    )) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(
+        max: 100,
+        msg: 'Calificando...',
+      );
+      UploadScore uploadScore = UploadScore(
+        document: document,
+        type: selectedRadio.value,
+        name: name,
+        lastName: lastName,
+        score: score,
+        comments: comments,
+      );
+      Response response = await qualifyProviders.uploadScore(uploadScore);
+      print(response.body);
+      progressDialog.close();
+      if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return  AlertDialog(
+        title: Row(
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    size: MediaQuery.of(context).size.width * 0.18,
+                    color: Colors.green,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '''Tu calificación ha sido 
+enviado con éxito''',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+        Future.delayed(Duration(seconds: 2), () {
+          clear();
+        });
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text("No se pudo calificar al usuario",
+                style: TextStyle(fontSize: 20, color: Colors.green),
+                textAlign: TextAlign.center),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text(
+                  'Ok',
+                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
-    if (selectedRadio.value == "") {
-      Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
+  }
+
+  bool isValidForm(
+    String document,
+    String type,
+    String name,
+    String lastName,
+    int score,
+    String comments,
+  ) {
+    if (document.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes Agregar un documento de identidad',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-      print(selectedRadio.value);
+      return false;
+    }
+    if (type.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes seleccionar un tipo de documento',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (name.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes Agregar un nombre de Usuario',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (lastName.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes Agregar un apellido de Usuario',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (score > 100) {
+      Get.snackbar(
+          'formulario no valido ', 'La puntuacion no puede ser mayor a 100',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (score < 0) {
+      Get.snackbar(
+          'formulario no valido ', 'La puntuacion no puede ser menor a 0',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (score == "") {
+      Get.snackbar('formulario no valido ', 'Debes Agregar una calificacion',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
     }
 
+    // if (score != num) {
+    //   Get.snackbar(
+    //       'formulario no valido ', 'La calificacion debe ser un numero',
+    //       snackPosition: SnackPosition.BOTTOM,
+    //       backgroundColor: Colors.green,
+    //       colorText: Colors.white);
+    //   return false;
+    // }
+    if (comments.isEmpty) {
+      Get.snackbar('formulario no valido ', 'Debes Agregar un comentario',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (type.isEmpty) {
+      Get.snackbar(
+          'formulario no valido ', 'Debes Agregar un tipo de documento',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
     return true;
   }
-}
 
-void register(BuildContext context) async {
-  String textIdentification =
-      Get.find<QualifyController>().textIdentification.text;
-  if (Get.find<QualifyController>().isvalidForm(textIdentification)) {
-    Get.find<QualifyController>().selectedRadio.value;
-    Get.find<QualifyController>().textIdentification.text;
-    Get.find<QualifyController>().textIdentification.clear();
-    Get.back();
-
-    print('formulario valido' +
-        textIdentification +
-        ' ' +
-        Get.find<QualifyController>().selectedRadio.value);
+  void clear() {
+    documentController.clear();
+    nameController.clear();
+    lastNameController.clear();
+    puntuationController.clear();
+    commentsController.clear();
   }
 }

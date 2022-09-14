@@ -93,7 +93,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Cedula de ciudadania',
+              'Cedula de Ciudadania',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
