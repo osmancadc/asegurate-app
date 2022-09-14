@@ -152,7 +152,7 @@ Widget _evidences(context) {
 
 Widget _boxFormRatingData(BuildContext context) {
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
     decoration: const BoxDecoration(
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -177,7 +177,7 @@ Widget _boxFormRatingData(BuildContext context) {
 Widget _textName(BuildContext context) {
   return Container(
     color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 20),
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.01,
       left: MediaQuery.of(context).size.width * 0.02,
@@ -196,7 +196,7 @@ Widget _textName(BuildContext context) {
 Widget _texLastName(BuildContext context) {
   return Container(
     color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 20),
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.01,
       left: MediaQuery.of(context).size.width * 0.02,
@@ -276,7 +276,7 @@ Widget _textRating(context) {
     child: const TextField(
       // controller: con.textIdentification,
       keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Puntuación {1-100}',
       ),
     ),
@@ -331,12 +331,12 @@ Widget _textComments(context) {
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.12,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: TextField(
+    child: const TextField(
       maxLines: 3,
       maxLength: 60,
       // controller: con.textIdentification,
       keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Comentarios',
       ),
     ),
@@ -363,7 +363,7 @@ Widget _buttomSearch(BuildContext context) {
   ReportPageController con = Get.put(ReportPageController());
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
       onPressed: () => register(context),
       style: ElevatedButton.styleFrom(
@@ -371,7 +371,7 @@ Widget _buttomSearch(BuildContext context) {
           borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnPrimaryVariant,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
       ),
       child: const Text(
         'Reportar',

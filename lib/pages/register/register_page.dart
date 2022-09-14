@@ -285,7 +285,7 @@ Widget _boxFormUser(context) {
 
 Widget _boxFormRegisterNameLastname(BuildContext context) {
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
     decoration: const BoxDecoration(
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -311,7 +311,7 @@ Widget _textName(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 20),
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.01,
       left: MediaQuery.of(context).size.width * 0.02,
@@ -335,7 +335,7 @@ Widget _texLastName(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 20),
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.01,
       left: MediaQuery.of(context).size.width * 0.02,
@@ -358,7 +358,7 @@ Widget _texLastName(BuildContext context) {
 Widget _textUser(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.userController,
       decoration: const InputDecoration(
@@ -375,7 +375,7 @@ Widget _textUser(context) {
 Widget _textPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       obscureText: true,
       controller: con.passwordController,
@@ -394,7 +394,7 @@ Widget _textPassword(context) {
 Widget _textConfirmPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       obscureText: true,
       controller: con.passwordConfirmController,
@@ -413,7 +413,7 @@ Widget _textConfirmPassword(context) {
 Widget _textFormRegisterPhone(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.phoneController,
       keyboardType: TextInputType.phone,
@@ -431,7 +431,7 @@ Widget _textFormRegisterPhone(context) {
 Widget _textFormRegisterEmail(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.emailController,
       keyboardType: TextInputType.emailAddress,
@@ -449,7 +449,7 @@ Widget _textFormRegisterEmail(context) {
 Widget _textIdentification(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       controller: con.identificationController,
       keyboardType: TextInputType.number,
@@ -468,7 +468,7 @@ Widget _buttomRegister(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
       onPressed: () => con.register(context),
       style: ElevatedButton.styleFrom(
@@ -476,7 +476,7 @@ Widget _buttomRegister(BuildContext context) {
           borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnPrimaryVariant,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
       ),
       child: const Text(
         'Registrar',
@@ -494,7 +494,7 @@ Widget _buttomGetInto(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
       onPressed: () => con.gotoLoginPage(),
       style: ElevatedButton.styleFrom(
@@ -502,7 +502,7 @@ Widget _buttomGetInto(BuildContext context) {
           borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnPrimaryVariant,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
       ),
       child: const Text(
         'Ingresar',

@@ -140,9 +140,9 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
+      child: const TextField(
         keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           hintText: 'Correo Electrónico',
         ),
       ),
@@ -154,10 +154,10 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
+      child: const TextField(
         keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          hintText: 'Numero de Celular',
+        decoration: InputDecoration(
+          hintText: 'Número de Celular',
         ),
       ),
     );
@@ -168,9 +168,9 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
+      child: const TextField(
         keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           hintText: 'Numero de Identificación',
         ),
       ),

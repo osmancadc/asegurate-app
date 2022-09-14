@@ -162,6 +162,7 @@ Widget _boxFormRatingData(BuildContext context) {
 }
 
 Widget _textName(BuildContext context) {
+  QualifyController con = Get.put(QualifyController());
   return Container(
     color: Colors.white,
     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -170,10 +171,10 @@ Widget _textName(BuildContext context) {
       left: MediaQuery.of(context).size.width * 0.02,
       right: MediaQuery.of(context).size.width * 0.01,
     ),
-    child: const TextField(
-      // controller: con.textName,
+    child: TextField(
+      controller: con.nameController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: 'Nombre',
       ),
     ),
@@ -181,6 +182,7 @@ Widget _textName(BuildContext context) {
 }
 
 Widget _texLastName(BuildContext context) {
+  QualifyController con = Get.put(QualifyController());
   return Container(
     color: Colors.white,
     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -189,10 +191,10 @@ Widget _texLastName(BuildContext context) {
       left: MediaQuery.of(context).size.width * 0.02,
       right: MediaQuery.of(context).size.width * 0.01,
     ),
-    child: const TextField(
-      // controller: con.textName,
+    child: TextField(
+      controller: con.lastNameController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: 'Apellido',
       ),
     ),
@@ -212,7 +214,7 @@ Widget _radioButton(context) {
         Row(
           children: [
             Obx(() => Radio(
-                  value: "identification",
+                  value: "CC",
                   groupValue: con.selectedRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
@@ -221,7 +223,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Cedula de ciudadania',
+              'Cedula de Ciudadania',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -260,8 +262,8 @@ Widget _textRating(context) {
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.08,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: const TextField(
-      // controller: con.textIdentification,
+    child: TextField(
+      controller: con.puntuationController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
         hintText: 'Puntuación {1-100}',
@@ -279,7 +281,7 @@ Widget _textComments(context) {
     child: TextField(
       maxLines: 3,
       maxLength: 60,
-      // controller: con.textIdentification,
+      controller: con.commentsController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
         hintText: 'Comentarios',
@@ -295,7 +297,7 @@ Widget _textIdentification(context) {
     height: MediaQuery.of(context).size.height * 0.08,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: TextField(
-      controller: con.textIdentification,
+      controller: con.documentController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
           hintText: 'Identificación o Celular',
@@ -310,7 +312,7 @@ Widget _buttomSearch(BuildContext context) {
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
-      onPressed: () => register(context),
+      onPressed: () => con.upload(context),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

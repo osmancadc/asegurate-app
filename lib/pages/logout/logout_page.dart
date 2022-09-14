@@ -151,11 +151,11 @@ class LogoutPage extends StatelessWidget {
         right: 30,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
           controller: con.passwordController,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Contraseña',
             labelStyle: TextStyle(
               color: Colors.black,
@@ -185,8 +185,8 @@ class LogoutPage extends StatelessWidget {
         right: 30,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: const TextField(
           obscureText: true,
           decoration: InputDecoration(
             labelText: 'Confirmar Contraseña',
