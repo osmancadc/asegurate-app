@@ -1,3 +1,4 @@
+import 'package:app_asegurate/pages/consult/detail_page_controller.dart';
 import 'package:app_asegurate/pages/news/news_page_controller.dart';
 import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
 import 'package:app_asegurate/utils.dart';
@@ -26,9 +27,13 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
- 
-           GetPage(name: '/', page: () => const LogoutPage()),
-        GetPage(name: '/consult', page: () => ConsultPage()),
+
+        GetPage(name: '/', page: () => const LogoutPage()),
+            GetPage(
+            name: '/consult',
+            page: () => ConsultPage(),
+            arguments: DetailpageController()),
+
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/settings', page: () => const SettingsPage()),
@@ -36,12 +41,14 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/logout', page: () => const LogoutPage()),
         GetPage(
             name: '/news',
-            page: () => NewsPage(),
+            page: () => const NewsPage(),
             arguments: NewsPageController()),
         GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
+    
+        GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
       ],
       theme: ThemeData(
           primarySwatch: Colors.blue,

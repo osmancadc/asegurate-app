@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:app_asegurate/models/models.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -15,10 +16,7 @@ class UsersProvider extends GetConnect {
     Response response = await post(
       '$url/create-user',
       user.toJson(),
-      // headers: {
-      //   'content-type': 'application/json',
-      // },
-    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+    );
 
     return response;
   }
@@ -30,14 +28,18 @@ class UsersProvider extends GetConnect {
     Response response = await post(
       '$url/authenticate-user',
       login.toJson(),
-
-      // headers: {
-      //   'content-type': 'application/json',
-      // },
-   
-    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+    );
 
     print('Response: ${response.body}');
+    return response;
+  }
+
+  Future<Response> getScore(GetScore getScore) async {
+    Response response = await post(
+      '$url/get-score',
+      getScore.toJson(),
+    );
+
     return response;
   }
 }

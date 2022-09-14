@@ -84,7 +84,7 @@ Widget _radioButton(context) {
         Row(
           children: [
             Obx(() => Radio(
-                  value: "identification",
+                  value: "CC",
                   groupValue: con.selectedRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
@@ -148,7 +148,7 @@ Widget _buttomSearch(BuildContext context) {
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     child: ElevatedButton(
-      onPressed: () => register(context),
+      onPressed: () => con.consult(context),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
