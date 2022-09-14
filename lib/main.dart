@@ -28,6 +28,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/', page: () => const LogoutPage()),
+            GetPage(
+            name: '/consult',
+            page: () => ConsultPage(),
+            arguments: DetailpageController()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/settings', page: () => const SettingsPage()),
@@ -41,10 +45,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
-        GetPage(
-            name: '/consult',
-            page: () => ConsultPage(),
-            arguments: DetailpageController()),
+    
         GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
       ],
       theme: ThemeData(
