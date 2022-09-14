@@ -16,10 +16,7 @@ class UsersProvider extends GetConnect {
     Response response = await post(
       '$url/create-user',
       user.toJson(),
-      // headers: {
-      //   'content-type': 'application/json',
-      // },
-    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+    );
 
     return response;
   }
@@ -31,34 +28,18 @@ class UsersProvider extends GetConnect {
     Response response = await post(
       '$url/authenticate-user',
       login.toJson(),
-
-      // headers: {
-      //   'content-type': 'application/json',
-      // },
-    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+    );
 
     print('Response: ${response.body}');
     return response;
   }
 
-  Future<Response> getScore(GetScore getScore      ) async {
+  Future<Response> getScore(GetScore getScore) async {
     Response response = await post(
       '$url/get-score',
       getScore.toJson(),
-      // headers: {
-      //   'content-type': 'application/json',
-      // },
-    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
-    name : response.body['name'];
-    document : response.body['document'];
-    score : response.body['score'];
-    stars : response.body['stars'];
-    reputacion : response.body['reputacion'];
-    certified: response.body['certified'];
-    photo: response.body['photo'];
+    );
+
     return response;
   }
-
-  
-
 }

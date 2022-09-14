@@ -16,7 +16,6 @@ class DetailpageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    print(arguments);
     name.value = arguments['name'];
     document.value = arguments['document'];
     stars.value = arguments['stars'];
