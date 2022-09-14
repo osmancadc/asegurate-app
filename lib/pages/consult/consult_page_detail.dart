@@ -41,16 +41,15 @@ class ConsultPageDetail extends StatelessWidget {
                   _consultCircleImage(context),
                   _consultName(),
                   _consultDocument(),
-                  _consultCity(),
                   _ratingBar(),
-                  _imageCertified(),
+                  _imageCertified(context),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _reputation(),
-                  _score(),
+                  _reputation(context),
+                  _score(context),
                 ],
               )
             ]),
@@ -58,9 +57,10 @@ class ConsultPageDetail extends StatelessWidget {
         ));
   }
 
-  Widget _imageCertified() {
+  Widget _imageCertified(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin:
+          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.05),
       child: con.certified.value == true
           ? Image.asset('assets/images/certified.png', width: 400, height: 300)
           : Image.asset('assets/images/not_certified.png',
@@ -68,20 +68,18 @@ class ConsultPageDetail extends StatelessWidget {
     );
   }
 
-  Widget _reputation() {
+  Widget _reputation(BuildContext context) {
     return Column(children: [
       Container(
-        margin: const EdgeInsets.only(
-          top: 325,
-        ),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.93),
         child: const Text(
           'Reputación',
           style: TextStyle(
               color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: MediaQuery.of(context).size.width * 0.02,
       ),
       Stack(children: [
         Container(
@@ -97,27 +95,25 @@ class ConsultPageDetail extends StatelessWidget {
           child: Text(
             con.reputation.value.toString(),
             style: const TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
           ),
         ),
       ]),
     ]);
   }
 
-  Widget _score() {
+  Widget _score(BuildContext context) {
     return Column(children: [
       Container(
-        margin: const EdgeInsets.only(top: 325),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.93),
         child: const Text(
           'Calificación',
           style: TextStyle(
               color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: MediaQuery.of(context).size.width * 0.02,
       ),
       Stack(children: [
         Container(
@@ -133,9 +129,7 @@ class ConsultPageDetail extends StatelessWidget {
           child: Text(
             con.score.value.toString(),
             style: const TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
           ),
         ),
       ]),
@@ -144,7 +138,7 @@ class ConsultPageDetail extends StatelessWidget {
 
   Widget _ratingBar() {
     return RatingBar.builder(
-      initialRating: con.stars.value.toDouble(),
+      initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
       itemSize: 35,
       minRating: 1,
       ignoreGestures: true,
@@ -156,52 +150,47 @@ class ConsultPageDetail extends StatelessWidget {
         Icons.star,
         color: Colors.amber,
       ),
-      onRatingUpdate: (value2) {
-    
-      },
+      onRatingUpdate: (value2) {},
     );
   }
 
   Widget _consultName() {
-    return Text(
-      con.name.value,
-      style: TextStyle(
-        color: colorFont,
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-      ),
-    );
+    return con.name.value == ''
+        ? Container()
+        : Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.02),
+            child: Text(
+              con.name.value,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold),
+            ),
+          );
   }
 
   Widget _consultDocument() {
-    return Text(
-      con.document.value,
-      style: TextStyle(
-        color: colorFont,
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget _consultCity() {
-    return Text(
-      'Bogotá - Colombia',
-      style: TextStyle(
-        color: colorFont,
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-      ),
-    );
+    return con.document.value == ''
+        ? Container()
+        : Text(
+            con.document.value,
+            style: TextStyle(
+              color: colorFont,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          );
   }
 
   Widget _consultCircleImage(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 70, right: 70),
-      width: MediaQuery.of(context).size.width * 0.5,
-      height: MediaQuery.of(context).size.height * 0.30,
+      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.height * 0.26,
       child: CircleAvatar(
-        backgroundImage: NetworkImage(con.photo.value),
+        backgroundImage: con.photo.value == ''
+            ? const AssetImage('assets/images/no_image.png') as ImageProvider
+            : NetworkImage(con.photo.value),
       ),
     );
   }
@@ -209,7 +198,7 @@ class ConsultPageDetail extends StatelessWidget {
   Widget _consultShapeImage(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.47,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
             color: Colors.grey.withOpacity(0.7),
@@ -220,14 +209,12 @@ class ConsultPageDetail extends StatelessWidget {
   }
 
   Widget _consultBackgroundImage(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 0),
+    return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.45,
-      child: Image.network(
-        con.photo.value,
-        fit: BoxFit.cover,
-      ),
+      height: MediaQuery.of(context).size.height * 0.47,
+      child: con.photo.value == ''
+          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
+          : Image.network(con.photo.value, fit: BoxFit.cover),
     );
   }
 }
