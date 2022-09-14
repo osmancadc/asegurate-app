@@ -7,10 +7,10 @@ class DetailpageController extends GetxController {
   var arguments = Get.arguments;
   var name = "".obs;
   var document = "".obs;
-  var score = "".obs;
+  var score = 0.obs;
   var stars = 0.obs;
   var reputation = 0.obs;
-  var certified = "".obs;
+  var certified = true.obs;
   var photo = "".obs;
 
   @override
@@ -20,10 +20,9 @@ class DetailpageController extends GetxController {
     name.value = arguments['name'];
     document.value = arguments['document'];
     stars.value = arguments['stars'];
-
     reputation.value = arguments['reputation'];
-    // score.value = arguments['score'];
-    // certified.value = arguments['certified'];
+    score.value = arguments['score'];
+    certified.value = arguments['certified'];
     photo.value = arguments['photo'];
   }
 }

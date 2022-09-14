@@ -42,7 +42,8 @@ class ConsultPageDetail extends StatelessWidget {
                   _consultName(),
                   _consultDocument(),
                   _consultCity(),
-                  _ratingBar()
+                  _ratingBar(),
+                  _imageCertified(),
                 ],
               ),
               Row(
@@ -57,58 +58,94 @@ class ConsultPageDetail extends StatelessWidget {
         ));
   }
 
-  Widget _reputation() {
+  Widget _imageCertified() {
     return Container(
-      margin: EdgeInsets.only(top: 300, left: 20),
-      child: Text(
-        'Reputación',
-        style: TextStyle(
-            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-      ),
+      margin: const EdgeInsets.only(top: 20),
+      child: con.certified.value == true
+          ? Image.asset('assets/images/certified.png', width: 400, height: 300)
+          : Image.asset('assets/images/not_certified.png',
+              width: 400, height: 300),
     );
+  }
+
+  Widget _reputation() {
+    return Column(children: [
+      Container(
+        margin: const EdgeInsets.only(
+          top: 325,
+        ),
+        child: const Text(
+          'Reputación',
+          style: TextStyle(
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.green,
+          ),
+          width: 70,
+          height: 70,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Text(
+            con.reputation.value.toString(),
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 40,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ]),
+    ]);
   }
 
   Widget _score() {
     return Column(children: [
       Container(
-        margin: EdgeInsets.only(top: 350, left: 20),
-        child: Text(
+        margin: const EdgeInsets.only(top: 325),
+        child: const Text(
           'Calificación',
           style: TextStyle(
               color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
-      Container(
-        child: Stack(children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.yellow,
-            ),
-            width: 60,
-            height: 60,
+      Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.yellow,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Text(
-              '75',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
-            ),
+          width: 70,
+          height: 70,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Text(
+            con.score.value.toString(),
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 40,
+                fontWeight: FontWeight.bold),
           ),
-        ]),
-      ),
+        ),
+      ]),
     ]);
   }
 
   Widget _ratingBar() {
     return RatingBar.builder(
       initialRating: con.stars.value.toDouble(),
+      itemSize: 35,
       minRating: 1,
       ignoreGestures: true,
       direction: Axis.horizontal,
@@ -120,55 +157,49 @@ class ConsultPageDetail extends StatelessWidget {
         color: Colors.amber,
       ),
       onRatingUpdate: (value2) {
-        print(value2);
+    
       },
     );
   }
 
   Widget _consultName() {
-    return Container(
-      child: Text(
-        con.name.value,
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      con.name.value,
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget _consultDocument() {
-    return Container(
-      child: Text(
-        con.document.value,
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      con.document.value,
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget _consultCity() {
-    return Container(
-      child: Text(
-        'Bogotá - Colombia',
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      'Bogotá - Colombia',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget _consultCircleImage(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0, left: 70, right: 70, bottom: 0),
-      width: MediaQuery.of(context).size.width * 0.6,
-      height: MediaQuery.of(context).size.height * 0.35,
+      margin: const EdgeInsets.only(left: 70, right: 70),
+      width: MediaQuery.of(context).size.width * 0.5,
+      height: MediaQuery.of(context).size.height * 0.30,
       child: CircleAvatar(
         backgroundImage: NetworkImage(con.photo.value),
       ),
@@ -178,12 +209,12 @@ class ConsultPageDetail extends StatelessWidget {
   Widget _consultShapeImage(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.45,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
             color: Colors.grey.withOpacity(0.7),
-            blurRadius: 20.0,
-            spreadRadius: 5.0)
+            blurRadius: 10.0,
+            spreadRadius: 1.0)
       ]),
     );
   }
@@ -192,7 +223,7 @@ class ConsultPageDetail extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 0),
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.45,
       child: Image.network(
         con.photo.value,
         fit: BoxFit.cover,
