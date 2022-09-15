@@ -2,6 +2,7 @@ import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class QualifyController extends GetxController {
@@ -22,8 +23,12 @@ class QualifyController extends GetxController {
     String document = documentController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
-    int score =
-        scoreController.text.isNotEmpty ? int.parse(scoreController.text) : 0;
+
+    int score = scoreController.text.trim().isNumericOnly &&
+            scoreController.text.isNotEmpty
+        ? int.parse(scoreController.text)
+        : 0;
+
     String comments = commentsController.text.trim();
 
     if (isValidForm(
@@ -44,7 +49,7 @@ class QualifyController extends GetxController {
         type: selectedRadio.value,
         name: name,
         lastName: lastName,
-        score: score,
+        score: score as int,
         comments: comments,
       );
       Response response = await qualifyProviders.uploadScore(uploadScore);
@@ -67,7 +72,8 @@ class QualifyController extends GetxController {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Tu calificación ha sido enviada con éxito',
+                      '''Tu calificación ha 
+sido enviada con éxito''',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.green,
@@ -88,22 +94,29 @@ class QualifyController extends GetxController {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Error'),
-            content: const Text("No se pudo calificar al usuario",
-                style: TextStyle(fontSize: 20, color: Colors.green),
-                textAlign: TextAlign.center),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text(
-                  'Ok',
-                  style: TextStyle(fontSize: 20, color: Colors.green),
-                  textAlign: TextAlign.center,
+            title: Row(
+              children: [
+                Icon(
+                  Icons.error,
+                  size: MediaQuery.of(context).size.width * 0.18,
+                  color: Colors.red,
                 ),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-            ],
+                const SizedBox(
+                  width: 10,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '''Debes llenar todos 
+los campos''',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       );
@@ -145,6 +158,22 @@ class QualifyController extends GetxController {
     if (lastName.isEmpty) {
       Get.snackbar(
           'Formulario no válido ', 'Debes Agregar un apellido de Usuario',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (score.toInt() == RegExp(r'^[0-100]+$')) {
+      Get.snackbar(
+          'Formulario no válido ', 'Debes Agregar un número de calificación',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (score == 0) {
+      Get.snackbar('Formulario no válido ', 'Debes Agregar un número valido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
