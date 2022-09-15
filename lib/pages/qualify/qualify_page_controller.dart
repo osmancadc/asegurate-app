@@ -50,14 +50,14 @@ class QualifyController extends GetxController {
         comments: comments,
       );
       Response response = await qualifyProviders.uploadScore(uploadScore);
-      print(response.body);
+
       progressDialog.close();
       if (response.statusCode == 200) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return  AlertDialog(
-        title: Row(
+            return AlertDialog(
+              title: Row(
                 children: [
                   Icon(
                     Icons.check_circle,
@@ -87,30 +87,63 @@ enviado con éxito''',
           clear();
         });
       }
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Error'),
-            content: const Text("No se pudo calificar al usuario",
-                style: TextStyle(fontSize: 20, color: Colors.green),
-                textAlign: TextAlign.center),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text(
-                  'Ok',
-                  style: TextStyle(fontSize: 20, color: Colors.green),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  Get.back();
-                },
+      if (response.statusCode == 500) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.error,
+                    size: MediaQuery.of(context).size.width * 0.18,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '''Fallo al enviar la 
+   calificación. 
+Intenta de nuevo''',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          );
-        },
-      );
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text("No se pudo calificar al usuario",
+                  style: TextStyle(fontSize: 20, color: Colors.green),
+                  textAlign: TextAlign.center),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(fontSize: 20, color: Colors.green),
+                    textAlign: TextAlign.center,
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
@@ -124,7 +157,7 @@ enviado con éxito''',
   ) {
     if (document.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes Agregar un documento de identidad',
+          'Formulario no valido ', 'Debes Agregar un documento de identidad',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -132,7 +165,7 @@ enviado con éxito''',
     }
     if (type.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes seleccionar un tipo de documento',
+          'Formulario no valido ', 'Debes seleccionar un tipo de documento',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -140,7 +173,7 @@ enviado con éxito''',
     }
     if (name.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes Agregar un nombre de Usuario',
+          'Formulario no valido ', 'Debes Agregar un nombre de Usuario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -148,7 +181,7 @@ enviado con éxito''',
     }
     if (lastName.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes Agregar un apellido de Usuario',
+          'Formulario no valido ', 'Debes Agregar un apellido de Usuario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -156,7 +189,7 @@ enviado con éxito''',
     }
     if (score > 100) {
       Get.snackbar(
-          'formulario no valido ', 'La puntuacion no puede ser mayor a 100',
+          'Formulario no valido ', 'La puntuacion no puede ser mayor a 100',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -164,30 +197,22 @@ enviado con éxito''',
     }
     if (score < 0) {
       Get.snackbar(
-          'formulario no valido ', 'La puntuacion no puede ser menor a 0',
+          'Formulario no valido ', 'La puntuacion no puede ser menor a 0',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (score == "") {
-      Get.snackbar('formulario no valido ', 'Debes Agregar una calificacion',
+      Get.snackbar('Formulario no valido ', 'Debes Agregar una calificacion',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
 
-    // if (score != num) {
-    //   Get.snackbar(
-    //       'formulario no valido ', 'La calificacion debe ser un numero',
-    //       snackPosition: SnackPosition.BOTTOM,
-    //       backgroundColor: Colors.green,
-    //       colorText: Colors.white);
-    //   return false;
-    // }
     if (comments.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes Agregar un comentario',
+      Get.snackbar('Formulario no valido ', 'Debes Agregar un comentario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -195,7 +220,7 @@ enviado con éxito''',
     }
     if (type.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes Agregar un tipo de documento',
+          'Formulario no valido ', 'Debes Agregar un tipo de documento',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
