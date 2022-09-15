@@ -31,25 +31,6 @@ class QualifyController extends GetxController {
 
     String comments = commentsController.text.trim();
 
-    print(
-      document,
-    );
-    print(
-      name,
-    );
-    print(
-      lastName,
-    );
-    print(
-      score,
-    );
-    print(
-      comments,
-    );
-    print(
-      selectedRadio.value,
-    );
-
     if (isValidForm(
       document,
       selectedRadio.value,
@@ -175,7 +156,7 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
-        if (document.contains(RegExp(r'[.]'))) {
+    if (document.contains(RegExp(r'[.]'))) {
       Get.snackbar('Formulario no válido ',
           'Debes Agregar un documento de identidad sin punto',
           snackPosition: SnackPosition.BOTTOM,
