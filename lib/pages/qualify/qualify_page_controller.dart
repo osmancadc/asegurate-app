@@ -31,6 +31,25 @@ class QualifyController extends GetxController {
 
     String comments = commentsController.text.trim();
 
+    print(
+      document,
+    );
+    print(
+      name,
+    );
+    print(
+      lastName,
+    );
+    print(
+      score,
+    );
+    print(
+      comments,
+    );
+    print(
+      selectedRadio.value,
+    );
+
     if (isValidForm(
       document,
       selectedRadio.value,
@@ -139,6 +158,32 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
+    if (document.contains(RegExp(r'[a-zA-Z]'))) {
+      Get.snackbar('Formulario no válido ',
+          'Debes Agregar un documento de identidad válido',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (document.contains(RegExp(r'[,]'))) {
+      Get.snackbar('Formulario no válido ',
+          'Debes Agregar un documento de identidad sin coma',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+        if (document.contains(RegExp(r'[.]'))) {
+      Get.snackbar('Formulario no válido ',
+          'Debes Agregar un documento de identidad sin punto',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+
     if (type.isEmpty) {
       Get.snackbar(
           'Formulario no válido ', 'Debes seleccionar un tipo de documento',
@@ -173,7 +218,8 @@ los campos''',
     }
 
     if (score == 0) {
-      Get.snackbar('Formulario no válido ', 'Debes Agregar un número valido',
+      Get.snackbar('Formulario no válido ',
+          'Debes Agregar un número valido de calificación',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
