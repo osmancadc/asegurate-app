@@ -1,6 +1,3 @@
-import 'dart:io' as Io;
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailpageController extends GetxController {

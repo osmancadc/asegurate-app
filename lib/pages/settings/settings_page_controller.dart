@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils.dart';
-
 class SettingsPageController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
   var selectedRadio = "".obs;

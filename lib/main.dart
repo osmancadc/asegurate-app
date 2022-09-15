@@ -1,7 +1,5 @@
 import 'package:app_asegurate/pages/consult/detail_page_controller.dart';
 import 'package:app_asegurate/pages/news/news_page_controller.dart';
-import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
-import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
@@ -15,6 +13,7 @@ Future main() async {
 }
 
 class MyApp extends StatefulWidget {
+  //TODO: Review this key, flutter says it is necessary
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -27,13 +26,11 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-
         GetPage(name: '/', page: () => const LogoutPage()),
-            GetPage(
+        GetPage(
             name: '/consult',
             page: () => ConsultPage(),
             arguments: DetailpageController()),
-
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/settings', page: () => const SettingsPage()),
@@ -47,7 +44,6 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
-    
         GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
       ],
       theme: ThemeData(
@@ -65,8 +61,8 @@ class _MyAppState extends State<MyApp> {
               onSecondary: Colors.grey,
               background: Colors.grey,
               onSurface: Colors.grey,
-              primaryVariant: HexColor('#3FD7B2'),
-              secondaryVariant: HexColor('#00FFB4'))),
+              primaryContainer: HexColor('#3FD7B2'),
+              secondaryContainer: HexColor('#00FFB4'))),
     );
   }
 }

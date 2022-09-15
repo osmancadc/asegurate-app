@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class NewsDetailPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
   const NewsDetailPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,10 @@ class NewsDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
-              width: MediaQuery.of(context).size.width*0.9,
-              height: MediaQuery.of(context).size.height*0.3,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.03),
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Hero(
                 tag: Get.arguments['title'].toString(),
                 child: Image.asset(Get.arguments['img'],

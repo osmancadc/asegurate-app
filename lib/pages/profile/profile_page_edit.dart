@@ -7,6 +7,7 @@ import '../../utils.dart';
 
 class ProfilePageEdit extends StatelessWidget {
   ProfilePageEditController con = Get.put(ProfilePageEditController());
+  //TODO: Review this key, flutter says it is necessary
   ProfilePageEdit({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -171,40 +172,36 @@ class ProfilePageEdit extends StatelessWidget {
       child: const TextField(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          hintText: 'Numero de Identificación',
+          hintText: 'Número de Identificación',
         ),
       ),
     );
   }
 
   Widget _profileSocialImage(BuildContext context, Image image) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.15,
       child: Padding(padding: const EdgeInsets.all(5.0), child: image),
     );
   }
 
   Widget _profileCityCountryText() {
-    return Container(
-      child: Text(
-        'Bogotá, Colombia',
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 15,
-        ),
+    return Text(
+      'Bogotá, Colombia',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 15,
       ),
     );
   }
 
   Widget _profileName() {
-    return Container(
-      child: Text(
-        'Jhon Doe',
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      'Jhon Doe',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
@@ -235,7 +232,7 @@ class ProfilePageEdit extends StatelessWidget {
   }
 
   Widget _imageUser(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.29,
       child: GestureDetector(

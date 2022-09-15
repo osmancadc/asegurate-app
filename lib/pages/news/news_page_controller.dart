@@ -1,4 +1,3 @@
-import 'package:app_asegurate/pages/news/news_page.dart';
 import 'package:get/get.dart';
 
 class NewsPageController extends GetxController {
@@ -13,8 +12,6 @@ class NewsPageController extends GetxController {
 
 void gotoNewsPageDetail({arguments}) {
   Get.toNamed('/newsdetail', arguments: arguments);
-
-  print(arguments);
 }
 
 var idNotice = [

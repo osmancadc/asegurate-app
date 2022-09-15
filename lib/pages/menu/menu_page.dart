@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:get/get.dart';
 
 import 'package:app_asegurate/pages/menu/menu_page_controller.dart';
 import '../../utils.dart';
 
 class MenuPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
   const MenuPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: colorSecondary,
         body: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
-          child: SafeArea(child: _buildGrid(context))));
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
+            child: SafeArea(child: _buildGrid(context))));
   }
 
   Widget _buildGrid(context) => GridView.extent(
-
         maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.50,
-      
         padding: const EdgeInsets.all(29),
         mainAxisSpacing: 0.0,
         crossAxisSpacing: 0.0,
@@ -50,7 +48,7 @@ class MenuPage extends StatelessWidget {
             onTap: () => gotoLogoutPage(),
             child: _iconMenu(Icons.exit_to_app, 'Salir', context),
           ),
-                GestureDetector(
+          GestureDetector(
             onTap: () => gotoHelpPage(),
             child: _iconMenu(Icons.help, 'Ayuda', context),
           ),

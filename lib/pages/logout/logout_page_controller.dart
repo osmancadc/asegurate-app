@@ -1,7 +1,6 @@
 import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
@@ -19,7 +18,7 @@ class LogoutPageController extends GetxController {
 
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
+  final String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
 
   _encrypt(String text) {
     final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
@@ -37,7 +36,6 @@ class LogoutPageController extends GetxController {
       msg: 'Cerrando sesión',
     );
 
-    print(token);
     progressDialog.close();
     if (token != "") {
       GetStorage().remove('token');

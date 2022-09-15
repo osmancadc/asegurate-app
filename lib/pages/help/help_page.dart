@@ -2,6 +2,7 @@ import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
 
 class HelpPage extends StatefulWidget {
+  //TODO: Review this key, flutter says it is necessary
   HelpPage({Key? key}) : super(key: key);
 
   @override
@@ -11,7 +12,7 @@ class HelpPage extends StatefulWidget {
 class _HelpPageState extends State<HelpPage> {
   String? _selected;
 
-  List<Map> _myJson = [
+  final List<Map> _myJson = [
     {
       'id': '1',
       'video': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',

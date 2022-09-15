@@ -18,7 +18,7 @@ class ProfilePageEditController extends GetxController {
 
   void showAlertDialog(BuildContext context) {
     Widget galleryButton = ElevatedButton(
-      child: Text('Galeria'),
+      child: Text('Galería'),
       onPressed: () {
         Get.back();
         selectImage(ImageSource.gallery);
@@ -26,15 +26,15 @@ class ProfilePageEditController extends GetxController {
       },
     );
     Widget cameraButton = ElevatedButton(
-      child: Text('Camara'),
+      child: Text('Cámara'),
       onPressed: () {
         Get.back();
         selectImage(ImageSource.camera);
       },
     );
     AlertDialog alertDialog = AlertDialog(
-      title: Text('Selecciona una opcion'),
-      content: Text('Selecciona una opcion'),
+      title: Text('Selecciona una opción'),
+      content: Text('Selecciona una opción'),
       actions: [
         galleryButton,
         cameraButton,

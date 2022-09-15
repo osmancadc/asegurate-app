@@ -1,15 +1,11 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'package:get/get.dart';
-
 class MenuDrawerController extends GetxController {
-
-    logout() {
+  logout() {
     GetStorage().remove('token');
     GetStorage().remove('user');
     Get.offAllNamed('/login');
-
   }
 }
 

@@ -1,4 +1,3 @@
-import 'package:app_asegurate/pages/menu/menu_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -9,6 +8,7 @@ import '../../utils.dart';
 import 'news_page_controller.dart';
 
 class NewsPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
   const NewsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

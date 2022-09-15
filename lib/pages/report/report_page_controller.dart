@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils.dart';
-
 class ReportPageController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
   var selectedRadio = "".obs;
@@ -14,18 +12,17 @@ class ReportPageController extends GetxController {
     String textIdentification,
   ) {
     if (textIdentification.isEmpty) {
-      Get.snackbar('formulario no valido ',
-          'Debes ingresar un numero de cedula o Celular',
+      Get.snackbar('Formulario no válido',
+          'Debes ingresar un número de documento o celular',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
     }
     if (selectedRadio.value == "") {
-      Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
+      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-      print(selectedRadio.value);
     }
 
     return true;
@@ -40,10 +37,5 @@ void register(BuildContext context) async {
     Get.find<ReportPageController>().textIdentification.text;
     Get.find<ReportPageController>().textIdentification.clear();
     Get.back();
-
-    print('formulario valido' +
-        textIdentification +
-        ' ' +
-        Get.find<ReportPageController>().selectedRadio.value);
   }
 }
