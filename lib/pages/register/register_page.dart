@@ -6,6 +6,7 @@ import '../../utils.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPageController con = Get.put(RegisterPageController());
+  //TODO: Review this key, flutter says it is necessary
   RegisterPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -120,15 +121,16 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _logoImage(BuildContext context) {
-    return Center(
-      child: Image.asset(
-        'assets/images/logo.png',
-        width: MediaQuery.of(context).size.width * 0.6,
-        height: MediaQuery.of(context).size.height * 0.2,
-      ),
-    );
-  }
+  //TODO: Review this container is not being used
+  // Widget _logoImage(BuildContext context) {
+  //   return Center(
+  //     child: Image.asset(
+  //       'assets/images/logo.png',
+  //       width: MediaQuery.of(context).size.width * 0.6,
+  //       height: MediaQuery.of(context).size.height * 0.2,
+  //     ),
+  //   );
+  // }
 
   Widget _boxFormRegisterPhone(context) {
     return Container(

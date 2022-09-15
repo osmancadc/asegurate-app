@@ -6,9 +6,13 @@ import 'package:app_asegurate/pages/report/report_page_controller.dart';
 import '../../utils.dart';
 
 class ReportPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
+  const ReportPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    ReportPageController con = Get.put(ReportPageController());
+    //The value con was not being used
+    Get.put(ReportPageController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
@@ -234,7 +238,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Cedula de ciudadania',
+              'Cédula de ciudadanía',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -268,7 +272,7 @@ Widget _radioButton(context) {
 }
 
 Widget _textRating(context) {
-  ReportPageController con = Get.put(ReportPageController());
+  Get.put(ReportPageController());
   return Container(
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.08,
@@ -312,7 +316,7 @@ Widget _buttonSearchArchive(context) {
                 ),
               ),
               onPressed: () async {
-                final result = await FilePicker.platform.pickFiles(
+                await FilePicker.platform.pickFiles(
                   type: FileType.custom,
                   allowedExtensions: ['jpg', 'png', 'pdf'],
                 );
@@ -326,7 +330,7 @@ Widget _buttonSearchArchive(context) {
 }
 
 Widget _textComments(context) {
-  ReportPageController con = Get.put(ReportPageController());
+  Get.put(ReportPageController());
   return Container(
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.12,
@@ -353,14 +357,14 @@ Widget _textIdentification(context) {
       controller: con.textIdentification,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-          hintText: 'Identificación o Celular',
+          hintText: 'Número de documento o celular',
           prefixIcon: Icon(Icons.person_add_alt_1_rounded)),
     ),
   );
 }
 
 Widget _buttomSearch(BuildContext context) {
-  ReportPageController con = Get.put(ReportPageController());
+  Get.put(ReportPageController());
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),

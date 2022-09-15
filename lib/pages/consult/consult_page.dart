@@ -7,9 +7,12 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class ConsultPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
+  const ConsultPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    ConsultController con = Get.put(ConsultController());
+    Get.put(ConsultController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
@@ -93,7 +96,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Cedula de Ciudadania',
+              'Cédula de Ciudadanía',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -136,7 +139,7 @@ Widget _textIdentification(context) {
       controller: con.textIdentification,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-          hintText: 'Identificación o Celular',
+          hintText: 'Número de documento o celular',
           prefixIcon: Icon(Icons.person_add_alt_1_rounded)),
     ),
   );

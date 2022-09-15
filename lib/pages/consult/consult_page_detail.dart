@@ -8,6 +8,7 @@ import '../../utils.dart';
 
 class ConsultPageDetail extends StatelessWidget {
   DetailpageController con = Get.put(DetailpageController());
+  //TODO: Review this key, flutter says it is necessary
   ConsultPageDetail({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ import '../../utils.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePageController con = Get.put(ProfilePageController());
+  //TODO: Review this key, flutter says it is necessary
   ProfilePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -160,7 +161,7 @@ class ProfilePage extends StatelessWidget {
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
-          hintText: 'Numero de Celular',
+          hintText: 'Número de Celular',
         ),
       ),
     );
@@ -174,7 +175,7 @@ class ProfilePage extends StatelessWidget {
       child: TextField(
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          hintText: 'Numero de Identificación',
+          hintText: 'Número de Documento',
         ),
       ),
     );
@@ -188,26 +189,22 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _profileCityCountryText() {
-    return Container(
-      child: Text(
-        'Bogotá, Colombia',
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 15,
-        ),
+    return Text(
+      'Bogotá, Colombia',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 15,
       ),
     );
   }
 
   Widget _profileName() {
-    return Container(
-      child: Text(
-        'Jhon Doe',
-        style: TextStyle(
-          color: colorFont,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      'Jhon Doe',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

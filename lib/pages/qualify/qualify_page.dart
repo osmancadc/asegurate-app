@@ -6,9 +6,12 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class QualifyPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
+  const QualifyPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    QualifyController con = Get.put(QualifyController());
+    Get.put(QualifyController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
@@ -223,7 +226,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Cedula de Ciudadania',
+              'Cédula de Ciudadanía',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -243,7 +246,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Nequi Daviplata',
+              'Nequi o Daviplata',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -263,7 +266,7 @@ Widget _textRating(context) {
     height: MediaQuery.of(context).size.height * 0.08,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: TextField(
-      controller: con.puntuationController,
+      controller: con.scoreController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
         hintText: 'Puntuación {1-100}',
@@ -300,7 +303,7 @@ Widget _textIdentification(context) {
       controller: con.documentController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-          hintText: 'Identificación o Celular',
+          hintText: 'Número de documento o celular',
           prefixIcon: Icon(Icons.person_add_alt_1_rounded)),
     ),
   );

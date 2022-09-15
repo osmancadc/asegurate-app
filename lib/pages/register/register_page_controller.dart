@@ -1,16 +1,11 @@
 import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
-import 'dart:convert';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
-
-import '../../utils.dart';
 
 class RegisterPageController extends GetxController {
   TextEditingController userController = TextEditingController();
@@ -101,9 +96,10 @@ class RegisterPageController extends GetxController {
                   textAlign: TextAlign.center),
               actions: <Widget>[
                 ElevatedButton(
-                  child: const Text('Ok',
-                 style:  TextStyle(fontSize: 20, color: Colors.green),
-                 textAlign: TextAlign.center,
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(fontSize: 20, color: Colors.green),
+                    textAlign: TextAlign.center,
                   ),
                   onPressed: () {
                     Get.back();
@@ -134,7 +130,7 @@ class RegisterPageController extends GetxController {
   ) {
     if (user.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes Agregar un nombre de Usuario',
+          'Formulario no válido ', 'Debes agregar un nombre de usuario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -142,7 +138,7 @@ class RegisterPageController extends GetxController {
     }
     if (document.isEmpty) {
       Get.snackbar(
-          'formulario no valido ', 'Debes ingresar el numero de cedula',
+          'Formulario no válido ', 'Debes ingresar un número de cédula',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -150,28 +146,29 @@ class RegisterPageController extends GetxController {
     }
     if (document.contains(RegExp(r'[a-zA-Z]'))) {
       Get.snackbar(
-          'formulario no valido ', 'Debes ingresar un numero de cedula valido',
+          'Formulario no válido ', 'Debes ingresar un número de cédula válido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (name.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el nombre',
+      Get.snackbar('Formulario no válido ', 'Debes ingresar un nombre',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (lastName.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el apellido',
+      Get.snackbar('Formulario no válido ', 'Debes ingresar un apellido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (email.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el correo',
+      Get.snackbar(
+          'Formulario no válido ', 'Debes ingresar un correo electrónico',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -181,14 +178,16 @@ class RegisterPageController extends GetxController {
         !email.contains('.') ||
         email.length < 6 ||
         email.length > 50) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar un email valido',
+      Get.snackbar('Formulario no válido ',
+          'Debes ingresar un correo electrónico válido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (phone.isEmpty) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar el telefono',
+      Get.snackbar(
+          'Formulario no válido ', 'Debes ingresar un número de celular',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -200,7 +199,7 @@ class RegisterPageController extends GetxController {
         !phone.startsWith('3') ||
         phone.contains(RegExp(r'[a-zA-Z]')) ||
         !phone.contains(RegExp(r'[0-9]'))) {
-      Get.snackbar('formulario no valido ', 'Debes ingresar  telefono valido',
+      Get.snackbar('Formulario no válido ', 'Debes ingresar un celular válido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -208,7 +207,7 @@ class RegisterPageController extends GetxController {
     }
 
     if (password == '') {
-      Get.snackbar('formulario no valido ', 'Debes ingresar la contraseña',
+      Get.snackbar('Formulario no válido ', 'Debes ingresar una contraseña',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -218,29 +217,29 @@ class RegisterPageController extends GetxController {
         !password.contains(RegExp(r'[a-z]')) ||
         !password.contains(RegExp(r'[0-9]')) ||
         password.length < 8) {
-      Get.snackbar('formulario no valido ',
-          'la Contraseña debe tener al menos 8 caracteres, 1 mayuscula  1 numero y 1 caracter especial',
+      Get.snackbar('Formulario no válido ',
+          'La contraseña debe tener mayúsculas, minúsculas y caracteres especiales',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (confirmPassword == '') {
-      Get.snackbar('formulario no valido ', 'Debes confirmar la contraseña',
+      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (password != confirmPassword) {
-      Get.snackbar('formulario no valido ', 'Las contraseñas no coinciden',
+      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (selectedRadio.value == "") {
-      Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
+      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);

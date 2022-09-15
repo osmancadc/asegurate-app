@@ -5,19 +5,18 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class LogoutPage extends StatelessWidget {
+  //TODO: Review this key, flutter says it is necessary
   const LogoutPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: colorSecondary,
-      
         body: SingleChildScrollView(
           child: Column(
             children: [
-               SizedBox(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.07,
-              
               ),
               _logoImage(context),
               _formBox(context),
@@ -63,7 +62,6 @@ class LogoutPage extends StatelessWidget {
           'Registrarse',
           style: TextStyle(
             color: Colors.white,
-        
             fontSize: 18,
           ),
         ),
@@ -167,38 +165,39 @@ class LogoutPage extends StatelessWidget {
     );
   }
 
-  Widget _boxFormConfirmPassword(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
-      ),
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.01,
-        left: 30,
-        right: 30,
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: const TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'Confirmar Contraseña',
-            labelStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  //TODO: Review this container is not being used
+  // Widget _boxFormConfirmPassword(BuildContext context) {
+  //   return Container(
+  //     decoration: const BoxDecoration(
+  //       color: Colors.white,
+  //       boxShadow: <BoxShadow>[
+  //         BoxShadow(
+  //           color: Colors.black54,
+  //           blurRadius: 15,
+  //           offset: Offset(0, 0.75),
+  //         ),
+  //       ],
+  //     ),
+  //     margin: EdgeInsets.only(
+  //       top: MediaQuery.of(context).size.height * 0.01,
+  //       left: 30,
+  //       right: 30,
+  //     ),
+  //     child: Container(
+  //       padding: const EdgeInsets.symmetric(horizontal: 10),
+  //       child: const TextField(
+  //         obscureText: true,
+  //         decoration: InputDecoration(
+  //           labelText: 'Confirmar Contraseña',
+  //           labelStyle: TextStyle(
+  //             color: Colors.black,
+  //             fontSize: 16,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _logoImage(BuildContext context) {
     return Center(

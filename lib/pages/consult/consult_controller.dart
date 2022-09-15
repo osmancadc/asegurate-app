@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
-import '../../utils.dart';
-
 class ConsultController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
 
@@ -28,10 +26,8 @@ class ConsultController extends GetxController {
         document: identification,
         type: selectedRadio.value,
       );
-      print(getscore.toJson());
 
-      Response response = await usersProvider.getScore(getscore );
-      print(response.body);
+      Response response = await usersProvider.getScore(getscore);
       progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
@@ -62,22 +58,20 @@ class ConsultController extends GetxController {
     String value,
   ) {
     if (textIdentification.isEmpty) {
-      Get.snackbar('formulario no valido ',
-          'Debes ingresar un numero de cedula o Celular',
+      Get.snackbar('Formulario no válido ', '',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
     if (selectedRadio.value == "") {
-      Get.snackbar('formulario no valido ', 'Debes seleccionar una opcion',
+      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-      print(selectedRadio.value);
       return false;
     }
 
     return true;
   }
-} 
+}
