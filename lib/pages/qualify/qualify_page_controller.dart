@@ -183,7 +183,7 @@ los campos''',
 
     if (score == 0) {
       Get.snackbar('Formulario no válido ',
-          'Debes Agregar un número valido de calificación',
+          'Debes Agregar un número válido de calificación',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
