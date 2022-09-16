@@ -8,8 +8,6 @@ import '../../utils.dart';
 
 class ConsultPageDetail extends StatelessWidget {
   DetailpageController con = Get.put(DetailpageController());
-  //TODO: Review this key, flutter says it is necessary
-  ConsultPageDetail({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -34,26 +32,35 @@ class ConsultPageDetail extends StatelessWidget {
           drawer: MenuDrawer().menuDrawer(context),
           backgroundColor: colorSecondary,
           body: SingleChildScrollView(
-            child: Stack(children: [
-              _consultBackgroundImage(context),
-              _consultShapeImage(context),
-              Column(
-                children: [
-                  _consultCircleImage(context),
-                  _consultName(),
-                  _consultDocument(),
-                  _ratingBar(),
-                  _imageCertified(context),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _reputation(context),
-                  _score(context),
-                ],
-              )
-            ]),
+            child: Stack(
+              children: [
+                Column(children: [
+                  _consultBackgroundImage(context),
+                  _consultShapeImage(context),
+                ]),
+                Column(
+                  children: [
+                    _consultCircleImage(context),
+                    _consultName(),
+                    _consultDocument(),
+                    _ratingBar(),
+                    _imageCertified(context),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.06,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _reputation(context),
+                      _score(context),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ));
   }
@@ -61,7 +68,7 @@ class ConsultPageDetail extends StatelessWidget {
   Widget _imageCertified(BuildContext context) {
     return Container(
       margin:
-          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.05),
+          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.2),
       child: con.certified.value == true
           ? Image.asset('assets/images/certified.png', width: 400, height: 300)
           : Image.asset('assets/images/not_certified.png',
@@ -138,20 +145,22 @@ class ConsultPageDetail extends StatelessWidget {
   }
 
   Widget _ratingBar() {
-    return RatingBar.builder(
-      initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
-      itemSize: 35,
-      minRating: 1,
-      ignoreGestures: true,
-      direction: Axis.horizontal,
-      allowHalfRating: false,
-      itemCount: 5,
-      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-      itemBuilder: (context, _) => Icon(
-        Icons.star,
-        color: Colors.amber,
+    return Container(
+      child: RatingBar.builder(
+        initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
+        itemSize: 35,
+        minRating: 1,
+        ignoreGestures: true,
+        direction: Axis.horizontal,
+        allowHalfRating: false,
+        itemCount: 5,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+        itemBuilder: (context, _) => Icon(
+          Icons.star,
+          color: Colors.amber,
+        ),
+        onRatingUpdate: (value2) {},
       ),
-      onRatingUpdate: (value2) {},
     );
   }
 
