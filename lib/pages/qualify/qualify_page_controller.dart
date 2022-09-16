@@ -139,26 +139,9 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
-    if (document.contains(RegExp(r'[a-zA-Z]'))) {
-      Get.snackbar('Formulario no válido ',
-          'Debes Agregar un documento de identidad válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (document.contains(RegExp(r'[,]'))) {
-      Get.snackbar('Formulario no válido ',
-          'Debes Agregar un documento de identidad sin coma',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (document.contains(RegExp(r'[.]'))) {
-      Get.snackbar('Formulario no válido ',
-          'Debes Agregar un documento de identidad sin punto',
+    if (document.contains(RegExp(r'[^0-9]'))) {
+      Get.snackbar(
+          'Formulario no válido ', 'El documento de identidad no es válido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
