@@ -49,20 +49,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: HexColor('#583BB6'),
-          colorScheme: ColorScheme(
-              primary: HexColor('#005074'),
-              secondary: HexColor('#664FB2'),
-              brightness: Brightness.light,
-              onBackground: Colors.grey,
-              onPrimary: Colors.grey,
-              surface: Colors.grey,
-              error: Colors.grey,
-              onError: Colors.grey,
-              onSecondary: Colors.grey,
-              background: Colors.grey,
-              onSurface: Colors.grey,
-              primaryContainer: HexColor('#3FD7B2'),
-              secondaryContainer: HexColor('#00FFB4'))),
+     ),
     );
   }
 }
