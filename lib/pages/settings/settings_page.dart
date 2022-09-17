@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class SettingsPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const SettingsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

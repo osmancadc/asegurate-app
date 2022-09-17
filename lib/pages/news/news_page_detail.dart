@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class NewsDetailPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const NewsDetailPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

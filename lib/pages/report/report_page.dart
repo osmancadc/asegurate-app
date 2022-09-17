@@ -6,7 +6,6 @@ import 'package:app_asegurate/pages/report/report_page_controller.dart';
 import '../../utils.dart';
 
 class ReportPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const ReportPage({Key? key}) : super(key: key);
 
   @override

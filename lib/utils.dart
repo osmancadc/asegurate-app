@@ -1,5 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 
 var colorPrimary = HexColor('#583BB6');
 var colorSecondary = HexColor('#664FB2');
@@ -19,16 +20,20 @@ var colorOnErrorVariant = HexColor('#000000');
 var colorOnBackgroundVariant = HexColor('#000000');
 var colorFont = HexColor('#E2E4E5');
 
-var textTitle = Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        'ASEGUR4TE',
-        style: TextStyle(
-          fontSize: 30.0,
-          fontWeight: FontWeight.bold,
-          color: colorFontIcon,
-          fontFamily: "TradeGothicInline" 
-        ),
-      )
-    ]);
+var textTitle = Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+  Text(
+    'ASEGUR4TE',
+    style: TextStyle(
+        fontSize: 30.0,
+        fontWeight: FontWeight.bold,
+        color: colorFontIcon,
+        fontFamily: "TradeGothicInline"),
+  )
+]);
+
+String formatDocument(String document) {
+  int documentNumber = int.parse(document);
+  return intl.NumberFormat.decimalPattern()
+      .format(documentNumber)
+      .replaceAll(",", ".");
+}

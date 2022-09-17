@@ -4,8 +4,8 @@ import 'package:app_asegurate/pages/menu/menu_page_controller.dart';
 import '../../utils.dart';
 
 class MenuPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const MenuPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

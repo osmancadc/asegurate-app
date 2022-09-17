@@ -13,7 +13,6 @@ Future main() async {
 }
 
 class MyApp extends StatefulWidget {
-  //TODO: Review this key, flutter says it is necessary
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -47,9 +46,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
       ],
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          primaryColor: HexColor('#583BB6'),
-     ),
+        primarySwatch: Colors.blue,
+        primaryColor: HexColor('#583BB6'),
+      ),
     );
   }
 }

@@ -2,8 +2,7 @@ import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
 
 class HelpPage extends StatefulWidget {
-  //TODO: Review this key, flutter says it is necessary
-  HelpPage({Key? key}) : super(key: key);
+  const HelpPage({Key? key}) : super(key: key);
 
   @override
   State<HelpPage> createState() => _HelpPageState();
