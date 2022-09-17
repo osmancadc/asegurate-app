@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class ConsultPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const ConsultPage({Key? key}) : super(key: key);
 
   @override

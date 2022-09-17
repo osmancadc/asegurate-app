@@ -18,10 +18,10 @@ class LogoutPageController extends GetxController {
 
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final String ENCRYPTION_KEY = Environment.ENCRYPTION_KEY;
+  final String encryptionKey = Environment.ENCRYPTION_KEY;
 
   _encrypt(String text) {
-    final key = encrypt.Key.fromUtf8(ENCRYPTION_KEY);
+    final key = encrypt.Key.fromUtf8(encryptionKey);
     final iv = encrypt.IV.fromLength(16);
     final encrypter = encrypt.Encrypter(encrypt.AES(key));
     final encrypted = encrypter.encrypt(text, iv: iv);

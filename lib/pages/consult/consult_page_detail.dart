@@ -2,14 +2,26 @@ import 'package:app_asegurate/pages/consult/detail_page_controller.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:blur/blur.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../utils.dart';
 
 class ConsultPageDetail extends StatelessWidget {
-  DetailpageController con = Get.put(DetailpageController());
-  //TODO: Review this key, flutter says it is necessary
   ConsultPageDetail({Key? key}) : super(key: key);
+
+  final DetailpageController con = Get.put(DetailpageController());
+
+  Color getColorScale(int score) {
+    if (score > 0 && score < 50) {
+      return Colors.deepOrangeAccent;
+    } else if (score < 80) {
+      return Colors.amber;
+    } else {
+      return Colors.green;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -36,12 +48,13 @@ class ConsultPageDetail extends StatelessWidget {
           body: SingleChildScrollView(
             child: Stack(children: [
               _consultBackgroundImage(context),
-              _consultShapeImage(context),
               Column(
                 children: [
                   _consultCircleImage(context),
                   _consultName(),
+                  SizedBox(height: 5),
                   _consultDocument(),
+                  SizedBox(height: 5),
                   _ratingBar(),
                   _imageCertified(context),
                 ],
@@ -61,22 +74,22 @@ class ConsultPageDetail extends StatelessWidget {
   Widget _imageCertified(BuildContext context) {
     return Container(
       margin:
-          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.05),
-      child: con.certified.value == true
-          ? Image.asset('assets/images/certified.png', width: 400, height: 300)
-          : Image.asset('assets/images/not_certified.png',
-              width: 400, height: 300),
+          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.06),
+      child: con.certified.value
+          ? Image.asset('assets/images/certified.png', width: 500, height: 320)
+          : null,
     );
   }
 
   Widget _reputation(BuildContext context) {
+    final reputation = con.reputation.value;
     return Column(children: [
       Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.93),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 1.05),
         child: const Text(
           'Reputación',
           style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
         ),
       ),
       SizedBox(
@@ -86,7 +99,7 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.green,
+            color: getColorScale(reputation),
           ),
           width: 70,
           height: 70,
@@ -94,9 +107,9 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(
-            con.reputation.value.toString(),
+            reputation.toString(),
             style: const TextStyle(
-                color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
           ),
         ),
       ]),
@@ -104,13 +117,14 @@ class ConsultPageDetail extends StatelessWidget {
   }
 
   Widget _score(BuildContext context) {
+    final score = con.score.value;
     return Column(children: [
       Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.93),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 1.05),
         child: const Text(
           'Calificación',
           style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
         ),
       ),
       SizedBox(
@@ -120,7 +134,7 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.yellow,
+            color: getColorScale(score),
           ),
           width: 70,
           height: 70,
@@ -128,9 +142,9 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(
-            con.score.value.toString(),
+            score.toString(),
             style: const TextStyle(
-                color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
           ),
         ),
       ]),
@@ -140,16 +154,17 @@ class ConsultPageDetail extends StatelessWidget {
   Widget _ratingBar() {
     return RatingBar.builder(
       initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
-      itemSize: 35,
-      minRating: 1,
+      itemSize: 40.0,
+      minRating: 0,
       ignoreGestures: true,
       direction: Axis.horizontal,
       allowHalfRating: false,
+      unratedColor: Colors.white70,
       itemCount: 5,
       itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
       itemBuilder: (context, _) => Icon(
         Icons.star,
-        color: Colors.amber,
+        color: Colors.yellow,
       ),
       onRatingUpdate: (value2) {},
     );
@@ -175,7 +190,7 @@ class ConsultPageDetail extends StatelessWidget {
     return con.document.value == ''
         ? Container()
         : Text(
-            con.document.value,
+            formatDocument(con.document.value),
             style: TextStyle(
               color: colorFont,
               fontSize: 17,
@@ -197,26 +212,15 @@ class ConsultPageDetail extends StatelessWidget {
     );
   }
 
-  Widget _consultShapeImage(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.47,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.7),
-            blurRadius: 10.0,
-            spreadRadius: 1.0)
-      ]),
-    );
-  }
-
   Widget _consultBackgroundImage(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
           ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
-          : Image.network(con.photo.value, fit: BoxFit.cover),
+              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
+          : Image.network(con.photo.value, fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
     );
   }
 }

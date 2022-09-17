@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class QualifyPage extends StatelessWidget {
-  //TODO: Review this key, flutter says it is necessary
   const QualifyPage({Key? key}) : super(key: key);
 
   @override
@@ -269,7 +268,7 @@ Widget _textRating(context) {
       controller: con.scoreController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        hintText: 'Puntuación {1-100}',
+        hintText: 'Puntuación (1-100)',
       ),
     ),
   );

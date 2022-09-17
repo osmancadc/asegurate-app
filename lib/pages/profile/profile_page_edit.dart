@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class ProfilePageEdit extends StatelessWidget {
-  ProfilePageEditController con = Get.put(ProfilePageEditController());
-  //TODO: Review this key, flutter says it is necessary
   ProfilePageEdit({Key? key}) : super(key: key);
+
+  final con = Get.put(ProfilePageEditController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

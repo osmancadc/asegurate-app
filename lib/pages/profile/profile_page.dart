@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import '../../utils.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePageController con = Get.put(ProfilePageController());
-  //TODO: Review this key, flutter says it is necessary
   ProfilePage({Key? key}) : super(key: key);
+
+  final con = Get.put(ProfilePageController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,7 +183,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _profileSocialImage(BuildContext context, Image image) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.15,
       child: Padding(padding: const EdgeInsets.all(5.0), child: image),
     );

@@ -49,7 +49,7 @@ class QualifyController extends GetxController {
         type: selectedRadio.value,
         name: name,
         lastName: lastName,
-        score: score as int,
+        score: score,
         comments: comments,
       );
       Response response = await qualifyProviders.uploadScore(uploadScore);
@@ -133,12 +133,13 @@ los campos''',
   ) {
     if (document.isEmpty) {
       Get.snackbar(
-          'Formulario no válido ', 'Debes Agregar un documento de identidad',
+          'Formulario no válido ', 'Debes agregar un documento de identidad',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
+
     if (document.contains(RegExp(r'[^0-9]'))) {
       Get.snackbar(
           'Formulario no válido ', 'El documento de identidad no es válido',
@@ -156,9 +157,10 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
+
     if (name.isEmpty) {
       Get.snackbar(
-          'Formulario no válido ', 'Debes Agregar un nombre de Usuario',
+          'Formulario no válido ', 'Debes agregar un nombre de Usuario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -166,47 +168,16 @@ los campos''',
     }
     if (lastName.isEmpty) {
       Get.snackbar(
-          'Formulario no válido ', 'Debes Agregar un apellido de Usuario',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (score.toInt() == RegExp(r'^[0-100]+$')) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes Agregar un número de calificación',
+          'Formulario no válido ', 'Debes agregar un apellido de Usuario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
 
-    if (score == 0) {
-      Get.snackbar('Formulario no válido ',
-          'Debes Agregar un número válido de calificación',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (score > 100) {
+    if (score < 1 || score > 100 || score.isNaN) {
       Get.snackbar(
-          'Formulario no válido ', 'La puntuación no puede ser mayor a 100',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (score < 0) {
-      Get.snackbar(
-          'Formulario no válido ', 'La puntuación no puede ser menor a 0',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (score.isNaN) {
-      Get.snackbar('Formulario no válido ', 'Debes Agregar una calificación',
+          'Formulario no válido ', 'Debes agregar una puntuación válida',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
@@ -214,20 +185,22 @@ los campos''',
     }
 
     if (comments.isEmpty) {
-      Get.snackbar('Formulario no válido ', 'Debes Agregar un comentario',
+      Get.snackbar('Formulario no válido ', 'Debes agregar un comentario',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
+
     if (type.isEmpty) {
       Get.snackbar(
-          'Formulario no válido ', 'Debes Agregar un tipo de documento',
+          'Formulario no válido ', 'Debes agregar un tipo de documento',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
+
     return true;
   }
 
