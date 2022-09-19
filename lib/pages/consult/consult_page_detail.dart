@@ -12,16 +12,6 @@ class ConsultPageDetail extends StatelessWidget {
 
   final DetailpageController con = Get.put(DetailpageController());
 
-  Color getColorScale(int score) {
-    if (score > 0 && score < 50) {
-      return Colors.deepOrangeAccent;
-    } else if (score < 80) {
-      return Colors.amber;
-    } else {
-      return Colors.green;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -99,7 +89,7 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: getColorScale(reputation),
+            color: con.getColorScale(reputation),
           ),
           width: 70,
           height: 70,
@@ -134,7 +124,7 @@ class ConsultPageDetail extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: getColorScale(score),
+            color: con.getColorScale(score),
           ),
           width: 70,
           height: 70,

@@ -1,6 +1,17 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class DetailpageController extends GetxController {
+  Color getColorScale(int score) {
+    if (score > 0 && score < 50) {
+      return Colors.deepOrangeAccent;
+    } else if (score < 80) {
+      return Colors.amber;
+    } else {
+      return Colors.green;
+    }
+  }
+
   var arguments = Get.arguments;
   var name = "".obs;
   var document = "".obs;
