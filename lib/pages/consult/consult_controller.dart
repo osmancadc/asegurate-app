@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class ConsultController extends GetxController {
+
   TextEditingController textIdentification = TextEditingController();
 
   var selectedRadio = "".obs;
