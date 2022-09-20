@@ -5,11 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:get_storage/get_storage.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 import 'package:get/get.dart';
 
 class LogoutPageController extends GetxController {
+  
   String token = GetStorage().read('token') ?? "";
+
+routeRol () {
+        
+}
+  
   logout() {
     GetStorage().remove('token');
     GetStorage().remove('user');
@@ -72,6 +79,15 @@ class LogoutPageController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         GetStorage().write('token', response.body["token"]);
+        Map<String, dynamic> payload = Jwt.parseJwt(GetStorage().read('token'));
+        print(payload["role"]);
+
+        if (payload["role"] == "seller") {
+          Get.offAllNamed('/admin');
+        } else {
+          Get.offAllNamed('/home');
+        }
+
         Get.offAllNamed('/consult');
       } else {
         showDialog(

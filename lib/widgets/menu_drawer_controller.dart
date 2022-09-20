@@ -1,5 +1,10 @@
 import 'package:get/get.dart';
+
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:get_storage/get_storage.dart';
+
+Map<String, dynamic> payload = Jwt.parseJwt(GetStorage().read('token'));
+String rol = payload['role'];
 
 class MenuDrawerController extends GetxController {
   logout() {

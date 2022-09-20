@@ -26,9 +26,16 @@ class MenuDrawer extends GetxController {
                 GestureDetector(
                     onTap: () => gotoConsultPage(),
                     child: _iconMenu(Icons.list, 'Consultar', context)),
-                GestureDetector(
-                    onTap: () => gotoQualififyPage(),
-                    child: _iconMenu(Icons.rate_review, 'Calificar', context)),
+                rol == 'seller'
+                    ? GestureDetector(
+                        onTap: () => gotoQualififyPage(),
+                        child:
+                            _iconMenu(Icons.rate_review, 'Calificar', context))
+                    : GestureDetector(
+                        onTap: () => gotoProfilePage(),
+                        child: _iconMenu(Icons.person, 'Perfil', context),
+                      ),
+
                 // GestureDetector(
                 //   onTap: () => gotoReportPage(),
                 //   child: _iconMenu(Icons.report, 'Reportar', context),
@@ -37,18 +44,27 @@ class MenuDrawer extends GetxController {
                 //   onTap: () => gotoNewsPage(),
                 //   child: _iconMenu(Icons.notifications, 'Noticias', context),
                 // ),
-                GestureDetector(
-                  onTap: () => gotoProfilePage(),
-                  child: _iconMenu(Icons.person, 'Perfil', context),
-                ),
+                rol == "seller"
+                    ? GestureDetector(
+                        onTap: () => gotoProfilePage(),
+                        child: _iconMenu(Icons.person, 'Perfil', context),
+                      )
+                    : GestureDetector(
+                        onTap: () => con.logout(),
+                        child: _iconMenu(Icons.exit_to_app, 'Salir', context),
+                      ),
+
                 // GestureDetector(
                 //   onTap: () => gotoSettingsPage(),
                 //   child: _iconMenu(Icons.settings, 'Ajustes', context),
                 // ),
-                GestureDetector(
-                  onTap: () => con.logout(),
-                  child: _iconMenu(Icons.exit_to_app, 'Salir', context),
-                ),
+                rol == 'seller'
+                    ? GestureDetector(
+                        onTap: () => con.logout(),
+                        child: _iconMenu(Icons.exit_to_app, 'Salir', context),
+                      )
+                    : Container()
+
                 // GestureDetector(
                 //   onTap: () => gotoHelpPage(),
                 //   child: _iconMenu(Icons.help, 'Ayuda', context),

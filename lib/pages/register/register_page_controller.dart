@@ -4,7 +4,7 @@ import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
-
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class RegisterPageController extends GetxController {
