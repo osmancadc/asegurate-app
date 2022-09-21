@@ -9,6 +9,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
 class LogoutPageController extends GetxController {
+  var obscureText = true.obs;
+
+  void toggle() {
+    obscureText.value = !obscureText.value;
+  }
+
   String token = GetStorage().read('token') ?? "";
   logout() {
     GetStorage().remove('token');

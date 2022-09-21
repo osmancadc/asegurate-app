@@ -10,7 +10,8 @@ class LogoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+        child: Obx(
+      () => Scaffold(
         backgroundColor: colorSecondary,
         body: SingleChildScrollView(
           child: Column(
@@ -24,14 +25,17 @@ class LogoutPage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 
   _formBox(BuildContext context) {
+    LogoutPageController con = Get.put(LogoutPageController());
+
     return Column(
       children: [
         _boxFormUser(context),
         _boxFormPassword(context),
+        _recoverPassword(context),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.03,
         ),
@@ -44,25 +48,48 @@ class LogoutPage extends StatelessWidget {
     );
   }
 
+  Widget _recoverPassword(context) {
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '¿Olvidaste tu contraseña?',
+              style: TextStyle(
+                color: colorFont,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buttomRegister(BuildContext context) {
     LogoutPageController con = Get.put(LogoutPageController());
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
       child: ElevatedButton(
         onPressed: () => con.gotoRegisterPage(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          primary: colorOnPrimaryVariant,
-          padding: EdgeInsets.symmetric(vertical: 15),
+          primary: colorOnSecondaryVariant,
+          padding: EdgeInsets.symmetric(vertical: 4),
         ),
         child: const Text(
           'Registrarse',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: 17,
           ),
         ),
       ),
@@ -131,37 +158,58 @@ class LogoutPage extends StatelessWidget {
 
   Widget _boxFormPassword(BuildContext context) {
     LogoutPageController con = Get.put(LogoutPageController());
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black54,
+                blurRadius: 15,
+                offset: Offset(0, 0.75),
+              ),
+            ],
           ),
-        ],
-      ),
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.01,
-        bottom: 20,
-        left: 30,
-        right: 30,
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
-          controller: con.passwordController,
-          obscureText: true,
-          decoration: const InputDecoration(
-            labelText: 'Contraseña',
-            labelStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
+          margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: 20,
+            left: 30,
+            right: 30,
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              controller: con.passwordController,
+              obscureText: con.obscureText.value,
+              decoration: InputDecoration(
+                labelText: 'Contraseña',
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        Container(
+          margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.015,
+            left: MediaQuery.of(context).size.width * 0.73,
+          ),
+          child: TextButton(
+            onPressed: con.toggle,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.transparent,
+              padding: EdgeInsets.symmetric(vertical: 15),
+            ),
+            child: Icon(
+              con.obscureText.value ? Icons.visibility : Icons.visibility_off,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

@@ -11,6 +11,7 @@ class ConsultController extends GetxController {
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
     selectedRadio.value = value;
+
   }
 
   UsersProvider usersProvider = UsersProvider();
@@ -26,13 +27,37 @@ class ConsultController extends GetxController {
       GetScore getscore = GetScore(
         document: identification,
         type: selectedRadio.value,
+
       );
 
       Response response = await usersProvider.getScore(getscore);
+    
       progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
-      } else {
+       
+      }
+      
+      if(response.statusCode == 500){
+                showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Documento no valido'),
+              content: Text(response.statusText!),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+       else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -53,6 +78,7 @@ class ConsultController extends GetxController {
       }
     }
   }
+  
 
   bool isvalidForm(
     String textIdentification,
@@ -71,6 +97,7 @@ class ConsultController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
+     
     }
 
     return true;
