@@ -31,7 +31,8 @@ class PasswordRecoveredPage extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.03,
         ),
-        _buttomSendEmail(context),
+        _textFieldSendEmail(context),
+        _buttomSendEmail(context)
       ],
     );
   }
@@ -50,40 +51,73 @@ class PasswordRecoveredPage extends StatelessWidget {
     );
   }
 
+  Widget _textFieldSendEmail(context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          ),
+        ],
+      ),
+      margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.05,
+          left: 30,
+          right: 30,
+          bottom: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(
+            labelText: 'Correo electrónico',
+            labelStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _textSendEmail(context) {
     return Container(
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).size.height * 0.01,
       ),
       child: Text(
-        "We have sent you an email with a link to reset your password",
+        "Le hemos enviado un correo electrónico con un enlace para restablecer su contraseña",
         style: TextStyle(
-          color: colorPrimary,
+          color: colorFont,
           fontSize: 16,
         ),
       ),
     );
   }
 
-  Widget _buttomSendEmail(context) {
+  Widget _buttomSendEmail(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * 0.05,
-        right: MediaQuery.of(context).size.width * 0.05,
-      ),
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: ElevatedButton(
         onPressed: () {},
-        child: Text(
-          'ENVIAR',
-          style: TextStyle(
-            color: colorFont,
-            fontSize: MediaQuery.of(context).size.width * 0.05,
-          ),
-        ),
         style: ElevatedButton.styleFrom(
-          primary: colorPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
+          ),
+          primary: colorOnPrimaryVariant,
+          padding: EdgeInsets.symmetric(vertical: 15),
+        ),
+        child: const Text(
+          'Enviar',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
           ),
         ),
       ),

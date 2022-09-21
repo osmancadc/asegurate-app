@@ -38,7 +38,7 @@ class QualifyPage extends StatelessWidget {
             _boxForm(context),
             _radioButton(context),
             _boxFormRatingData(context),
-            _rating(context),
+            _sliderRange(context),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
@@ -107,33 +107,6 @@ Widget _commentsRating(context) {
         children: [
           _textComments(context),
         ],
-      ),
-    ),
-  );
-}
-
-Widget _rating(context) {
-  return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.09,
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.01,
-      left: 30,
-      right: 30,
-    ),
-    decoration: const BoxDecoration(
-      color: Colors.white,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 15,
-          offset: Offset(0, 0.75),
-        ),
-      ],
-    ),
-    child: SingleChildScrollView(
-      child: Column(
-        children: [_textRating(context)],
       ),
     ),
   );
@@ -258,21 +231,70 @@ Widget _radioButton(context) {
   );
 }
 
-Widget _textRating(context) {
+Widget _sliderRange(BuildContext context) {
   QualifyController con = Get.put(QualifyController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.08,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: TextField(
-      controller: con.scoreController,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-        hintText: 'Puntuación (1-100)',
-      ),
+    margin: EdgeInsets.only(
+      top: 20,
+      left: 20,
+      right: 20,
+    ),
+    child: Column(
+      children: [
+        Text(
+          'Puntuación: 0 - 100',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Obx(() => Text(
+              con.valueSliderScore.value.toInt().toString(),
+              style: con.valueSliderScore.value.toInt() < 30
+                  ? TextStyle(
+                      color: Colors.red,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)
+                  : TextStyle(
+                      color: Colors.green,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+            )),
+        Obx(() => Slider(
+              value: con.valueSliderScore.value,
+              thumbColor: Colors.white,
+              activeColor: colorPrimary,
+              min: 0,
+              max: 100,
+              divisions: 10,
+              label: con.valueSliderScore.value.round().toString(),
+              onChanged: (double value) {
+                con.valueSliderScore.value = value;
+              },
+            )),
+      ],
     ),
   );
 }
+
+// Widget _textRating(context) {
+//   QualifyController con = Get.put(QualifyController());
+//   return Container(
+//     width: double.infinity,
+//     height: MediaQuery.of(context).size.height * 0.08,
+//     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//     child: TextField(
+//       controller: con.scoreController,
+//       keyboardType: TextInputType.number,
+//       decoration: const InputDecoration(
+//         hintText: 'Puntuación (1-100)',
+//       ),
+//     ),
+//   );
+// }
 
 Widget _textComments(context) {
   QualifyController con = Get.put(QualifyController());

@@ -206,7 +206,7 @@ class LogoutPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 15),
             ),
             child: Icon(
-              con.obscureText.value ? Icons.visibility : Icons.visibility_off,
+              con.obscureText.value ? Icons.visibility_off : Icons.visibility,
               color: Colors.black,
             ),
           ),
