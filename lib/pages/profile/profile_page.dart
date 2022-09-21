@@ -12,60 +12,60 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorSecondary,
-      appBar: AppBar(
-        backgroundColor: colorPrimary,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: colorFontIcon,
-              size: MediaQuery.of(context).size.width * 0.12,
+    return Obx(() => Scaffold(
+          backgroundColor: colorSecondary,
+          appBar: AppBar(
+            backgroundColor: colorPrimary,
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: colorFontIcon,
+                  size: MediaQuery.of(context).size.width * 0.12,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
             ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+            title: textTitle,
+            titleSpacing: 00.3,
+            centerTitle: true,
+            toolbarHeight: 60.2,
+            toolbarOpacity: 0.8,
           ),
-        ),
-        title: textTitle,
-        titleSpacing: 00.3,
-        centerTitle: true,
-        toolbarHeight: 60.2,
-        toolbarOpacity: 0.8,
-      ),
-      drawer: MenuDrawer().menuDrawer(context),
-      body: SingleChildScrollView(
-        child: Stack(children: [
-          _profileBackgroundImage(context),
-          _profileShapeImage(context),
-          Column(
-            children: [
-              _profileCircleImage(context),
-              _profileName(),
-              _profileCityCountryText(),
+          drawer: MenuDrawer().menuDrawer(context),
+          body: SingleChildScrollView(
+            child: Stack(children: [
+              _profileBackgroundImage(context),
+              _profileShapeImage(context),
               Column(
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/instagram.png')),
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/facebook.png')),
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/twitter.png')),
+                  _profileCircleImage(context),
+                  _profileName(),
+                  _profileCityCountryText(),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          _profileSocialImage(context,
+                              Image.asset('assets/images/instagram.png')),
+                          _profileSocialImage(context,
+                              Image.asset('assets/images/facebook.png')),
+                          _profileSocialImage(context,
+                              Image.asset('assets/images/twitter.png')),
+                        ],
+                      ),
+                      _boxFormEmail(context),
+                      _boxFormCellPhone(context),
+                      _boxFormIdentification(context),
+                      _buttomProfileEdit(context)
                     ],
-                  ),
-                  _boxFormEmail(context),
-                  _boxFormCellPhone(context),
-                  _boxFormIdentification(context),
-                  _buttomProfileEdit(context)
+                  )
                 ],
-              )
-            ],
+              ),
+            ]),
           ),
-        ]),
-      ),
-    );
+        ));
   }
 
   Widget _boxFormIdentification(context) {
@@ -81,8 +81,8 @@ class ProfilePage extends StatelessWidget {
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
+            blurRadius: 1,
+            offset: Offset(0, 0.50),
           ),
         ],
       ),
@@ -105,8 +105,8 @@ class ProfilePage extends StatelessWidget {
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
+            blurRadius: 1,
+            offset: Offset(0, 0.50),
           ),
         ],
       ),
@@ -129,8 +129,8 @@ class ProfilePage extends StatelessWidget {
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
+            blurRadius: 1,
+            offset: Offset(0, 0.50),
           ),
         ],
       ),
@@ -142,13 +142,16 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textIEmailAddress(context) {
     return Container(
+      color: colorSecondary,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          hintText: 'Correo Electrónico',
+      child: Center(
+        child: Text(
+          'Email: ' + con.email.value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
         ),
       ),
     );
@@ -156,13 +159,16 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textCellPhone(context) {
     return Container(
+      color: colorSecondary,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          hintText: 'Número de Celular',
+      child: Center(
+        child: Text(
+          'Celular: ' + con.phone.value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
         ),
       ),
     );
@@ -170,13 +176,16 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textIdentification(context) {
     return Container(
+      color: colorSecondary,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          hintText: 'Número de Documento',
+      child: Center(
+        child: Text(
+          'C.C. ' + con.document.value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
         ),
       ),
     );
@@ -201,9 +210,9 @@ class ProfilePage extends StatelessWidget {
 
   Widget _profileName() {
     return Text(
-      'Jhon Doe',
+      con.name.value,
       style: TextStyle(
-        color: colorFont,
+        color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
@@ -216,7 +225,7 @@ class ProfilePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.height * 0.35,
       child: CircleAvatar(
-        backgroundImage: AssetImage('assets/images/profile.png'),
+        backgroundImage: NetworkImage(con.photo.value),
       ),
     );
   }
@@ -241,8 +250,8 @@ class ProfilePage extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.5,
       child: Hero(
         tag: 'profile',
-        child: Image.asset(
-          'assets/images/profile.png',
+        child: Image.network(
+          con.photo.value,
           fit: BoxFit.cover,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,

@@ -216,12 +216,24 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _logoImage(BuildContext context) {
-    return Center(
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.05,
+      ),
       child: Image.asset(
         'assets/images/logo.png',
-        width: MediaQuery.of(context).size.width * 0.7,
-        height: MediaQuery.of(context).size.height * 0.3,
+        width: MediaQuery.of(context).size.width * 0.5,
       ),
     );
   }
+}
+
+Widget _logoImage(BuildContext context) {
+  return Center(
+    child: Image.asset(
+      'assets/images/logo.png',
+      width: MediaQuery.of(context).size.width * 0.7,
+      height: MediaQuery.of(context).size.height * 0.3,
+    ),
+  );
 }

@@ -23,12 +23,6 @@ var valueSliderScore = 0.0.obs;
     String document = documentController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
-
-    // int score = scoreController.text.trim().isNumericOnly &&
-    //         scoreController.text.isNotEmpty
-    //     ? int.parse(scoreController.text)
-    //     : 0;
-
     String comments = commentsController.text.trim();
 
     if (isValidForm(
@@ -53,7 +47,7 @@ var valueSliderScore = 0.0.obs;
         comments: comments,
         
       );
-      print(uploadScore.toJson());
+
       Response response = await qualifyProviders.uploadScore(uploadScore);
       progressDialog.close();
       if (response.statusCode == 200) {
@@ -176,16 +170,6 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
-
-    // if (score < 1 || score > 100 || score.isNaN) {
-    //   Get.snackbar(
-    //       'Formulario no válido ', 'Debes agregar una puntuación válida',
-    //       snackPosition: SnackPosition.BOTTOM,
-    //       backgroundColor: Colors.green,
-    //       colorText: Colors.white);
-    //   return false;
-    // }
-
     if (comments.isEmpty) {
       Get.snackbar('Formulario no válido ', 'Debes agregar un comentario',
           snackPosition: SnackPosition.BOTTOM,

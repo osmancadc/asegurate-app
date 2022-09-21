@@ -15,12 +15,16 @@ class LogoutPageController extends GetxController {
     obscureText.value = !obscureText.value;
   }
 
+  String readToken = GetStorage().read('token') ?? "";
+
   String token = GetStorage().read('token') ?? "";
+
   logout() {
     GetStorage().remove('token');
     GetStorage().remove('user');
     Get.offAllNamed('/login');
   }
+
   goToRecoverdPassword() {
     Get.toNamed('/passwordRecovered');
   }
@@ -81,6 +85,7 @@ class LogoutPageController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         GetStorage().write('token', response.body["token"]);
+        print(response.body["token"]);
         Get.offAllNamed('/consult');
       } else {
         showDialog(
