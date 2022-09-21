@@ -21,6 +21,9 @@ class LogoutPageController extends GetxController {
     GetStorage().remove('user');
     Get.offAllNamed('/login');
   }
+  goToRecoverdPassword() {
+    Get.toNamed('/passwordRecovered');
+  }
 
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();

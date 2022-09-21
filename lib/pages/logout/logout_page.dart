@@ -49,7 +49,9 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _recoverPassword(context) {
+    LogoutPageController con = Get.put(LogoutPageController());
     return GestureDetector(
+      onTap: con.goToRecoverdPassword,
       child: Container(
         margin: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * 0.05,
@@ -62,7 +64,7 @@ class LogoutPage extends StatelessWidget {
               '¿Olvidaste tu contraseña?',
               style: TextStyle(
                 color: colorFont,
-                fontSize: 12,
+                fontSize: 14,
               ),
             ),
           ],
