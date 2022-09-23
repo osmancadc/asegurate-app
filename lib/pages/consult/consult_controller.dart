@@ -32,7 +32,7 @@ class ConsultController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
-        print(response.body);
+   
       } else {
         showDialog(
           context: context,
