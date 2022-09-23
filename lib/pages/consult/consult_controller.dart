@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class ConsultController extends GetxController {
-
   TextEditingController textIdentification = TextEditingController();
 
   var selectedRadio = "".obs;
@@ -29,9 +28,30 @@ class ConsultController extends GetxController {
       );
 
       Response response = await usersProvider.getScore(getscore);
+
       progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
+      }
+
+      if (response.statusCode == 500) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Error' + response.body['message']),
+              content: Text(response.statusText!),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       } else {
         showDialog(
           context: context,

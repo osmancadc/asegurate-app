@@ -35,6 +35,7 @@ class ConsultPage extends StatelessWidget {
       backgroundColor: colorSecondary,
       body: SingleChildScrollView(
         child: Column(children: [
+          _consultTitle(context),
           _boxForm(context),
           _radioButton(context),
           _buttomSearch(context),
@@ -42,6 +43,19 @@ class ConsultPage extends StatelessWidget {
       ),
     );
   }
+}
+Widget  _consultTitle(context){
+  return Container(
+    margin: EdgeInsets.only(top: 20),
+    child: Text(
+      'CONSULTAR',
+      style: TextStyle(
+        color: colorFont,
+        fontSize: MediaQuery.of(context).size.width * 0.05,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
 }
 
 Widget _boxForm(BuildContext context) {
@@ -115,7 +129,7 @@ Widget _radioButton(context) {
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
             const Text(
-              'Nequi Daviplata',
+              'Nequi o Daviplata',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,

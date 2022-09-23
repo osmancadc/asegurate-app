@@ -8,12 +8,25 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:get/get.dart';
 
-class LogoutPageController extends GetxController {
+class LoginPageController extends GetxController {
+  var obscureText = true.obs;
+
+  void toggle() {
+    obscureText.value = !obscureText.value;
+  }
+
+  String readToken = GetStorage().read('token') ?? "";
+
   String token = GetStorage().read('token') ?? "";
+
   logout() {
     GetStorage().remove('token');
     GetStorage().remove('user');
     Get.offAllNamed('/login');
+  }
+
+  goToRecoverdPassword() {
+    Get.toNamed('/passwordRecovered');
   }
 
   TextEditingController userController = TextEditingController();
@@ -72,6 +85,7 @@ class LogoutPageController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         GetStorage().write('token', response.body["token"]);
+
         Get.offAllNamed('/consult');
       } else {
         showDialog(

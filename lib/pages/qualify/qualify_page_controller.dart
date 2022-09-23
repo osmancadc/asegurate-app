@@ -12,7 +12,7 @@ class QualifyController extends GetxController {
   TextEditingController scoreController = TextEditingController();
   TextEditingController commentsController = TextEditingController();
   QualifyProviders qualifyProviders = QualifyProviders();
-
+var valueSliderScore = 0.0.obs;
   var selectedRadio = "".obs;
 
   onChangedRadio(var value) {
@@ -23,12 +23,6 @@ class QualifyController extends GetxController {
     String document = documentController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
-
-    int score = scoreController.text.trim().isNumericOnly &&
-            scoreController.text.isNotEmpty
-        ? int.parse(scoreController.text)
-        : 0;
-
     String comments = commentsController.text.trim();
 
     if (isValidForm(
@@ -36,7 +30,7 @@ class QualifyController extends GetxController {
       selectedRadio.value,
       name,
       lastName,
-      score,
+     valueSliderScore.value.toInt(), 
       comments,
     )) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
@@ -49,9 +43,11 @@ class QualifyController extends GetxController {
         type: selectedRadio.value,
         name: name,
         lastName: lastName,
-        score: score,
+        score: valueSliderScore.value.toInt(),
         comments: comments,
+        
       );
+
       Response response = await qualifyProviders.uploadScore(uploadScore);
       progressDialog.close();
       if (response.statusCode == 200) {
@@ -174,16 +170,6 @@ los campos''',
           colorText: Colors.white);
       return false;
     }
-
-    if (score < 1 || score > 100 || score.isNaN) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar una puntuación válida',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
     if (comments.isEmpty) {
       Get.snackbar('Formulario no válido ', 'Debes agregar un comentario',
           snackPosition: SnackPosition.BOTTOM,
