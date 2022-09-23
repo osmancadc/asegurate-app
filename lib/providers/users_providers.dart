@@ -2,6 +2,11 @@ import 'package:app_asegurate/models/models.dart';
 import "package:get_storage/get_storage.dart";
 import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UsersProvider extends GetConnect {
   String url = Environment.BASE_URL;
@@ -33,4 +38,6 @@ class UsersProvider extends GetConnect {
 
     return response;
   }
+
+
 }

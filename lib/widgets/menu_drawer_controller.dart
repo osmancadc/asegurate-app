@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -27,10 +28,10 @@ void gotoNewsPage() {
   Get.toNamed('/news');
 }
 
-void gotoProfilePage() {
+void gotoProfilePage(context) {
   Get.toNamed('/profile');
-   final con = Get.put(ProfilePageController());
-  con.getUserById();
+  final con = Get.put(ProfilePageController());
+  con.getUserById(context);
 }
 
 void gotoSettingsPage() {
