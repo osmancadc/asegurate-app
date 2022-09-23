@@ -32,32 +32,13 @@ class ConsultController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
-      }
-
-      if (response.statusCode == 500) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Error' + response.body['message']),
-              content: Text(response.statusText!),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: Text('Cerrar'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
+        print(response.body);
       } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error'),
+              title: Text('Error' + response.statusCode.toString()),
               content: Text(response.statusText!),
               actions: <Widget>[
                 ElevatedButton(
