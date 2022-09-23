@@ -56,10 +56,11 @@ class ProfilePage extends StatelessWidget {
                               Image.asset('assets/images/twitter.png')),
                         ],
                       ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                       _boxFormEmail(context),
                       _boxFormCellPhone(context),
                       _boxFormIdentification(context),
-                      _buttomProfileEdit(context)
+                      _buttomProfileEdit(context),
                     ],
                   )
                 ],

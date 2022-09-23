@@ -1,4 +1,5 @@
-import 'package:app_asegurate/pages/logout/login_page_controller.dart';
+import 'package:app_asegurate/pages/login/login_page_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +50,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _recoverPassword(context) {
-     LoginPageController con = Get.put(LoginPageController());
+    LoginPageController con = Get.put(LoginPageController());
     return GestureDetector(
       onTap: con.goToRecoverdPassword,
       child: Container(
@@ -74,7 +75,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buttomRegister(BuildContext context) {
-     LoginPageController con = Get.put(LoginPageController());
+    LoginPageController con = Get.put(LoginPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),

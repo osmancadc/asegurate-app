@@ -73,7 +73,7 @@ class PasswordRecoveredPage extends StatelessWidget {
         child: TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
-            labelText: 'Correo electrónico',
+            labelText: 'Número de documento',
             labelStyle: TextStyle(
               color: Colors.black,
               fontSize: 16,

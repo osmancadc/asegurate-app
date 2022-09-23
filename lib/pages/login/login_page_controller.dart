@@ -85,7 +85,7 @@ class LoginPageController extends GetxController {
       progressDialog.close();
       if (response.statusCode == 200) {
         GetStorage().write('token', response.body["token"]);
-        print(response.body["token"]);
+
         Get.offAllNamed('/consult');
       } else {
         showDialog(
