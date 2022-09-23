@@ -1,6 +1,7 @@
 import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
 import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:blur/blur.dart';
 import 'package:get/get.dart';
 
 import '../../utils.dart';
@@ -221,11 +222,13 @@ class ProfilePage extends StatelessWidget {
 
   Widget _profileCircleImage(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0, left: 70, right: 70, bottom: 0),
-      width: MediaQuery.of(context).size.width * 0.6,
-      height: MediaQuery.of(context).size.height * 0.35,
+      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.height * 0.26,
       child: CircleAvatar(
-        backgroundImage: NetworkImage(con.photo.value),
+        backgroundImage: con.photo.value == ''
+            ? const AssetImage('assets/images/no_image.png') as ImageProvider
+            : NetworkImage(con.photo.value),
       ),
     );
   }
@@ -244,19 +247,14 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _profileBackgroundImage(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 0),
+    return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Hero(
-        tag: 'profile',
-        child: Image.network(
-          con.photo.value,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
-        ),
-      ),
+      height: MediaQuery.of(context).size.height * 0.47,
+      child: con.photo.value == ''
+          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
+              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
+          : Image.network(con.photo.value, fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
     );
   }
 
