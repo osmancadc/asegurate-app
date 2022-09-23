@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/', page: () => const  LogoutPage()),
+        GetPage(name: '/', page: () => const  LoginPage()),
         GetPage(
             name: '/consult',
             page: () => ConsultPage(),
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/settings', page: () => const SettingsPage()),
         GetPage(name: '/report', page: () => ReportPage()),
-        GetPage(name: '/logout', page: () => const LogoutPage()),
+        GetPage(name: '/login', page: () => const LoginPage()),
         GetPage(
             name: '/news',
             page: () => const NewsPage(),

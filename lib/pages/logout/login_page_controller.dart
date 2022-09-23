@@ -8,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:get/get.dart';
 
-class LogoutPageController extends GetxController {
+class LoginPageController extends GetxController {
   var obscureText = true.obs;
 
   void toggle() {

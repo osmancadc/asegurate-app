@@ -1,11 +1,11 @@
-import 'package:app_asegurate/pages/logout/logout_page_controller.dart';
+import 'package:app_asegurate/pages/logout/login_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils.dart';
 
-class LogoutPage extends StatelessWidget {
-  const LogoutPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   _formBox(BuildContext context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+    LoginPageController con = Get.put(LoginPageController());
 
     return Column(
       children: [
@@ -49,7 +49,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _recoverPassword(context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+     LoginPageController con = Get.put(LoginPageController());
     return GestureDetector(
       onTap: con.goToRecoverdPassword,
       child: Container(
@@ -74,7 +74,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomRegister(BuildContext context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+     LoginPageController con = Get.put(LoginPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
@@ -99,7 +99,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _buttomEnter(BuildContext context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+    LoginPageController con = Get.put(LoginPageController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -125,7 +125,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _boxFormUser(BuildContext context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+    LoginPageController con = Get.put(LoginPageController());
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -159,7 +159,7 @@ class LogoutPage extends StatelessWidget {
   }
 
   Widget _boxFormPassword(BuildContext context) {
-    LogoutPageController con = Get.put(LogoutPageController());
+    LoginPageController con = Get.put(LoginPageController());
     return Stack(
       children: [
         Container(

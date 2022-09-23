@@ -2,6 +2,7 @@ import 'package:app_asegurate/pages/register/register_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 import '../../utils.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -370,6 +371,7 @@ Widget _textPassword(context) {
     padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       obscureText: true,
+      
       controller: con.passwordController,
       keyboardType: TextInputType.visiblePassword,
       decoration: const InputDecoration(
@@ -382,6 +384,8 @@ Widget _textPassword(context) {
     ),
   );
 }
+
+
 
 Widget _textConfirmPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());

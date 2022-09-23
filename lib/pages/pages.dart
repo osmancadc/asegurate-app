@@ -1,7 +1,7 @@
 export 'package:app_asegurate/pages/passwordRecoverd/password_recovered_page.dart';
 export 'package:app_asegurate/pages/menu/menu_page.dart';
 export 'package:app_asegurate/pages/consult/consult_page.dart';
-export 'package:app_asegurate/pages/logout/logout_page.dart';
+export 'package:app_asegurate/pages/logout/login_page.dart';
 export 'package:app_asegurate/pages/profile/profile_page.dart';
 export 'package:app_asegurate/pages/settings/settings_page.dart';
 export 'package:app_asegurate/pages/news/news_page.dart';
