@@ -36,7 +36,6 @@ class LoginPage extends StatelessWidget {
       children: [
         _boxFormUser(context),
         _boxFormPassword(context),
-        _recoverPassword(context),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.03,
         ),
@@ -45,6 +44,7 @@ class LoginPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.02,
         ),
         _buttomRegister(context),
+        _recoverPassword(context),
       ],
     );
   }

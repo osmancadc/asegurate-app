@@ -38,7 +38,7 @@ class MenuDrawer extends GetxController {
                 //   child: _iconMenu(Icons.notifications, 'Noticias', context),
                 // ),
                 GestureDetector(
-                  onTap: () => gotoProfilePage(),
+                  onTap: () => gotoProfilePage( context  ),
                   child: _iconMenu(Icons.person, 'Perfil', context),
                 ),
                 // GestureDetector(

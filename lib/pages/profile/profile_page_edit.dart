@@ -142,7 +142,8 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: const TextField(
+      child: TextField(
+        controller: con.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: 'Correo Electrónico',
@@ -156,7 +157,8 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: const TextField(
+      child: TextField(
+        controller: con.phoneController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: 'Número de Celular',
@@ -170,7 +172,8 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: const TextField(
+      child: TextField(
+        controller: con.documentController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: 'Número de Identificación',
@@ -198,7 +201,7 @@ class ProfilePageEdit extends StatelessWidget {
 
   Widget _profileName() {
     return Text(
-      'Jhon Doe',
+      nameToken,
       style: TextStyle(
         color: colorFont,
         fontSize: 20,
@@ -212,7 +215,7 @@ class ProfilePageEdit extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: ElevatedButton(
-        onPressed: () => gotoProfilePageEdit(context),
+        onPressed: () => con.updateInfo(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

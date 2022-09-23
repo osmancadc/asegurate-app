@@ -15,7 +15,7 @@ class ProfilePageController extends GetxController {
   var document = "".obs;
   UserByGetIdProviders userByGetIdProviders = UserByGetIdProviders();
 
- void  getUserById() async {
+  void getUserById(context) async {
     UserGetId userGetId =
         UserGetId(id: JwtDecoder.decode(GetStorage().read('token'))[id]);
     var response = await userByGetIdProviders.getUserById(userGetId);
@@ -25,6 +25,25 @@ class ProfilePageController extends GetxController {
       phone.value = response.body['phone'];
       photo.value = response.body['photo'];
       document.value = response.body['document'];
+    }
+    if (response.statusCode == 500) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error' + response.body['message']),
+            content: Text(response.statusText!),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('Cerrar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 }
