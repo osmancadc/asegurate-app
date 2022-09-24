@@ -301,6 +301,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  password_field_validator:
+    dependency: "direct dev"
+    description:
+      name: password_field_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   path:
     dependency: transitive
     description:
