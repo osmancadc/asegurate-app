@@ -2,7 +2,6 @@ import 'package:app_asegurate/pages/register/register_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 import '../../utils.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -26,9 +25,8 @@ class RegisterPage extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  _boxFormUser(context),
                   _boxFormIdentification(context),
-                  _boxFormRegisterNameLastname(context),
+                  _boxFormDatePicker(context),
                   _boxFormRegisterEmail(context),
                   _boxFormRegisterPhone(context),
                   _boxFormPassword(context),
@@ -41,6 +39,32 @@ class RegisterPage extends StatelessWidget {
             ],
           ),
         ]),
+      ),
+    );
+  }
+
+  Widget _boxFormDatePicker(context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.02,
+        left: 30,
+        right: 30,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _textFormDatePicker(context),
+        ],
       ),
     );
   }
@@ -119,6 +143,44 @@ class RegisterPage extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _textFormDatePicker(context) {
+    RegisterPageController con = Get.put(RegisterPageController());
+    return Obx(
+      () => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: TextFormField(
+          controller: con.dateController.value,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Fecha de expedición',
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+            ),
+            suffixIcon: IconButton(
+              onPressed: () async {
+                final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100),
+                );
+                if (picked != null) {
+                  con.dateController.value.text =
+                      picked.toString().substring(0, 10);
+                }
+              },
+              icon: Icon(
+                Icons.calendar_today,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -371,7 +433,6 @@ Widget _textPassword(context) {
     padding: const EdgeInsets.symmetric(horizontal: 10),
     child: TextField(
       obscureText: true,
-      
       controller: con.passwordController,
       keyboardType: TextInputType.visiblePassword,
       decoration: const InputDecoration(
@@ -384,8 +445,6 @@ Widget _textPassword(context) {
     ),
   );
 }
-
-
 
 Widget _textConfirmPassword(context) {
   RegisterPageController con = Get.put(RegisterPageController());
@@ -490,22 +549,22 @@ Widget _buttomGetInto(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
-    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
     child: ElevatedButton(
       onPressed: () => con.gotoLoginPage(),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        primary: colorOnPrimaryVariant,
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        primary: colorOnSecondaryVariant,
+        padding: const EdgeInsets.symmetric(vertical: 4),
       ),
       child: const Text(
         'Ingresar',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 22,
+          fontSize: 17,
         ),
       ),
     ),

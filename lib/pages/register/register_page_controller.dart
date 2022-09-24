@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPageController extends GetxController {
   TextEditingController userController = TextEditingController();
@@ -16,6 +17,7 @@ class RegisterPageController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
+
   UsersProvider usersProvider = UsersProvider();
   String encryptionKey = Environment.ENCRYPTION_KEY;
   _encrypt(String text) {
@@ -26,6 +28,8 @@ class RegisterPageController extends GetxController {
     return encrypted.base64;
   }
 
+  var date = DateTime.now().obs;
+  var dateController = TextEditingController().obs;
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
     selectedRadio.value = value;
