@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
-import 'package:intl/intl.dart';
-
 class RegisterPageController extends GetxController {
   TextEditingController userController = TextEditingController();
   TextEditingController identificationController = TextEditingController();
@@ -42,8 +39,6 @@ class RegisterPageController extends GetxController {
   void register(BuildContext context) async {
     String document = identificationController.text.trim();
     String dateControllers = dateController.value.text.trim();
-    String name = nameController.text;
-    String lastname = lastNameController.text;
     String email = emailController.text.trim();
     String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
@@ -52,19 +47,15 @@ class RegisterPageController extends GetxController {
     if (isvalidForm(
       document,
       dateControllers,
-      name,
       email,
       phone,
       password,
       passwordConfirm,
       selectedRadio.value,
     )) {
-    
-
       User user2 = User(
         document: document,
         expeditionDate: dateController.value.text,
-        name: name,
         email: email,
         phone: phone,
         password: _encrypt(password),
@@ -72,7 +63,7 @@ class RegisterPageController extends GetxController {
       );
 
       Response response = await usersProvider.create(user2);
- 
+
       if (response.statusCode == 200) {
         showDialog(
           context: context,
@@ -122,22 +113,27 @@ class RegisterPageController extends GetxController {
   bool isvalidForm(
     String document,
     String dateControllers,
-    String name,
     String email,
     String phone,
     String password,
     String confirmPassword,
     String role,
   ) {
-    if (document.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar un número de cédula',
+    if (document.isEmpty ||
+        dateControllers.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        selectedRadio.value == "") {
+      Get.snackbar('Formulario no válido ', 'Debes llenar todos los campos',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
       return false;
     }
-    if (document.contains(RegExp(r'[a-zA-Z]'))) {
+
+    if (document.contains(RegExp(r'[a-zA-Z]')) ||
+        document.length < 8 ||
+        document.length > 10) {
       Get.snackbar(
           'Formulario no válido ', 'Debes ingresar un número de cédula válido',
           snackPosition: SnackPosition.BOTTOM,
@@ -146,43 +142,7 @@ class RegisterPageController extends GetxController {
       return false;
     }
 
-    if (document.length < 8 || document.length > 10) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar un número de cédula válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (dateControllers.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar una fecha de expedición',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (name.isEmpty) {
-      Get.snackbar('Formulario no válido ', 'Debes ingresar un nombre',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (email.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar un correo electrónico',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (!email.contains('@') ||
-        !email.contains('.') ||
-        email.length < 6 ||
-        email.length > 50) {
+    if (!email.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
       Get.snackbar('Formulario no válido ',
           'Debes ingresar un correo electrónico válido',
           snackPosition: SnackPosition.BOTTOM,
@@ -190,20 +150,8 @@ class RegisterPageController extends GetxController {
           colorText: Colors.white);
       return false;
     }
-    if (phone.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar un número de celular',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
 
-    if (phone.length < 10 ||
-        phone.length > 10 ||
-        !phone.startsWith('3') ||
-        phone.contains(RegExp(r'[a-zA-Z]')) ||
-        !phone.contains(RegExp(r'[0-9]'))) {
+    if (!phone.contains(RegExp(r'3[0-9]{9}'))) {
       Get.snackbar('Formulario no válido ', 'Debes ingresar un celular válido',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
@@ -218,40 +166,55 @@ class RegisterPageController extends GetxController {
           colorText: Colors.white);
       return false;
     }
-    if (!password.contains(RegExp(r'[A-Z]')) ||
-        !password.contains(RegExp(r'[a-z]')) ||
-        !password.contains(RegExp(r'[0-9]')) ||
-        password.length < 8) {
-      Get.snackbar('Formulario no válido ',
-          'La contraseña debe tener mayúsculas, minúsculas y caracteres especiales',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (confirmPassword == '') {
-      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (password != confirmPassword) {
-      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (selectedRadio.value == "") {
-      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
 
+    if (!password.contains(RegExp(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'))) {
+      Get.snackbar('Formulario no válido ',
+          'La contraseña debe tener al menos una mayúscula, una minúscula y un caracter especial',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (confirmPassword == '' || password != confirmPassword) {
+      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
       return false;
     }
 
     return true;
+  }
+
+  String? validatePassword(String value) {
+    if (!value.isNotEmpty) {
+      return null;
+    }
+
+    if (value.length < 8) {
+      return "La contraseña debe tener minimo 8 caracteres";
+    }
+    if (!value.contains(RegExp(r'.[A-Z].'))) {
+      return "La contraseña debe tener al menos una Mayuscula";
+    }
+
+    if (!value.contains(RegExp(r'.[a-z].'))) {
+      return "La contraseña debe tener al menos una Minuscula";
+    }
+
+    if (!value.contains(RegExp(r'.[0-9].'))) {
+      return "La contraseña debe tener al menos un numero";
+    }
+    if (!value.contains(RegExp(r'.[a-z].'))) {
+      return "La contraseña debe tener al menos una Minuscula";
+    }
+
+    return null;
+  }
+
+  String? validateMatchingPasswords(String value1, String value2) {
+    return value1 == value2 ? null : "Las contraseñas no coinciden";
   }
 }

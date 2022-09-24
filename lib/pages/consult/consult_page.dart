@@ -44,7 +44,8 @@ class ConsultPage extends StatelessWidget {
     );
   }
 }
-Widget  _consultTitle(context){
+
+Widget _consultTitle(context) {
   return Container(
     margin: EdgeInsets.only(top: 20),
     child: Text(
@@ -60,8 +61,7 @@ Widget  _consultTitle(context){
 
 Widget _boxForm(BuildContext context) {
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.10,
+    height: MediaQuery.of(context).size.height * 0.08,
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.24,
       left: 30,
@@ -69,19 +69,36 @@ Widget _boxForm(BuildContext context) {
     ),
     decoration: const BoxDecoration(
       color: Colors.white,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 15,
-          offset: Offset(0, 0.75),
-        ),
-      ],
     ),
     child: SingleChildScrollView(
       child: Column(
         children: [
           _textIdentification(context),
         ],
+      ),
+    ),
+  );
+}
+
+Widget _textIdentification(context) {
+  ConsultController con = Get.put(ConsultController());
+
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      boxShadow: <BoxShadow>[],
+    ),
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: con.textIdentification,
+        decoration: const InputDecoration(
+          labelText: 'Número de documento o celular',
+          labelStyle: TextStyle(
+            fontSize: 14,
+          ),
+        ),
       ),
     ),
   );
@@ -120,7 +137,7 @@ Widget _radioButton(context) {
         Row(
           children: [
             Obx(() => Radio(
-                  value: "nequi_daviplata",
+                  value: "PHONE",
                   groupValue: con.selectedRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
@@ -142,22 +159,6 @@ Widget _radioButton(context) {
   );
 }
 
-Widget _textIdentification(context) {
-  ConsultController con = Get.put(ConsultController());
-  return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.08,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: TextField(
-      controller: con.textIdentification,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-          hintText: 'Número de documento o celular',
-          prefixIcon: Icon(Icons.person_add_alt_1_rounded)),
-    ),
-  );
-}
-
 Widget _buttomSearch(BuildContext context) {
   ConsultController con = Get.put(ConsultController());
   return Container(
@@ -167,7 +168,7 @@ Widget _buttomSearch(BuildContext context) {
       onPressed: () => con.consult(context),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
         ),
         primary: colorOnPrimaryVariant,
         padding: const EdgeInsets.symmetric(vertical: 15),

@@ -209,7 +209,7 @@ Widget _radioButton(context) {
         Row(
           children: [
             Obx(() => Radio(
-                  value: "nequi_daviplata",
+                  value: "PHONE",
                   groupValue: con.selectedRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
@@ -339,7 +339,7 @@ Widget _buttomSearch(BuildContext context) {
       onPressed: () => con.upload(context),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
         ),
         primary: colorOnPrimaryVariant,
         padding: const EdgeInsets.symmetric(vertical: 15),

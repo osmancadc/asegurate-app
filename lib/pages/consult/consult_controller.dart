@@ -2,7 +2,6 @@ import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class ConsultController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
@@ -17,22 +16,15 @@ class ConsultController extends GetxController {
   consult(BuildContext context) async {
     String identification = textIdentification.text.trim();
     if (isvalidForm(identification, selectedRadio.value)) {
-      ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(
-        max: 100,
-        msg: 'Cargando...',
-      );
       GetScore getscore = GetScore(
-        document: identification,
+        value: identification,
         type: selectedRadio.value,
       );
 
       Response response = await usersProvider.getScore(getscore);
 
-      progressDialog.close();
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
-   
       } else {
         showDialog(
           context: context,

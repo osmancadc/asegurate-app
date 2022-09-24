@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import "package:get_storage/get_storage.dart";
 import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../models/user_model.dart';
-import '../../providers/providers.dart';
 import '../../providers/update_user_provider.dart';
 import 'profile_page_controller.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';

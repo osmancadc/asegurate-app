@@ -1,4 +1,3 @@
-import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
 import 'package:app_asegurate/pages/profile/profile_page_edit_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -218,7 +217,7 @@ class ProfilePageEdit extends StatelessWidget {
         onPressed: () => con.updateInfo(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
           ),
           primary: colorOnPrimaryVariant,
           padding: EdgeInsets.symmetric(vertical: 15),
