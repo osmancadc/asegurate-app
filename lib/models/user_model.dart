@@ -5,20 +5,20 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-  String? username;
+
   String? document;
   String? name;
-  String? lastname;
+  String? expeditionDate;
   String? email;
   String? phone;
   String? role;
   String? password;
   String? image;
   User({
-    this.username,
+
     this.document,
     this.name,
-    this.lastname,
+    this.expeditionDate,
     this.email,
     this.phone,
     this.role,
@@ -27,10 +27,10 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        username: json["username"],
+   
         document: json["document"],
         name: json["name"],
-        lastname: json["lastname"],
+        expeditionDate: json["expeditionDate"],
         email: json["email"],
         phone: json["phone"],
         image: json["image"],
@@ -39,10 +39,10 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
-        "username": username,
+    
         "document": document,
         "name": name,
-        "lastname": lastname,
+        "expeditionDate": expeditionDate,
         "email": email,
         "phone": phone,
         "role": role,

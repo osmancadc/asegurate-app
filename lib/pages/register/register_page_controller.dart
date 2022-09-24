@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPageController extends GetxController {
   TextEditingController userController = TextEditingController();
@@ -16,6 +17,11 @@ class RegisterPageController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
+  var obscureText = true.obs;
+  void toggle() {
+    obscureText.value = !obscureText.value;
+  }
+
   UsersProvider usersProvider = UsersProvider();
   String encryptionKey = Environment.ENCRYPTION_KEY;
   _encrypt(String text) {
@@ -26,14 +32,16 @@ class RegisterPageController extends GetxController {
     return encrypted.base64;
   }
 
+  var date = DateTime.now().obs;
+  var dateController = TextEditingController().obs;
   var selectedRadio = "".obs;
   onChangedRadio(var value) {
     selectedRadio.value = value;
   }
 
   void register(BuildContext context) async {
-    String user = userController.text.trim();
     String document = identificationController.text.trim();
+    String dateControllers = dateController.value.text.trim();
     String name = nameController.text;
     String lastname = lastNameController.text;
     String email = emailController.text.trim();
@@ -42,26 +50,21 @@ class RegisterPageController extends GetxController {
     String passwordConfirm = passwordConfirmController.text.trim();
 
     if (isvalidForm(
-      user,
       document,
+      dateControllers,
       name,
-      lastname,
       email,
       phone,
       password,
       passwordConfirm,
       selectedRadio.value,
     )) {
-      ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(
-        max: 100,
-        msg: 'Registrando...',
-      );
+    
+
       User user2 = User(
-        username: user,
         document: document,
+        expeditionDate: dateController.value.text,
         name: name,
-        lastname: lastname,
         email: email,
         phone: phone,
         password: _encrypt(password),
@@ -69,8 +72,7 @@ class RegisterPageController extends GetxController {
       );
 
       Response response = await usersProvider.create(user2);
-
-      progressDialog.close();
+ 
       if (response.statusCode == 200) {
         showDialog(
           context: context,
@@ -83,7 +85,7 @@ class RegisterPageController extends GetxController {
           },
         );
         Future.delayed(Duration(seconds: 2), () {
-          Get.offAllNamed('/logout');
+          Get.offAllNamed('/login');
         });
       } else {
         showDialog(
@@ -118,24 +120,15 @@ class RegisterPageController extends GetxController {
   }
 
   bool isvalidForm(
-    String user,
     String document,
+    String dateControllers,
     String name,
-    String lastName,
     String email,
     String phone,
     String password,
     String confirmPassword,
     String role,
   ) {
-    if (user.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar un nombre de usuario',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
     if (document.isEmpty) {
       Get.snackbar(
           'Formulario no válido ', 'Debes ingresar un número de cédula',
@@ -152,6 +145,24 @@ class RegisterPageController extends GetxController {
           colorText: Colors.white);
       return false;
     }
+
+    if (document.length < 8 || document.length > 10) {
+      Get.snackbar(
+          'Formulario no válido ', 'Debes ingresar un número de cédula válido',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+    if (dateControllers.isEmpty) {
+      Get.snackbar(
+          'Formulario no válido ', 'Debes ingresar una fecha de expedición',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      return false;
+    }
+
     if (name.isEmpty) {
       Get.snackbar('Formulario no válido ', 'Debes ingresar un nombre',
           snackPosition: SnackPosition.BOTTOM,
@@ -159,13 +170,7 @@ class RegisterPageController extends GetxController {
           colorText: Colors.white);
       return false;
     }
-    if (lastName.isEmpty) {
-      Get.snackbar('Formulario no válido ', 'Debes ingresar un apellido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
+
     if (email.isEmpty) {
       Get.snackbar(
           'Formulario no válido ', 'Debes ingresar un correo electrónico',
