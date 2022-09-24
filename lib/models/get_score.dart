@@ -9,20 +9,20 @@ GetScore getScoreFromJson(String str) => GetScore.fromJson(json.decode(str));
 String getScoreToJson(GetScore data) => json.encode(data.toJson());
 
 class GetScore {
-  String? document;
+  String? value;
   String? type;
   GetScore({
-    this.document,
+    this.value,
     this.type,
   });
 
   factory GetScore.fromJson(Map<String, dynamic> json) => GetScore(
-        document: json["identification"],
+        value: json["identification"],
         type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
-        "document": document,
+        "value": value,
         "type": type,
       };
 }

@@ -37,12 +37,11 @@ class ProfilePage extends StatelessWidget {
           body: SingleChildScrollView(
             child: Stack(children: [
               _profileBackgroundImage(context),
-              _profileShapeImage(context),
               Column(
                 children: [
                   _profileCircleImage(context),
                   _profileName(),
-                  _profileCityCountryText(),
+                  _documentNumber(),
                   Column(
                     children: [
                       Row(
@@ -56,10 +55,10 @@ class ProfilePage extends StatelessWidget {
                               Image.asset('assets/images/twitter.png')),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.04),
                       _boxFormEmail(context),
                       _boxFormCellPhone(context),
-                      _boxFormIdentification(context),
                       _buttomProfileEdit(context),
                     ],
                   )
@@ -70,11 +69,71 @@ class ProfilePage extends StatelessWidget {
         ));
   }
 
-  Widget _boxFormIdentification(context) {
+  Widget _profileBackgroundImage(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.47,
+      child: con.photo.value == ''
+          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
+              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
+          : Image.network(con.photo.value, fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12),
+    );
+  }
+
+  Widget _profileCircleImage(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.height * 0.26,
+      child: CircleAvatar(
+        backgroundImage: con.photo.value == ''
+            ? const AssetImage('assets/images/no_image.png') as ImageProvider
+            : NetworkImage(con.photo.value),
+      ),
+    );
+  }
+
+  Widget _profileName() {
+    return Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: Text(
+        con.formatName(),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _documentNumber() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Text(
+        con.formatDocument(),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _profileSocialImage(BuildContext context, Image image) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.15,
+      child: Padding(padding: const EdgeInsets.all(7.0), child: image),
+    );
+  }
+
+  Widget _boxFormEmail(context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.02,
+        top: 0,
         left: 30,
         right: 30,
       ),
@@ -89,7 +148,7 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       child: Column(
-        children: [_textIdentification(context)],
+        children: [_textIEmailAddress(context)],
       ),
     );
   }
@@ -114,30 +173,6 @@ class ProfilePage extends StatelessWidget {
       ),
       child: Column(
         children: [_textCellPhone(context)],
-      ),
-    );
-  }
-
-  Widget _boxFormEmail(context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.05,
-        left: 30,
-        right: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 1,
-            offset: Offset(0, 0.50),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [_textIEmailAddress(context)],
       ),
     );
   }
@@ -176,101 +211,18 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _textIdentification(context) {
-    return Container(
-      color: colorSecondary,
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      child: Center(
-        child: Text(
-          'C.C. ' + con.document.value,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _profileSocialImage(BuildContext context, Image image) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.15,
-      child: Padding(padding: const EdgeInsets.all(5.0), child: image),
-    );
-  }
-
-  Widget _profileCityCountryText() {
-    return Text(
-      'Bogotá, Colombia',
-      style: TextStyle(
-        color: colorFont,
-        fontSize: 15,
-      ),
-    );
-  }
-
-  Widget _profileName() {
-    return Text(
-      con.name.value,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget _profileCircleImage(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
-      width: MediaQuery.of(context).size.width * 0.50,
-      height: MediaQuery.of(context).size.height * 0.26,
-      child: CircleAvatar(
-        backgroundImage: con.photo.value == ''
-            ? const AssetImage('assets/images/no_image.png') as ImageProvider
-            : NetworkImage(con.photo.value),
-      ),
-    );
-  }
-
-  Widget _profileShapeImage(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.5,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.7),
-            blurRadius: 20.0,
-            spreadRadius: 5.0)
-      ]),
-    );
-  }
-
-  Widget _profileBackgroundImage(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.47,
-      child: con.photo.value == ''
-          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
-              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
-          : Image.network(con.photo.value, fit: BoxFit.cover)
-              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
-    );
-  }
-
   Widget _buttomProfileEdit(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
       child: ElevatedButton(
         onPressed: () => gotoProfilePageEdit(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
           ),
           primary: colorOnPrimaryVariant,
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 8),
         ),
         child: const Text(
           'Editar  Perfil',

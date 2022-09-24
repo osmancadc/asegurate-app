@@ -90,7 +90,7 @@ class SettingsPage extends StatelessWidget {
           Row(
             children: [
               Obx(() => Radio(
-                    value: "nequi_daviplata",
+                    value: "PHONE",
                     groupValue: con.selectedRadioIdentification.value,
                     onChanged: (value2) {
                       con.onChangedRadioIdentification(value2);
