@@ -611,7 +611,7 @@ Widget _buttomGetInto(BuildContext context) {
         padding: const EdgeInsets.symmetric(vertical: 4),
       ),
       child: const Text(
-        'Ingresar',
+        'Regresar',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
