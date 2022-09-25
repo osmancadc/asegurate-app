@@ -88,7 +88,7 @@ class ConsultPageDetail extends StatelessWidget {
       Stack(children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             color: con.getColorScale(reputation),
           ),
           width: 70,
@@ -123,7 +123,7 @@ class ConsultPageDetail extends StatelessWidget {
       Stack(children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             color: con.getColorScale(score),
           ),
           width: 70,

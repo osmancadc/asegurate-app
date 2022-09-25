@@ -217,7 +217,7 @@ class ProfilePageEdit extends StatelessWidget {
         onPressed: () => con.updateInfo(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
           primary: colorOnPrimaryVariant,
           padding: EdgeInsets.symmetric(vertical: 15),

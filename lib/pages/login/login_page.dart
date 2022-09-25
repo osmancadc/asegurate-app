@@ -146,7 +146,7 @@ class LoginPage extends StatelessWidget {
         onPressed: () => con.getOut(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
           primary: colorOnPrimaryVariant,
           padding: EdgeInsets.symmetric(vertical: 8),
@@ -172,7 +172,7 @@ class LoginPage extends StatelessWidget {
         onPressed: () => con.gotoRegisterPage(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
           primary: colorOnSecondaryVariant,
           padding: EdgeInsets.symmetric(vertical: 4),

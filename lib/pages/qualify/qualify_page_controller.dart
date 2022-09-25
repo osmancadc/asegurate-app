@@ -2,54 +2,43 @@ import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:get_storage/get_storage.dart';
 
 class QualifyController extends GetxController {
-  TextEditingController documentController = TextEditingController();
+  TextEditingController valueController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController scoreController = TextEditingController();
   TextEditingController commentsController = TextEditingController();
   QualifyProviders qualifyProviders = QualifyProviders();
-var valueSliderScore = 0.0.obs;
-  var selectedRadio = "".obs;
+  int score = 0;
+  var typeRadio = "".obs;
+
+  var author = JwtDecoder.decode(GetStorage().read('token'))['id'];
 
   onChangedRadio(var value) {
-    selectedRadio.value = value;
+    typeRadio.value = value;
+  }
+
+  void onChangedScore(double score) {
+    this.score = (score * 20).round();
   }
 
   void upload(BuildContext context) async {
-    String document = documentController.text.trim();
-    String name = nameController.text;
-    String lastName = lastNameController.text;
+    String value = valueController.text.trim();
     String comments = commentsController.text.trim();
 
-    if (isValidForm(
-      document,
-      selectedRadio.value,
-      name,
-      lastName,
-     valueSliderScore.value.toInt(), 
-      comments,
-    )) {
-      ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(
-        max: 100,
-        msg: 'Calificando...',
-      );
+    var isValid = isValidForm(value, typeRadio.value, comments);
+
+    if (isValid[0]) {
       UploadScore uploadScore = UploadScore(
-        document: document,
-        type: selectedRadio.value,
-        name: name,
-        lastName: lastName,
-        score: valueSliderScore.value.toInt(),
+        author: author,
+        type: typeRadio.value,
+        value: value,
+        score: score,
         comments: comments,
-        
       );
 
       Response response = await qualifyProviders.uploadScore(uploadScore);
-      progressDialog.close();
       if (response.statusCode == 200) {
         showDialog(
           context: context,
@@ -94,17 +83,16 @@ sido enviada con éxito''',
               children: [
                 Icon(
                   Icons.error,
-                  size: MediaQuery.of(context).size.width * 0.18,
-                  color: Colors.red,
+                  size: MediaQuery.of(context).size.width * 0.15,
+                  color: Colors.redAccent.shade400,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                const Align(
-                  alignment: Alignment.centerLeft,
+                Align(
+                  alignment: Alignment.topRight,
                   child: Text(
-                    '''Debes llenar todos 
-los campos''',
+                    isValid[1],
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.red,
@@ -119,82 +107,34 @@ los campos''',
     }
   }
 
-  bool isValidForm(
+  List isValidForm(
     String document,
     String type,
-    String name,
-    String lastName,
-    int score,
     String comments,
   ) {
-    if (document.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar un documento de identidad',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
+    if (document.isEmpty || type.isEmpty || comments.isEmpty) {
+      return [
+        false,
+        '''Debes llenar todos
+        los campos'''
+      ];
     }
 
-    if (document.contains(RegExp(r'[^0-9]'))) {
-      Get.snackbar(
-          'Formulario no válido ', 'El documento de identidad no es válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
+    if (!document.contains(RegExp(r'^[0-9]{8,10}$'))) {
+      return [
+        false,
+        '''El campo de
+cedula o celular 
+no es válido'''
+      ];
     }
 
-    if (type.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes seleccionar un tipo de documento',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (name.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar un nombre de Usuario',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (lastName.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar un apellido de Usuario',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-    if (comments.isEmpty) {
-      Get.snackbar('Formulario no válido ', 'Debes agregar un comentario',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (type.isEmpty) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes agregar un tipo de documento',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    return true;
+    return [true, ""];
   }
 
   void clear() {
-    documentController.clear();
+    valueController.clear();
     nameController.clear();
-    lastNameController.clear();
-    scoreController.clear();
     commentsController.clear();
   }
 }

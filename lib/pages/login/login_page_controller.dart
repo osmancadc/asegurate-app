@@ -70,12 +70,6 @@ class LoginPageController extends GetxController {
       username,
       password,
     )) {
-      // ProgressDialog progressDialog = ProgressDialog(context: context);
-      // progressDialog.show(
-      //   max: 100,
-      //   msg: 'Cargando...',
-      // );
-      // progressDialog.close();
       Login login = Login(
         username: username,
         password: _encrypt(password),

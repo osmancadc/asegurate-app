@@ -168,7 +168,7 @@ Widget _buttomSearch(BuildContext context) {
       onPressed: () => con.consult(context),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnPrimaryVariant,
         padding: const EdgeInsets.symmetric(vertical: 15),

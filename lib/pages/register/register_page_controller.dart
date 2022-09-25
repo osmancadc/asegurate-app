@@ -196,7 +196,7 @@ class RegisterPageController extends GetxController {
     if (value.length < 8) {
       return "La contraseña debe tener minimo 8 caracteres";
     }
-    if (!value.contains(RegExp(r'.[A-Z].'))) {
+    if (!value.contains(RegExp(r'.*[A-Z].*'))) {
       return "La contraseña debe tener al menos una Mayuscula";
     }
 

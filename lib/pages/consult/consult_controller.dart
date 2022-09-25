@@ -51,21 +51,13 @@ class ConsultController extends GetxController {
     String textIdentification,
     String value,
   ) {
-    if (textIdentification.isEmpty) {
-      Get.snackbar('Formulario no válido ', '',
+    if (textIdentification.isEmpty || selectedRadio.value == "") {
+      Get.snackbar('Formulario no válido ', 'Debes llenar todos los campos',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+          backgroundColor: Colors.redAccent.shade400,
+          colorText: Colors.amber.shade50);
       return false;
     }
-    if (selectedRadio.value == "") {
-      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
     return true;
   }
 }

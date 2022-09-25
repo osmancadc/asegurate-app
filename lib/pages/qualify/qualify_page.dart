@@ -2,6 +2,7 @@ import 'package:app_asegurate/pages/qualify/qualify_page_controller.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../utils.dart';
 
@@ -35,12 +36,12 @@ class QualifyPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _boxForm(context),
+            _boxIdentification(context),
             _radioButton(context),
-            _boxFormRatingData(context),
-            _sliderRange(context),
+            _boxFullName(context),
+            _scoreSelector(context),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             _commentsRating(context),
             SizedBox(
@@ -54,10 +55,10 @@ class QualifyPage extends StatelessWidget {
   }
 }
 
-Widget _boxForm(BuildContext context) {
+Widget _boxIdentification(BuildContext context) {
   return Container(
     width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.09,
+    height: MediaQuery.of(context).size.height * 0.07,
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.05,
       left: 30,
@@ -65,112 +66,12 @@ Widget _boxForm(BuildContext context) {
     ),
     decoration: const BoxDecoration(
       color: Colors.white,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 15,
-          offset: Offset(0, 0.75),
-        ),
-      ],
     ),
     child: SingleChildScrollView(
       child: Column(
         children: [
           _textIdentification(context),
         ],
-      ),
-    ),
-  );
-}
-
-Widget _commentsRating(context) {
-  return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.16,
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.01,
-      left: 30,
-      right: 30,
-    ),
-    decoration: const BoxDecoration(
-      color: Colors.white,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 15,
-          offset: Offset(0, 0.75),
-        ),
-      ],
-    ),
-    child: SingleChildScrollView(
-      child: Column(
-        children: [
-          _textComments(context),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _boxFormRatingData(BuildContext context) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-    decoration: const BoxDecoration(
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          spreadRadius: -25,
-          color: Colors.black54,
-          blurRadius: 30,
-          offset: Offset(0, 0.25),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        Expanded(child: _textName(context)),
-        Expanded(
-          child: _texLastName(context),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _textName(BuildContext context) {
-  QualifyController con = Get.put(QualifyController());
-  return Container(
-    color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.01,
-      left: MediaQuery.of(context).size.width * 0.02,
-      right: MediaQuery.of(context).size.width * 0.01,
-    ),
-    child: TextField(
-      controller: con.nameController,
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        hintText: 'Nombre',
-      ),
-    ),
-  );
-}
-
-Widget _texLastName(BuildContext context) {
-  QualifyController con = Get.put(QualifyController());
-  return Container(
-    color: Colors.white,
-    padding: EdgeInsets.symmetric(horizontal: 20),
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.01,
-      left: MediaQuery.of(context).size.width * 0.02,
-      right: MediaQuery.of(context).size.width * 0.01,
-    ),
-    child: TextField(
-      controller: con.lastNameController,
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        hintText: 'Apellido',
       ),
     ),
   );
@@ -190,7 +91,7 @@ Widget _radioButton(context) {
           children: [
             Obx(() => Radio(
                   value: "CC",
-                  groupValue: con.selectedRadio.value,
+                  groupValue: con.typeRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
                   },
@@ -210,7 +111,7 @@ Widget _radioButton(context) {
           children: [
             Obx(() => Radio(
                   value: "PHONE",
-                  groupValue: con.selectedRadio.value,
+                  groupValue: con.typeRadio.value,
                   onChanged: (value) {
                     con.onChangedRadio(value);
                   },
@@ -231,80 +132,71 @@ Widget _radioButton(context) {
   );
 }
 
-Widget _sliderRange(BuildContext context) {
-  QualifyController con = Get.put(QualifyController());
+Widget _boxFullName(BuildContext context) {
   return Container(
-    margin: EdgeInsets.only(
-      top: 20,
-      left: 20,
-      right: 20,
-    ),
-    child: Column(
+    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    child: Row(
       children: [
-        Text(
-          'Puntuación: 0 - 100',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Obx(() => Text(
-              con.valueSliderScore.value.toInt().toString(),
-              style: con.valueSliderScore.value.toInt() < 30
-                  ? TextStyle(
-                      color: Colors.red,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)
-                  : TextStyle(
-                      color: Colors.green,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-            )),
-        Obx(() => Slider(
-              value: con.valueSliderScore.value,
-              thumbColor: Colors.white,
-              activeColor: colorPrimary,
-              min: 0,
-              max: 100,
-              divisions: 10,
-              label: con.valueSliderScore.value.round().toString(),
-              onChanged: (double value) {
-                con.valueSliderScore.value = value;
-              },
-            )),
+        Expanded(child: _textName(context)),
       ],
     ),
   );
 }
 
-// Widget _textRating(context) {
-//   QualifyController con = Get.put(QualifyController());
-//   return Container(
-//     width: double.infinity,
-//     height: MediaQuery.of(context).size.height * 0.08,
-//     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-//     child: TextField(
-//       controller: con.scoreController,
-//       keyboardType: TextInputType.number,
-//       decoration: const InputDecoration(
-//         hintText: 'Puntuación (1-100)',
-//       ),
-//     ),
-//   );
-// }
+Widget _scoreSelector(BuildContext context) {
+  QualifyController con = Get.put(QualifyController());
+  return RatingBar.builder(
+    glow: false,
+    unratedColor: Colors.black54,
+    itemSize: 45,
+    initialRating: 3,
+    minRating: 0.5,
+    direction: Axis.horizontal,
+    allowHalfRating: true,
+    itemCount: 5,
+    itemPadding: EdgeInsets.symmetric(horizontal: 5.0),
+    itemBuilder: (context, _) => Icon(
+      Icons.star,
+      color: Colors.yellow.shade500,
+      size: 100,
+      shadows: const [Shadow(color: Colors.white, blurRadius: 20)],
+    ),
+    onRatingUpdate: (double value) {
+      con.onChangedScore(value);
+    },
+  );
+}
+
+Widget _commentsRating(context) {
+  return Container(
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.16,
+    margin: EdgeInsets.only(
+      top: MediaQuery.of(context).size.height * 0.01,
+      left: 30,
+      right: 30,
+    ),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+    ),
+    child: SingleChildScrollView(
+      child: Column(
+        children: [
+          _textComments(context),
+        ],
+      ),
+    ),
+  );
+}
 
 Widget _textComments(context) {
   QualifyController con = Get.put(QualifyController());
   return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.12,
+    height: MediaQuery.of(context).size.height * 0.13,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: TextField(
-      maxLines: 3,
-      maxLength: 60,
+      maxLines: 5,
+      maxLength: 255,
       controller: con.commentsController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
@@ -314,27 +206,11 @@ Widget _textComments(context) {
   );
 }
 
-Widget _textIdentification(context) {
-  QualifyController con = Get.put(QualifyController());
-  return Container(
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.08,
-    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    child: TextField(
-      controller: con.documentController,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-          hintText: 'Número de documento o celular',
-          prefixIcon: Icon(Icons.person_add_alt_1_rounded)),
-    ),
-  );
-}
-
 Widget _buttomSearch(BuildContext context) {
   QualifyController con = Get.put(QualifyController());
   return Container(
     width: double.infinity,
-    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 75, vertical: 10),
     child: ElevatedButton(
       onPressed: () => con.upload(context),
       style: ElevatedButton.styleFrom(
@@ -342,7 +218,7 @@ Widget _buttomSearch(BuildContext context) {
           borderRadius: BorderRadius.circular(8),
         ),
         primary: colorOnPrimaryVariant,
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10),
       ),
       child: const Text(
         'Enviar',
@@ -351,6 +227,49 @@ Widget _buttomSearch(BuildContext context) {
           fontWeight: FontWeight.bold,
           fontSize: 22,
         ),
+      ),
+    ),
+  );
+}
+
+Widget _textIdentification(context) {
+  QualifyController con = Get.put(QualifyController());
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+    ),
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: con.valueController,
+        decoration: const InputDecoration(
+          labelText: 'Número de documento o celular',
+          labelStyle: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _textName(BuildContext context) {
+  QualifyController con = Get.put(QualifyController());
+  return Container(
+    color: Colors.grey.shade400,
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    margin: EdgeInsets.only(
+      top: MediaQuery.of(context).size.height * 0.01,
+      left: MediaQuery.of(context).size.width * 0.02,
+      right: MediaQuery.of(context).size.width * 0.01,
+    ),
+    child: TextField(
+      readOnly: true,
+      controller: con.nameController,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: 'Nombre completo',
       ),
     ),
   );

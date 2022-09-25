@@ -438,7 +438,7 @@ Widget _buttomGetInto(BuildContext context) {
       onPressed: () => con.gotoLoginPage(),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
         ),
         primary: colorOnSecondaryVariant,
         padding: const EdgeInsets.symmetric(vertical: 4),
