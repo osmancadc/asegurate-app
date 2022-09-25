@@ -10,35 +10,31 @@ UploadScore uploadScoreFromJson(String str) =>
 String uploadScoreToJson(UploadScore data) => json.encode(data.toJson());
 
 class UploadScore {
-  String? document;
+  int? author;
   String? type;
-  String? name;
-  String? lastName;
+  String? value;
   int? score;
   String? comments;
   UploadScore({
-    this.document,
+    this.author,
     this.type,
-    this.name,
-    this.lastName,
+    this.value,
     this.score,
     this.comments,
   });
 
   factory UploadScore.fromJson(Map<String, dynamic> json) => UploadScore(
-        document: json["document"],
+        author: json["author"],
         type: json["type"],
-        name: json["name"],
-        lastName: json["lastName"],
+        value: json["value"],
         score: json["score"],
         comments: json["comments"],
       );
 
   Map<String, dynamic> toJson() => {
-        "document": document,
+        "author": author,
         "type": type,
-        "name": name,
-        "lastName": lastName,
+        "value": value,
         "score": score,
         "comments": comments,
       };

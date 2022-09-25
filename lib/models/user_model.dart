@@ -5,7 +5,6 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-
   String? document;
   String? name;
   String? expeditionDate;
@@ -15,7 +14,6 @@ class User {
   String? password;
   String? image;
   User({
-
     this.document,
     this.name,
     this.expeditionDate,
@@ -27,7 +25,6 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-   
         document: json["document"],
         name: json["name"],
         expeditionDate: json["expeditionDate"],
@@ -39,10 +36,9 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
-    
         "document": document,
         "name": name,
-        "expeditionDate": expeditionDate,
+        "expedition_date": expeditionDate,
         "email": email,
         "phone": phone,
         "role": role,
