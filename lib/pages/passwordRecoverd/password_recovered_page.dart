@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class PasswordRecoveredPage extends StatelessWidget {
   const PasswordRecoveredPage({Key? key}) : super(key: key);

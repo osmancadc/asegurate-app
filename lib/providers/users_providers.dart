@@ -4,12 +4,12 @@ import 'package:app_asegurate/enviroment/enviroment.dart';
 import 'package:get/get.dart';
 
 class UsersProvider extends GetConnect {
-  String url = Environment.BASE_URL;
+  String requestUrl = Environment.BASE_URL;
 
   User userSession = User.fromJson(GetStorage().read('user') ?? {});
   Future<Response> create(User user) async {
     Response response = await post(
-      '$url/create-user',
+      '$requestUrl/create-user',
       user.toJson(),
     );
 
@@ -18,7 +18,7 @@ class UsersProvider extends GetConnect {
 
   Future<Response> login(Login login) async {
     Response response = await post(
-      '$url/authenticate-user',
+      '$requestUrl/authenticate-user',
       login.toJson(),
     );
 
@@ -27,7 +27,7 @@ class UsersProvider extends GetConnect {
 
   Future<Response> getScore(GetScore getScore) async {
     Response response = await post(
-      '$url/get-score',
+      '$requestUrl/get-score',
       getScore.toJson(),
     );
 

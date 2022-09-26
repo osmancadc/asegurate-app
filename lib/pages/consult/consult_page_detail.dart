@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blur/blur.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ConsultPageDetail extends StatelessWidget {
   ConsultPageDetail({Key? key}) : super(key: key);

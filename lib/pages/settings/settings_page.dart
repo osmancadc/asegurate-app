@@ -1,7 +1,7 @@
 import 'package:app_asegurate/pages/settings/settings_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);

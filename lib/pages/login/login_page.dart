@@ -3,7 +3,7 @@ import 'package:app_asegurate/pages/login/login_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

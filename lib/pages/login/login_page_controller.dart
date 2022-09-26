@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:get_storage/get_storage.dart';
+import 'package:app_asegurate/utils.dart';
 
 import 'package:get/get.dart';
 
@@ -83,35 +84,8 @@ class LoginPageController extends GetxController {
         Get.offAllNamed('/consult');
       } else {
         showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Row(
-                children: [
-                  Icon(
-                    Icons.nearby_error,
-                    size: MediaQuery.of(context).size.width * 0.18,
-                    color: Colors.red,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '''Usuario o contraseña 
-incorrectos''',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+            context: context,
+            builder: getContext('Usuario o contraseña incorrectos', true));
       }
     }
   }

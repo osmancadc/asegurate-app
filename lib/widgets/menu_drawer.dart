@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 import 'menu_drawer_controller.dart';
 import 'dart:ui' show ImageFilter;
 
@@ -38,7 +38,7 @@ class MenuDrawer extends GetxController {
                 //   child: _iconMenu(Icons.notifications, 'Noticias', context),
                 // ),
                 GestureDetector(
-                  onTap: () => gotoProfilePage( context  ),
+                  onTap: () => gotoProfilePage(context),
                   child: _iconMenu(Icons.person, 'Perfil', context),
                 ),
                 // GestureDetector(

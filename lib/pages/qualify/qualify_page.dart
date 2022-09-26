@@ -3,8 +3,7 @@ import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class QualifyPage extends StatelessWidget {
   const QualifyPage({Key? key}) : super(key: key);
@@ -39,13 +38,16 @@ class QualifyPage extends StatelessWidget {
             _boxIdentification(context),
             _radioButton(context),
             _boxFullName(context),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.055,
+            ),
             _scoreSelector(context),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             _commentsRating(context),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.03,
             ),
             _buttomSearch(context),
           ],

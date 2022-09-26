@@ -4,6 +4,7 @@ import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:app_asegurate/utils.dart';
 
 class RegisterPageController extends GetxController {
   TextEditingController userController = TextEditingController();
@@ -66,42 +67,16 @@ class RegisterPageController extends GetxController {
 
       if (response.statusCode == 200) {
         showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const AlertDialog(
-              content: Text('Usuario registrado correctamente',
-                  style: TextStyle(fontSize: 20, color: Colors.green),
-                  textAlign: TextAlign.center),
-            );
-          },
-        );
-        Future.delayed(Duration(seconds: 2), () {
-          Get.offAllNamed('/login');
-        });
+            context: context,
+            builder: getContext(
+                'La cuenta de ${formatName(response.body['name'])} \nha sido creada con exito',
+                false));
+
+        Future.delayed(Duration(seconds: 2), () => Get.offAllNamed('/login'));
       } else {
         showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Error'),
-              content: Text(response.statusText!,
-                  style: const TextStyle(fontSize: 20, color: Colors.green),
-                  textAlign: TextAlign.center),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: const Text(
-                    'Ok',
-                    style: TextStyle(fontSize: 20, color: Colors.green),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-              ],
-            );
-          },
-        );
+            context: context,
+            builder: getContext(formatName(response.body['message']), true));
       }
     }
   }
@@ -123,65 +98,36 @@ class RegisterPageController extends GetxController {
         dateControllers.isEmpty ||
         email.isEmpty ||
         phone.isEmpty ||
-        selectedRadio.value == "") {
-      Get.snackbar('Formulario no válido ', 'Debes llenar todos los campos',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+        selectedRadio.value == "" ||
+        password == '') {
+      showSnackbar('Todos los campos son obligatorios');
       return false;
     }
 
-    if (document.contains(RegExp(r'[a-zA-Z]')) ||
-        document.length < 8 ||
-        document.length > 10) {
-      Get.snackbar(
-          'Formulario no válido ', 'Debes ingresar un número de cédula válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+    if (!document.contains(RegExp(r'^[0-9]{8,10}$'))) {
+      showSnackbar('Ingresa un número de cédula válido');
       return false;
     }
 
     if (!email.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
-      Get.snackbar('Formulario no válido ',
-          'Debes ingresar un correo electrónico válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+      showSnackbar('Ingresa un correo electronico válido');
       return false;
     }
 
     if (!phone.contains(RegExp(r'3[0-9]{9}'))) {
-      Get.snackbar('Formulario no válido ', 'Debes ingresar un celular válido',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      return false;
-    }
-
-    if (password == '') {
-      Get.snackbar('Formulario no válido ', 'Debes ingresar una contraseña',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+      showSnackbar('Ingresa un número de celular válido');
       return false;
     }
 
     if (!password.contains(RegExp(
         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'))) {
-      Get.snackbar('Formulario no válido ',
-          'La contraseña debe tener al menos una mayúscula, una minúscula y un caracter especial',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+      showSnackbar(
+          'La contraseña debe tener al menos una mayúscula y un caracter especial');
       return false;
     }
 
-    if (confirmPassword == '' || password != confirmPassword) {
-      Get.snackbar('Formulario no válido ', 'Las contraseñas no coinciden',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+    if (password != confirmPassword) {
+      showSnackbar('Las contraseñas no coinciden');
       return false;
     }
 
@@ -200,15 +146,15 @@ class RegisterPageController extends GetxController {
       return "La contraseña debe tener al menos una Mayuscula";
     }
 
-    if (!value.contains(RegExp(r'.[a-z].'))) {
-      return "La contraseña debe tener al menos una Minuscula";
+    if (!value.contains(RegExp(r'.*[a-z].*'))) {
+      return "La contraseña debe tener al menos una minuscula";
     }
 
-    if (!value.contains(RegExp(r'.[0-9].'))) {
+    if (!value.contains(RegExp(r'.*[0-9].*'))) {
       return "La contraseña debe tener al menos un numero";
     }
-    if (!value.contains(RegExp(r'.[a-z].'))) {
-      return "La contraseña debe tener al menos una Minuscula";
+    if (!value.contains(RegExp(r'.*[@$!%*?&].*'))) {
+      return "La contraseña debe tener minimo uno de los \nsiguientes caracteres especiales @ \$ ! % * ? &";
     }
 
     return null;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class NewsDetailPage extends StatelessWidget {
   const NewsDetailPage({Key? key}) : super(key: key);

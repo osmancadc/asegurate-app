@@ -1,8 +1,7 @@
 import 'package:app_asegurate/pages/register/register_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({Key? key}) : super(key: key);

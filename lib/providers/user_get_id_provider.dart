@@ -6,7 +6,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import '../models/user_get_id.dart';
 
 class UserByGetIdProviders extends GetConnect {
-  String url = Environment.BASE_URL;
+  String requestUrl = Environment.BASE_URL;
   String token = GetStorage().read('token') ?? "";
 
   Map<String, dynamic> decodedToken =
@@ -14,7 +14,7 @@ class UserByGetIdProviders extends GetConnect {
 
   Future<Response> getUserById(UserGetId userGetId) async {
     Response response = await get(
-      '$url/user/profile/${decodedToken['id']}',
+      '$requestUrl/user/profile/${decodedToken['id']}',
     );
 
     return response;
