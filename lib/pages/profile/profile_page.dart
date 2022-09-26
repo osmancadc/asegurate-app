@@ -3,8 +3,7 @@ import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
 import 'package:get/get.dart';
-
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -98,7 +97,7 @@ class ProfilePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 10),
       child: Text(
-        con.formatName(),
+        formatName(con.name.value),
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -112,7 +111,7 @@ class ProfilePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Text(
-        con.formatDocument(),
+        formatDocument(con.document.value),
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,

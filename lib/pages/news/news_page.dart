@@ -4,7 +4,8 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
+
 import 'news_page_controller.dart';
 
 class NewsPage extends StatelessWidget {

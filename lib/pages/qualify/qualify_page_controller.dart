@@ -1,5 +1,6 @@
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
+import 'package:app_asegurate/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -12,11 +13,29 @@ class QualifyController extends GetxController {
   QualifyProviders qualifyProviders = QualifyProviders();
   int score = 0;
   var typeRadio = "".obs;
-
   var author = JwtDecoder.decode(GetStorage().read('token'))['id'];
 
-  onChangedRadio(var value) {
+  void getFullName() async {
+    Response response = await qualifyProviders.getFullName(
+        valueController.text, typeRadio.value);
+
+    switch (response.statusCode) {
+      case 200:
+        {
+          nameController.text = response.body["name"];
+        }
+        break;
+      case 500:
+        {
+          nameController.text = response.body["message"];
+        }
+        break;
+    }
+  }
+
+  void onChangedRadio(var value) {
     typeRadio.value = value;
+    getFullName();
   }
 
   void onChangedScore(double score) {
@@ -39,71 +58,28 @@ class QualifyController extends GetxController {
       );
 
       Response response = await qualifyProviders.uploadScore(uploadScore);
-      if (response.statusCode == 200) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Row(
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    size: MediaQuery.of(context).size.width * 0.18,
-                    color: Colors.green,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '''Tu calificación ha 
-sido enviada con éxito''',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-        Future.delayed(Duration(seconds: 2), () {
-          clear();
-        });
+      switch (response.statusCode) {
+        case 200:
+          {
+            showDialog(
+                context: context,
+                builder: getContext(
+                    'La calificación ha sido enviada con exito', false));
+            Future.delayed(Duration(seconds: 1), () {
+              clear();
+            });
+          }
+          break;
+        case 500:
+          {
+            showDialog(
+                context: context,
+                builder: getContext(response.body['message'], true));
+          }
+          break;
       }
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Icon(
-                  Icons.error,
-                  size: MediaQuery.of(context).size.width * 0.15,
-                  color: Colors.redAccent.shade400,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    isValid[1],
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
+      showSnackbar(isValid[1]);
     }
   }
 
@@ -113,28 +89,20 @@ sido enviada con éxito''',
     String comments,
   ) {
     if (document.isEmpty || type.isEmpty || comments.isEmpty) {
-      return [
-        false,
-        '''Debes llenar todos
-        los campos'''
-      ];
+      return [false, 'Debes llenar todos los campos'];
     }
 
     if (!document.contains(RegExp(r'^[0-9]{8,10}$'))) {
-      return [
-        false,
-        '''El campo de
-cedula o celular 
-no es válido'''
-      ];
+      return [false, 'Debes ingresar un numero de cedula o celular válido'];
     }
 
-    return [true, ""];
+    return [true, ''];
   }
 
   void clear() {
     valueController.clear();
     nameController.clear();
     commentsController.clear();
+    typeRadio.value = "";
   }
 }

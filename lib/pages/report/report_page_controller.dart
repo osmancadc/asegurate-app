@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ReportPageController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
@@ -11,20 +12,10 @@ class ReportPageController extends GetxController {
   bool isvalidForm(
     String textIdentification,
   ) {
-    if (textIdentification.isEmpty) {
-      Get.snackbar('Formulario no válido',
-          'Debes ingresar un número de documento o celular',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+    if (textIdentification.isEmpty || selectedRadio.value == "") {
+      showSnackbar('Todos los campos son obligatorios');
+      return false;
     }
-    if (selectedRadio.value == "") {
-      Get.snackbar('Formulario no válido ', 'Debes seleccionar una opción',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    }
-
     return true;
   }
 }

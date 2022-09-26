@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../../models/user_get_id.dart';
-import '../../providers/user_get_id_provider.dart';
+import 'package:app_asegurate/models/user_get_id.dart';
+import 'package:app_asegurate/providers/user_get_id_provider.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ProfilePageController extends GetxController {
   var id = "".obs;
@@ -29,47 +28,9 @@ class ProfilePageController extends GetxController {
     }
     if (response.statusCode == 500) {
       showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error' + response.body['message']),
-            content: Text(response.statusText!),
-            actions: <Widget>[
-              ElevatedButton(
-                child: Text('Cerrar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+          context: context,
+          builder: getContext(response.body['message'], true));
     }
-  }
-
-  String formatName() {
-    String formatedName = "";
-    if (name.value.isEmpty) {
-      return formatedName;
-    }
-
-    List<String> fullName = name.value.split(" ");
-
-    for (String s in fullName) {
-      formatedName += "${s[0]}${s.substring(1).toLowerCase()} ";
-    }
-    return formatedName;
-  }
-
-  String formatDocument() {
-    if (document.value.isEmpty) {
-      return "";
-    }
-
-    var f = NumberFormat("###,###,###,###", "en_US");
-
-    return f.format(int.parse(document.value)).replaceAll(',', '.');
   }
 }
 

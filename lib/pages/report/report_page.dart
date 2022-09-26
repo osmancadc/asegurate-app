@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
-
 import 'package:app_asegurate/pages/report/report_page_controller.dart';
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ReportPage extends StatelessWidget {
   const ReportPage({Key? key}) : super(key: key);

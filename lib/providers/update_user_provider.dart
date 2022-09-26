@@ -9,26 +9,25 @@ import 'dart:convert';
 import 'dart:io';
 
 class UpdateUserProvider extends GetConnect {
-  String url = Environment.BASE_URL;
+  String requestUrl = Environment.BASE_URL;
 
   String token = GetStorage().read('token') ?? "";
 
   Map<String, dynamic> decodedToken =
       JwtDecoder.decode(GetStorage().read('token'));
 
-Future<Response> updateUser(User user) async {
+  Future<Response> updateUser(User user) async {
     Response response = await put(
-      '$url/user/profile/${decodedToken['id']}',
+      '$requestUrl/user/profile/${decodedToken['id']}',
       user.toJson(),
     );
 
     return response;
   }
 
-
   Future<Stream> updateWithImage(User user, File image) async {
     final request = http.MultipartRequest(
-        'PUT', Uri.parse('$url/update-user/${decodedToken['id']}'));
+        'PUT', Uri.parse('$requestUrl/update-user/${decodedToken['id']}'));
     request.files.add(http.MultipartFile(
         'image', image.readAsBytes().asStream(), image.lengthSync(),
         filename: basename(image.path)));

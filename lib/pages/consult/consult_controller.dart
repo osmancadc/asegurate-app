@@ -2,6 +2,7 @@ import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ConsultController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
@@ -27,22 +28,8 @@ class ConsultController extends GetxController {
         Get.offAllNamed('/consultDetail', arguments: response.body);
       } else {
         showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Error' + response.statusCode.toString()),
-              content: Text(response.statusText!),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: Text('Cerrar'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
+            context: context,
+            builder: getContext(formatName(response.body['message']), true));
       }
     }
   }
@@ -52,10 +39,8 @@ class ConsultController extends GetxController {
     String value,
   ) {
     if (textIdentification.isEmpty || selectedRadio.value == "") {
-      Get.snackbar('Formulario no válido ', 'Debes llenar todos los campos',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.redAccent.shade400,
-          colorText: Colors.amber.shade50);
+      showSnackbar('Todos los campos son obligatorios');
+
       return false;
     }
     return true;

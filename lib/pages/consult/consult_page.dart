@@ -4,7 +4,7 @@ import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ConsultPage extends StatelessWidget {
   const ConsultPage({Key? key}) : super(key: key);

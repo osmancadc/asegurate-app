@@ -1,8 +1,7 @@
 import 'package:app_asegurate/pages/profile/profile_page_edit_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../utils.dart';
+import 'package:app_asegurate/utils.dart';
 
 class ProfilePageEdit extends StatelessWidget {
   ProfilePageEdit({Key? key}) : super(key: key);
@@ -53,37 +52,12 @@ class ProfilePageEdit extends StatelessWidget {
                   ),
                   _boxFormEmail(context),
                   _boxFormCellPhone(context),
-                  _boxFormIdentification(context),
                   _buttomProfileEdit(context)
                 ],
               )
             ],
           ),
         ]),
-      ),
-    );
-  }
-
-  Widget _boxFormIdentification(context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.02,
-        left: 30,
-        right: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [_textIdentification(context)],
       ),
     );
   }
@@ -161,21 +135,6 @@ class ProfilePageEdit extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: 'Número de Celular',
-        ),
-      ),
-    );
-  }
-
-  Widget _textIdentification(context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
-        controller: con.documentController,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          hintText: 'Número de Identificación',
         ),
       ),
     );
