@@ -11,7 +11,7 @@ class QualifyController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController commentsController = TextEditingController();
   QualifyProviders qualifyProviders = QualifyProviders();
-  int score = 0;
+  int score = 60;
   var typeRadio = "".obs;
   var author = JwtDecoder.decode(GetStorage().read('token'))['id'];
 
@@ -56,7 +56,6 @@ class QualifyController extends GetxController {
         score: score,
         comments: comments,
       );
-
       Response response = await qualifyProviders.uploadScore(uploadScore);
       switch (response.statusCode) {
         case 200:
@@ -84,19 +83,36 @@ class QualifyController extends GetxController {
   }
 
   List isValidForm(
-    String document,
+    String value,
     String type,
     String comments,
   ) {
-    if (document.isEmpty || type.isEmpty || comments.isEmpty) {
+    if (value.isEmpty || comments.isEmpty) {
       return [false, 'Debes llenar todos los campos'];
     }
 
-    if (!document.contains(RegExp(r'^[0-9]{8,10}$'))) {
-      return [false, 'Debes ingresar un numero de cedula o celular válido'];
+    if (type.isEmpty) {
+      return [false, 'Debes seleccionar si es cédula o número de celular'];
+    }
+
+    if (type == "CC") {
+      if (!value.contains(RegExp(r'^[0-9]{8,10}$'))) {
+        return [false, 'Debes ingresar un número de cédula o celular válido'];
+      }
+    } else if (type == "PHONE") {
+      if (!RegExp(r'3[0-9]{9}').hasMatch(value)) {
+        return [false, 'Ingresa un número de celular válido'];
+      }
     }
 
     return [true, ''];
+  }
+
+  String? validateDocument(String? value) {
+    if (value!.isNotEmpty && !RegExp(r'^[0-9]{8,10}$').hasMatch(value)) {
+      return 'Debes ingresar un número de cédula o celular válido';
+    }
+    return null;
   }
 
   void clear() {

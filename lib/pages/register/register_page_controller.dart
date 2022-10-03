@@ -15,13 +15,16 @@ class RegisterPageController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
+
   var obscureText = true.obs;
+  bool agreeTermsAndConditions = false;
   void toggle() {
     obscureText.value = !obscureText.value;
   }
 
   UsersProvider usersProvider = UsersProvider();
   String encryptionKey = Environment.ENCRYPTION_KEY;
+
   _encrypt(String text) {
     final key = encrypt.Key.fromUtf8(encryptionKey);
     final iv = encrypt.IV.fromLength(16);
@@ -85,6 +88,10 @@ class RegisterPageController extends GetxController {
     Get.offNamedUntil('/logout', (route) => false);
   }
 
+  void changeTermsAndConditionsState(bool? state) {
+    agreeTermsAndConditions = state ?? false;
+  }
+
   bool isvalidForm(
     String document,
     String dateControllers,
@@ -134,9 +141,25 @@ class RegisterPageController extends GetxController {
     return true;
   }
 
-  String? validatePassword(String value) {
-    if (!value.isNotEmpty) {
-      return null;
+  String? validateEmail(String? value) {
+    if (value!.isNotEmpty &&
+        !value.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
+      return 'Ingresa un correo electronico válido';
+    }
+    return null;
+  }
+
+  String? validatePhone(String? value) {
+    if (value!.isNotEmpty && !RegExp(r'3[0-9]{9}').hasMatch(value)) {
+      return 'Ingresa un número de celular válido';
+    }
+
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (!value!.isNotEmpty) {
+      return "Ingresa una contraseña";
     }
 
     if (value.length < 8) {
@@ -160,7 +183,9 @@ class RegisterPageController extends GetxController {
     return null;
   }
 
-  String? validateMatchingPasswords(String value1, String value2) {
-    return value1 == value2 ? null : "Las contraseñas no coinciden";
+  String? validateMatchingPasswords(String? value) {
+    return value! == passwordController.text
+        ? null
+        : "Las contraseñas no coinciden";
   }
 }

@@ -33,7 +33,7 @@ class ConsultPageDetail extends StatelessWidget {
             toolbarOpacity: 0.8,
           ),
           drawer: MenuDrawer().menuDrawer(context),
-          backgroundColor: colorSecondary,
+          backgroundColor: colorPrimary,
           body: SingleChildScrollView(
             child: Stack(children: [
               _consultBackgroundImage(context),

@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/login/login_page_controller.dart';
+import 'package:app_asegurate/pages/login/login_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
     return SafeArea(
         child: Obx(
       () => Scaffold(
-        backgroundColor: colorSecondary,
+        backgroundColor: colorPrimary,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -30,8 +30,6 @@ class LoginPage extends StatelessWidget {
   }
 
   _formBox(BuildContext context) {
-    Get.put(LoginPageController());
-
     return Column(
       children: [
         _boxFormUser(context),
@@ -39,11 +37,14 @@ class LoginPage extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.03,
         ),
-        _buttomEnter(context),
+        _buttonEnter(context),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.02,
         ),
-        _buttomRegister(context),
+        _buttonRegister(context),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+        ),
         _recoverPassword(context),
       ],
     );
@@ -62,7 +63,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _boxFormUser(BuildContext context) {
-    LoginPageController con = Get.put(LoginPageController());
+    LoginController con = Get.put(LoginController());
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -76,6 +77,7 @@ class LoginPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
+          keyboardType: TextInputType.number,
           controller: con.userController,
           decoration: const InputDecoration(
             labelText: 'Numero de documento',
@@ -89,7 +91,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _boxFormPassword(BuildContext context) {
-    LoginPageController con = Get.put(LoginPageController());
+    LoginController con = Get.put(LoginController());
     return Stack(
       children: [
         Container(
@@ -137,13 +139,13 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buttomEnter(BuildContext context) {
-    LoginPageController con = Get.put(LoginPageController());
+  Widget _buttonEnter(BuildContext context) {
+    LoginController con = Get.put(LoginController());
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 50),
       child: ElevatedButton(
-        onPressed: () => con.getOut(context),
+        onPressed: () => con.authenticateUser(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -163,8 +165,8 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buttomRegister(BuildContext context) {
-    LoginPageController con = Get.put(LoginPageController());
+  Widget _buttonRegister(BuildContext context) {
+    LoginController con = Get.put(LoginController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
@@ -189,7 +191,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _recoverPassword(context) {
-    LoginPageController con = Get.put(LoginPageController());
+    LoginController con = Get.put(LoginController());
     return GestureDetector(
       onTap: con.goToRecoverdPassword,
       child: Container(
@@ -204,7 +206,7 @@ class LoginPage extends StatelessWidget {
               '¿Olvidaste tu contraseña?',
               style: TextStyle(
                 color: colorFont,
-                fontSize: 14,
+                fontSize: 16,
               ),
             ),
           ],

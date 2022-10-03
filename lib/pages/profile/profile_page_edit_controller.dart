@@ -103,4 +103,20 @@ class ProfilePageEditController extends GetxController {
     }
     return true;
   }
+
+  String? validateEmail(String? value) {
+    if (value!.isNotEmpty &&
+        !value.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
+      return 'Ingresa un correo electronico válido';
+    }
+    return null;
+  }
+
+  String? validatePhone(String? value) {
+    if (value!.isNotEmpty && !RegExp(r'3[0-9]{9}').hasMatch(value)) {
+      return 'Ingresa un número de celular válido';
+    }
+
+    return null;
+  }
 }

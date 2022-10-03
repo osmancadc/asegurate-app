@@ -32,13 +32,13 @@ class ConsultPage extends StatelessWidget {
         toolbarOpacity: 0.8,
       ),
       drawer: MenuDrawer().menuDrawer(context),
-      backgroundColor: colorSecondary,
+      backgroundColor: colorPrimary,
       body: SingleChildScrollView(
         child: Column(children: [
           _consultTitle(context),
           _boxForm(context),
           _radioButton(context),
-          _buttomSearch(context),
+          _buttonSearch(context),
         ]),
       ),
     );
@@ -47,12 +47,13 @@ class ConsultPage extends StatelessWidget {
 
 Widget _consultTitle(context) {
   return Container(
-    margin: EdgeInsets.only(top: 20),
+    margin: EdgeInsets.only(top: 50),
     child: Text(
-      'CONSULTAR',
+      'CONSULTAR UNA PERSONA',
       style: TextStyle(
+        fontFamily: 'TradeGothicInline',
         color: colorFont,
-        fontSize: MediaQuery.of(context).size.width * 0.05,
+        fontSize: MediaQuery.of(context).size.width * 0.06,
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -63,7 +64,7 @@ Widget _boxForm(BuildContext context) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.08,
     margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.24,
+      top: MediaQuery.of(context).size.height * 0.16,
       left: 30,
       right: 30,
     ),
@@ -159,7 +160,7 @@ Widget _radioButton(context) {
   );
 }
 
-Widget _buttomSearch(BuildContext context) {
+Widget _buttonSearch(BuildContext context) {
   ConsultController con = Get.put(ConsultController());
   return Container(
     width: double.infinity,

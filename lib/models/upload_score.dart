@@ -10,11 +10,12 @@ UploadScore uploadScoreFromJson(String str) =>
 String uploadScoreToJson(UploadScore data) => json.encode(data.toJson());
 
 class UploadScore {
-  int? author;
+  String? author;
   String? type;
   String? value;
   int? score;
   String? comments;
+
   UploadScore({
     this.author,
     this.type,

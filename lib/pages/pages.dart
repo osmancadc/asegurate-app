@@ -1,8 +1,6 @@
-
 export 'package:app_asegurate/pages/login/login_page.dart';
 
-export 'package:app_asegurate/pages/passwordRecoverd/password_recovered_page.dart';
-export 'package:app_asegurate/pages/menu/menu_page.dart';
+export 'package:app_asegurate/pages/passwordRecovery/password_recovery_page.dart';
 export 'package:app_asegurate/pages/consult/consult_page.dart';
 export 'package:app_asegurate/pages/profile/profile_page.dart';
 export 'package:app_asegurate/pages/settings/settings_page.dart';
@@ -14,5 +12,3 @@ export 'package:app_asegurate/pages/profile/profile_page_edit.dart';
 export 'package:app_asegurate/pages/register/register_page.dart';
 export 'package:app_asegurate/pages/help/help_page.dart';
 export 'package:app_asegurate/pages/consult/consult_page_detail.dart';
-
-

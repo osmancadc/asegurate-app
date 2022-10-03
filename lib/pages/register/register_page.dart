@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils.dart';
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final con = Get.put(RegisterPageController());
+  bool agree = false;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          backgroundColor: colorSecondary,
+          backgroundColor: colorPrimary,
           body: SingleChildScrollView(
             child: Stack(children: [
               Column(
@@ -31,8 +37,9 @@ class RegisterPage extends StatelessWidget {
                       _boxFormPassword(context),
                       _boxFormConfirmPassword(context),
                       _radioButton(context),
-                      _buttomRegister(context),
-                      _buttomGetInto(context),
+                      _boxFormTermsAndConditions(context),
+                      _buttonRegister(context),
+                      _buttonReturn(context),
                     ],
                   )
                 ],
@@ -154,6 +161,33 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+  Widget _boxFormTermsAndConditions(context) {
+    RegisterPageController con = Get.put(RegisterPageController());
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.02,
+          left: 30,
+          right: 30,
+        ),
+        child: CheckboxListTile(
+          title: Text("Acepto términos y condiciones",
+              style: TextStyle(color: Colors.white)),
+          dense: true,
+          activeColor: colorOnSurface,
+          controlAffinity: ListTileControlAffinity.leading,
+          value: agree,
+          side: BorderSide(color: Colors.white, width: 2.0),
+          secondary: Icon(Icons.admin_panel_settings, color: Colors.white),
+          onChanged: (value) {
+            con.changeTermsAndConditionsState(value);
+            setState(() {
+              agree = value ?? false;
+            });
+          },
+        ));
+  }
+
   Widget _radioButton(context) {
     RegisterPageController con = Get.put(RegisterPageController());
     return Container(
@@ -235,7 +269,7 @@ Widget _textIdentification(context) {
       controller: con.identificationController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        labelText: 'Numero de Identificación',
+        labelText: 'Número de Identificación *',
         labelStyle: TextStyle(
           fontSize: 14,
         ),
@@ -252,7 +286,7 @@ Widget _textFormDatePicker(context) {
       readOnly: true,
       controller: con.dateController.value,
       decoration: InputDecoration(
-        labelText: "Fecha de expedición",
+        labelText: "Fecha de Expedición *",
         labelStyle: TextStyle(
           fontSize: 14,
         ),
@@ -291,15 +325,17 @@ Widget _textFormRegisterPhone(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: TextField(
+    child: TextFormField(
       controller: con.phoneController,
       keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: 'Número de Celular (3001234567)',
+      decoration: InputDecoration(
+        labelText: 'Número de Celular *',
         labelStyle: TextStyle(
           fontSize: 14,
         ),
       ),
+      autovalidateMode: AutovalidateMode.always,
+      validator: (value) => con.validatePhone(value),
     ),
   );
 }
@@ -308,15 +344,17 @@ Widget _textFormRegisterEmail(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: TextField(
+    child: TextFormField(
       controller: con.emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-        labelText: 'Correo Electrónico',
+      decoration: InputDecoration(
+        labelText: 'Correo Electrónico *',
         labelStyle: TextStyle(
           fontSize: 14,
         ),
       ),
+      validator: (value) => con.validateEmail(value),
+      autovalidateMode: AutovalidateMode.always,
     ),
   );
 }
@@ -328,16 +366,17 @@ Widget _textPassword(context) {
     children: [
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
+        child: TextFormField(
           obscureText: con.obscureText.value,
           controller: con.passwordController,
           decoration: InputDecoration(
-            errorText: con.validatePassword(con.passwordController.text),
             labelText: 'Contraseña',
             labelStyle: TextStyle(
               fontSize: 14,
             ),
           ),
+          validator: (value) => con.validatePassword(value),
+          autovalidateMode: AutovalidateMode.always,
         ),
       ),
       Container(
@@ -367,18 +406,17 @@ Widget _textConfirmPassword(context) {
     children: [
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
+        child: TextFormField(
           obscureText: con.obscureText.value,
           controller: con.passwordConfirmController,
           decoration: InputDecoration(
-            errorText: con.validateMatchingPasswords(
-                con.passwordController.text,
-                con.passwordConfirmController.text),
             labelText: 'Confirmar Contraseña',
             labelStyle: TextStyle(
               fontSize: 14,
             ),
           ),
+          validator: (value) => con.validateMatchingPasswords(value),
+          autovalidateMode: AutovalidateMode.always,
         ),
       ),
       Container(
@@ -402,13 +440,14 @@ Widget _textConfirmPassword(context) {
   );
 }
 
-Widget _buttomRegister(BuildContext context) {
+Widget _buttonRegister(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
     child: ElevatedButton(
-      onPressed: () => con.register(context),
+      onPressed:
+          con.agreeTermsAndConditions ? () => con.register(context) : null,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -428,7 +467,7 @@ Widget _buttomRegister(BuildContext context) {
   );
 }
 
-Widget _buttomGetInto(BuildContext context) {
+Widget _buttonReturn(BuildContext context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,

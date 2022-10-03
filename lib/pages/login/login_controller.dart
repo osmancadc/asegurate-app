@@ -9,7 +9,7 @@ import 'package:app_asegurate/utils.dart';
 
 import 'package:get/get.dart';
 
-class LoginPageController extends GetxController {
+class LoginController extends GetxController {
   var obscureText = true.obs;
 
   void toggle() {
@@ -27,7 +27,7 @@ class LoginPageController extends GetxController {
   }
 
   goToRecoverdPassword() {
-    Get.toNamed('/passwordRecovered');
+    Get.toNamed('/passwordRecovery');
   }
 
   TextEditingController userController = TextEditingController();
@@ -63,7 +63,7 @@ class LoginPageController extends GetxController {
     Get.toNamed('/register');
   }
 
-  void getOut(BuildContext context) async {
+  void authenticateUser(BuildContext context) async {
     String username = userController.text.trim();
     String password = passwordController.text.trim();
 
@@ -72,7 +72,7 @@ class LoginPageController extends GetxController {
       password,
     )) {
       Login login = Login(
-        username: username,
+        document: username,
         password: _encrypt(password),
       );
 
@@ -81,7 +81,7 @@ class LoginPageController extends GetxController {
       if (response.statusCode == 200) {
         GetStorage().write('token', response.body["token"]);
 
-        Get.offAllNamed('/consult');
+        Get.offAllNamed('/profile');
       } else {
         showDialog(
             context: context,

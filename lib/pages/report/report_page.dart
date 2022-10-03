@@ -46,7 +46,7 @@ class ReportPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
-            _buttomSearch(context),
+            _buttonSearch(context),
           ],
         ),
       ),
@@ -361,7 +361,7 @@ Widget _textIdentification(context) {
   );
 }
 
-Widget _buttomSearch(BuildContext context) {
+Widget _buttonSearch(BuildContext context) {
   Get.put(ReportPageController());
   return Container(
     width: double.infinity,

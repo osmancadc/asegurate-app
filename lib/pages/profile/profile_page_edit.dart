@@ -11,7 +11,7 @@ class ProfilePageEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorSecondary,
+      backgroundColor: colorPrimary,
       appBar: AppBar(
         backgroundColor: colorPrimary,
         leading: IconButton(
@@ -52,12 +52,35 @@ class ProfilePageEdit extends StatelessWidget {
                   ),
                   _boxFormEmail(context),
                   _boxFormCellPhone(context),
-                  _buttomProfileEdit(context)
+                  _buttonProfileEdit(context)
                 ],
               )
             ],
           ),
         ]),
+      ),
+    );
+  }
+
+  Widget _boxFormEmail(context) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.05,
+        left: 30,
+        right: 30,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [_textIEmailAddress(context)],
       ),
     );
   }
@@ -86,56 +109,38 @@ class ProfilePageEdit extends StatelessWidget {
     );
   }
 
-  Widget _boxFormEmail(context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.05,
-        left: 30,
-        right: 30,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [_textIEmailAddress(context)],
-      ),
-    );
-  }
-
   Widget _textIEmailAddress(context) {
     return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: TextFormField(
         controller: con.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: 'Correo Electrónico',
+          labelText: 'Correo Electrónico',
+          labelStyle: TextStyle(
+            fontSize: 14,
+          ),
         ),
+        validator: (value) => con.validateEmail(value),
+        autovalidateMode: AutovalidateMode.always,
       ),
     );
   }
 
   Widget _textCellPhone(context) {
     return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.05,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextField(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: TextFormField(
         controller: con.phoneController,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-          hintText: 'Número de Celular',
+          labelText: 'Número de Celular *',
+          labelStyle: TextStyle(
+            fontSize: 14,
+          ),
         ),
+        autovalidateMode: AutovalidateMode.always,
+        validator: (value) => con.validatePhone(value),
       ),
     );
   }
@@ -168,7 +173,7 @@ class ProfilePageEdit extends StatelessWidget {
     );
   }
 
-  Widget _buttomProfileEdit(BuildContext context) {
+  Widget _buttonProfileEdit(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),

@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../pages/profile/profile_page_controller.dart';
-
 class MenuDrawerController extends GetxController {
   logout() {
     GetStorage().remove('token');
@@ -29,8 +27,6 @@ void gotoNewsPage() {
 
 void gotoProfilePage(context) {
   Get.toNamed('/profile');
-  final con = Get.put(ProfilePageController());
-  con.getUserById(context);
 }
 
 void gotoSettingsPage() {

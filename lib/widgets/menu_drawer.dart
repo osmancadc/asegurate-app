@@ -11,9 +11,9 @@ class MenuDrawer extends GetxController {
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child: Drawer(
-        backgroundColor: colorSecondary.withAlpha(100),
+        backgroundColor: colorSecondary.withOpacity(0.3),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
@@ -66,7 +66,7 @@ class MenuDrawer extends GetxController {
           Icon(
             icon,
             color: colorFontIcon,
-            size: MediaQuery.of(context).size.width * 0.22,
+            size: MediaQuery.of(context).size.width * 0.20,
           ),
           Text(
             text,

@@ -31,7 +31,7 @@ class QualifyPage extends StatelessWidget {
         toolbarOpacity: 0.8,
       ),
       drawer: MenuDrawer().menuDrawer(context),
-      backgroundColor: colorSecondary,
+      backgroundColor: colorPrimary,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -49,7 +49,7 @@ class QualifyPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            _buttomSearch(context),
+            _buttonSearch(context),
           ],
         ),
       ),
@@ -60,7 +60,6 @@ class QualifyPage extends StatelessWidget {
 Widget _boxIdentification(BuildContext context) {
   return Container(
     width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.07,
     margin: EdgeInsets.only(
       top: MediaQuery.of(context).size.height * 0.05,
       left: 30,
@@ -152,7 +151,7 @@ Widget _scoreSelector(BuildContext context) {
     unratedColor: Colors.black54,
     itemSize: 45,
     initialRating: 3,
-    minRating: 0.5,
+    minRating: 0,
     direction: Axis.horizontal,
     allowHalfRating: true,
     itemCount: 5,
@@ -202,13 +201,13 @@ Widget _textComments(context) {
       controller: con.commentsController,
       keyboardType: TextInputType.text,
       decoration: const InputDecoration(
-        hintText: 'Comentarios',
+        hintText: 'Comentarios *',
       ),
     ),
   );
 }
 
-Widget _buttomSearch(BuildContext context) {
+Widget _buttonSearch(BuildContext context) {
   QualifyController con = Get.put(QualifyController());
   return Container(
     width: double.infinity,
@@ -242,15 +241,17 @@ Widget _textIdentification(context) {
     ),
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: TextField(
+      child: TextFormField(
         keyboardType: TextInputType.number,
         controller: con.valueController,
         decoration: const InputDecoration(
-          labelText: 'Número de documento o celular',
+          labelText: 'Número de documento o celular *',
           labelStyle: TextStyle(
             fontSize: 15,
           ),
         ),
+        // validator: (value) => con.validateDocument(value),
+        // autovalidateMode: AutovalidateMode.always,
       ),
     ),
   );

@@ -12,8 +12,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    con.getUserById(context);
     return Obx(() => Scaffold(
-          backgroundColor: colorSecondary,
+          backgroundColor: colorPrimary,
           appBar: AppBar(
             backgroundColor: colorPrimary,
             leading: Builder(
@@ -58,7 +59,7 @@ class ProfilePage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.04),
                       _boxFormEmail(context),
                       _boxFormCellPhone(context),
-                      _buttomProfileEdit(context),
+                      _buttonProfileEdit(context),
                     ],
                   )
                 ],
@@ -210,7 +211,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buttomProfileEdit(BuildContext context) {
+  Widget _buttonProfileEdit(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),

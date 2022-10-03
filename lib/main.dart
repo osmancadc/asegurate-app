@@ -20,7 +20,7 @@ Future main() async {
     supportedLocales: [
       Locale('en', 'US'),
       Locale('es', 'ES'),
-      Locale.fromSubtags( languageCode: 'es' ),
+      Locale.fromSubtags(languageCode: 'es'),
     ],
   ));
 }
@@ -57,8 +57,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
         GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
-        GetPage(
-            name: '/passwordRecovered', page: () => PasswordRecoveredPage()),
+        GetPage(name: '/passwordRecovery', page: () => PasswordRecoveryPage()),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
