@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/consult/detail_page_controller.dart';
+import 'package:app_asegurate/pages/consult/consult_result_controller.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,16 +36,16 @@ class ConsultPageDetail extends StatelessWidget {
           backgroundColor: colorPrimary,
           body: SingleChildScrollView(
             child: Stack(children: [
-              _consultBackgroundImage(context),
+              _backgroundImage(context),
               Column(
                 children: [
-                  _consultCircleImage(context),
-                  _consultName(),
+                  _personPhoto(context),
+                  _personName(),
                   SizedBox(height: 5),
-                  _consultDocument(),
+                  _personDocument(),
                   SizedBox(height: 5),
                   _ratingBar(),
-                  _imageCertified(context),
+                  _badgeCertified(context),
                 ],
               ),
               Row(
@@ -60,13 +60,78 @@ class ConsultPageDetail extends StatelessWidget {
         ));
   }
 
-  Widget _imageCertified(BuildContext context) {
+  Widget _backgroundImage(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.47,
+      child: con.photo.value == ''
+          ? Image.asset('assets/images/${con.gender.value}.png',
+                  fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12)
+          : Image.network(con.photo.value, fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
+    );
+  }
+
+  Widget _personPhoto(BuildContext context) {
     return Container(
-      margin:
-          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.06),
-      child: con.certified.value
-          ? Image.asset('assets/images/certified.png', width: 500, height: 320)
-          : null,
+      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.height * 0.26,
+      child: CircleAvatar(
+        backgroundImage: con.photo.value == ''
+            ? AssetImage('assets/images/${con.gender.value}.png')
+                as ImageProvider
+            : NetworkImage(con.photo.value),
+      ),
+    );
+  }
+
+  Widget _personName() {
+    return con.name.value == ''
+        ? Container()
+        : Container(
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(Get.context!).size.height * 0.02),
+            child: Text(
+              con.name.value,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold),
+            ),
+          );
+  }
+
+  Widget _personDocument() {
+    return con.document.value == ''
+        ? Container()
+        : Text(
+            formatDocument(con.document.value),
+            style: TextStyle(
+              color: colorFont,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          );
+  }
+
+  Widget _ratingBar() {
+    return RatingBar.builder(
+      initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
+      itemSize: 40.0,
+      minRating: 0,
+      ignoreGestures: true,
+      direction: Axis.horizontal,
+      allowHalfRating: false,
+      unratedColor: Colors.white70,
+      itemCount: 5,
+      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+      itemBuilder: (context, _) => Icon(
+        Icons.star,
+        color: Colors.yellow,
+      ),
+      onRatingUpdate: (value2) {},
     );
   }
 
@@ -140,76 +205,13 @@ class ConsultPageDetail extends StatelessWidget {
     ]);
   }
 
-  Widget _ratingBar() {
-    return RatingBar.builder(
-      initialRating: con.stars.value == 0 ? 0 : con.stars.value.toDouble(),
-      itemSize: 40.0,
-      minRating: 0,
-      ignoreGestures: true,
-      direction: Axis.horizontal,
-      allowHalfRating: false,
-      unratedColor: Colors.white70,
-      itemCount: 5,
-      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-      itemBuilder: (context, _) => Icon(
-        Icons.star,
-        color: Colors.yellow,
-      ),
-      onRatingUpdate: (value2) {},
-    );
-  }
-
-  Widget _consultName() {
-    return con.name.value == ''
-        ? Container()
-        : Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(Get.context!).size.height * 0.02),
-            child: Text(
-              con.name.value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold),
-            ),
-          );
-  }
-
-  Widget _consultDocument() {
-    return con.document.value == ''
-        ? Container()
-        : Text(
-            formatDocument(con.document.value),
-            style: TextStyle(
-              color: colorFont,
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-            ),
-          );
-  }
-
-  Widget _consultCircleImage(BuildContext context) {
+  Widget _badgeCertified(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
-      width: MediaQuery.of(context).size.width * 0.50,
-      height: MediaQuery.of(context).size.height * 0.26,
-      child: CircleAvatar(
-        backgroundImage: con.photo.value == ''
-            ? const AssetImage('assets/images/no_image.png') as ImageProvider
-            : NetworkImage(con.photo.value),
-      ),
-    );
-  }
-
-  Widget _consultBackgroundImage(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.47,
-      child: con.photo.value == ''
-          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
-              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
-          : Image.network(con.photo.value, fit: BoxFit.cover)
-              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
+      margin:
+          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.06),
+      child: con.certified.value
+          ? Image.asset('assets/images/certified.png', width: 500, height: 320)
+          : null,
     );
   }
 }

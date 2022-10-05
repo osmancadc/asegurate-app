@@ -22,7 +22,7 @@ class QualifyController extends GetxController {
     switch (response.statusCode) {
       case 200:
         {
-          nameController.text = response.body["name"];
+          nameController.text = formatName(response.body["name"]);
         }
         break;
       case 500:

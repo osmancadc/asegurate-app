@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/qualify/qualify_page_controller.dart';
+import 'package:app_asegurate/pages/qualify/qualify_controller.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

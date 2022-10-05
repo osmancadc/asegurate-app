@@ -13,13 +13,14 @@ class DetailpageController extends GetxController {
   }
 
   var arguments = Get.arguments;
-  var name = "".obs;
-  var document = "".obs;
-  var score = 0.obs;
-  var stars = 0.obs;
-  var reputation = 0.obs;
-  var certified = true.obs;
-  var photo = "".obs;
+  RxString name = "".obs;
+  RxString document = "".obs;
+  RxInt score = 0.obs;
+  RxInt stars = 0.obs;
+  RxInt reputation = 0.obs;
+  RxBool certified = true.obs;
+  RxString photo = "".obs;
+  RxString gender = "".obs;
 
   @override
   void onInit() async {
@@ -31,5 +32,6 @@ class DetailpageController extends GetxController {
     score.value = arguments['score'];
     certified.value = arguments['certified'];
     photo.value = arguments['photo'];
+    gender.value = arguments['gender'];
   }
 }

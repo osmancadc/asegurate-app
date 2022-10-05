@@ -25,34 +25,25 @@ class MenuDrawer extends GetxController {
               children: [
                 GestureDetector(
                     onTap: () => gotoConsultPage(),
-                    child: _iconMenu(Icons.list, 'Consultar', context)),
+                    child: _iconMenu(
+                        Icons.person_search_sharp, 'Consultar', context)),
                 GestureDetector(
                     onTap: () => gotoQualififyPage(),
-                    child: _iconMenu(Icons.rate_review, 'Calificar', context)),
-                // GestureDetector(
-                //   onTap: () => gotoReportPage(),
-                //   child: _iconMenu(Icons.report, 'Reportar', context),
-                // ),
-                // GestureDetector(
-                //   onTap: () => gotoNewsPage(),
-                //   child: _iconMenu(Icons.notifications, 'Noticias', context),
-                // ),
+                    child: _iconMenu(
+                        Icons.rate_review_outlined, 'Calificar', context)),
                 GestureDetector(
                   onTap: () => gotoProfilePage(context),
-                  child: _iconMenu(Icons.person, 'Perfil', context),
-                ),
-                // GestureDetector(
-                //   onTap: () => gotoSettingsPage(),
-                //   child: _iconMenu(Icons.settings, 'Ajustes', context),
-                // ),
-                GestureDetector(
-                  onTap: () => con.logout(),
-                  child: _iconMenu(Icons.exit_to_app, 'Salir', context),
+                  child: _iconMenu(Icons.person_pin, 'Perfil', context),
                 ),
                 // GestureDetector(
                 //   onTap: () => gotoHelpPage(),
-                //   child: _iconMenu(Icons.help, 'Ayuda', context),
-                // )
+                //   child:
+                //       _iconMenu(Icons.info_outline_rounded, 'Ayuda', context),
+                // ),
+                GestureDetector(
+                  onTap: () => con.logout(),
+                  child: _iconMenu(Icons.exit_to_app, 'Cerrar sesión', context),
+                ),
               ],
             ),
           ),

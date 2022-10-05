@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/profile/profile_page_edit_controller.dart';
+import 'package:app_asegurate/pages/profile/edit_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils.dart';

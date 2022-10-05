@@ -141,6 +141,13 @@ class RegisterPageController extends GetxController {
     return true;
   }
 
+  String? validateDocument(String? value) {
+    if (value!.isNotEmpty && !value.contains(RegExp(r'^[0-9]{8,10}$'))) {
+      return 'Ingresa un documento válido';
+    }
+    return null;
+  }
+
   String? validateEmail(String? value) {
     if (value!.isNotEmpty &&
         !value.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
@@ -159,7 +166,7 @@ class RegisterPageController extends GetxController {
 
   String? validatePassword(String? value) {
     if (!value!.isNotEmpty) {
-      return "Ingresa una contraseña";
+      return null;
     }
 
     if (value.length < 8) {

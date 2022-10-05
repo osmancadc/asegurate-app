@@ -1,5 +1,4 @@
-import 'package:app_asegurate/pages/consult/detail_page_controller.dart';
-import 'package:app_asegurate/pages/news/news_page_controller.dart';
+import 'package:app_asegurate/pages/consult/consult_result_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:get/get.dart';
@@ -45,14 +44,7 @@ class _MyAppState extends State<MyApp> {
             arguments: DetailpageController()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
-        GetPage(name: '/settings', page: () => const SettingsPage()),
-        GetPage(name: '/report', page: () => ReportPage()),
         GetPage(name: '/login', page: () => const LoginPage()),
-        GetPage(
-            name: '/news',
-            page: () => const NewsPage(),
-            arguments: NewsPageController()),
-        GetPage(name: '/newsdetail', page: () => NewsDetailPage()),
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),

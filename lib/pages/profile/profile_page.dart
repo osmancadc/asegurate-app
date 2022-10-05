@@ -39,9 +39,9 @@ class ProfilePage extends StatelessWidget {
               _profileBackgroundImage(context),
               Column(
                 children: [
-                  _profileCircleImage(context),
-                  _profileName(),
-                  _documentNumber(),
+                  _profileUserPicture(context),
+                  _userName(),
+                  _userDocument(),
                   Column(
                     children: [
                       Row(
@@ -74,27 +74,30 @@ class ProfilePage extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
-          ? Image.asset('assets/images/no_image.png', fit: BoxFit.cover)
-              .blurred(blur: 5, blurColor: Colors.white, colorOpacity: 1)
+          ? Image.asset('assets/images/${con.gender.value}.png',
+                  fit: BoxFit.cover)
+              .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12)
           : Image.network(con.photo.value, fit: BoxFit.cover)
               .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12),
     );
   }
 
-  Widget _profileCircleImage(BuildContext context) {
+  Widget _profileUserPicture(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
       width: MediaQuery.of(context).size.width * 0.50,
       height: MediaQuery.of(context).size.height * 0.26,
       child: CircleAvatar(
         backgroundImage: con.photo.value == ''
-            ? const AssetImage('assets/images/no_image.png') as ImageProvider
+            ? AssetImage('assets/images/${con.gender.value}.png')
+                as ImageProvider
+            // ? AssetImage('assets/images/default_picture.png') as ImageProvider
             : NetworkImage(con.photo.value),
       ),
     );
   }
 
-  Widget _profileName() {
+  Widget _userName() {
     return Padding(
       padding: EdgeInsets.only(top: 10),
       child: Text(
@@ -108,7 +111,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _documentNumber() {
+  Widget _userDocument() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Text(

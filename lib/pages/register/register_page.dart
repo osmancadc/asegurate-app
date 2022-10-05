@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/register/register_page_controller.dart';
+import 'package:app_asegurate/pages/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils.dart';
@@ -265,7 +265,7 @@ Widget _textIdentification(context) {
   RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: TextField(
+    child: TextFormField(
       controller: con.identificationController,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
@@ -274,6 +274,8 @@ Widget _textIdentification(context) {
           fontSize: 14,
         ),
       ),
+      autovalidateMode: AutovalidateMode.always,
+      validator: (value) => con.validateDocument(value),
     ),
   );
 }
