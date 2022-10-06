@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/profile/profile_page_controller.dart';
+import 'package:app_asegurate/pages/profile/profile_controller.dart';
 import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';

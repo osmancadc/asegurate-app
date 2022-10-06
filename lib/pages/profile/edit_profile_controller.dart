@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import "package:get_storage/get_storage.dart";
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'profile_page_controller.dart';
+import 'profile_controller.dart';
 import 'package:app_asegurate/utils.dart';
 import 'package:app_asegurate/models/user_model.dart';
 import 'package:app_asegurate/providers/update_user_provider.dart';
