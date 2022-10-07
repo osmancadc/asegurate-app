@@ -4,7 +4,7 @@ import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class ConsultPage extends StatelessWidget {
   const ConsultPage({Key? key}) : super(key: key);
@@ -14,25 +14,25 @@ class ConsultPage extends StatelessWidget {
     Get.put(ConsultController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(
               Icons.menu,
-              color: colorFontIcon,
+              color: fifthColor,
               size: MediaQuery.of(context).size.width * 0.12,
             ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
         title: textTitle,
-        titleSpacing: 00.3,
+        titleSpacing: 0,
         centerTitle: true,
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
       drawer: MenuDrawer().menuDrawer(context),
-      backgroundColor: colorPrimary,
+      backgroundColor: firstColor,
       body: SingleChildScrollView(
         child: Column(children: [
           _consultTitle(context),
@@ -52,7 +52,7 @@ Widget _consultTitle(context) {
       'CONSULTAR UNA PERSONA',
       style: TextStyle(
         fontFamily: 'TradeGothicInline',
-        color: colorFont,
+        color: fifthColor,
         fontSize: MediaQuery.of(context).size.width * 0.06,
         fontWeight: FontWeight.bold,
       ),
@@ -171,7 +171,7 @@ Widget _buttonSearch(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        primary: colorOnPrimaryVariant,
+        primary: thirdColor,
         padding: const EdgeInsets.symmetric(vertical: 15),
       ),
       child: const Text(

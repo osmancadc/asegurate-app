@@ -3,7 +3,7 @@ import 'package:app_asegurate/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -14,21 +14,21 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     con.getUserById(context);
     return Obx(() => Scaffold(
-          backgroundColor: colorPrimary,
+          backgroundColor: firstColor,
           appBar: AppBar(
-            backgroundColor: colorPrimary,
+            backgroundColor: firstColor,
             leading: Builder(
               builder: (context) => IconButton(
                 icon: Icon(
                   Icons.menu,
-                  color: colorFontIcon,
+                  color: fifthColor,
                   size: MediaQuery.of(context).size.width * 0.12,
                 ),
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             ),
             title: textTitle,
-            titleSpacing: 00.3,
+            titleSpacing: 0,
             centerTitle: true,
             toolbarHeight: 60.2,
             toolbarOpacity: 0.8,
@@ -182,7 +182,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textIEmailAddress(context) {
     return Container(
-      color: colorSecondary,
+      color: secondColor,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       child: Center(
@@ -199,7 +199,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textCellPhone(context) {
     return Container(
-      color: colorSecondary,
+      color: secondColor,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
       child: Center(
@@ -224,7 +224,7 @@ class ProfilePage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          primary: colorOnPrimaryVariant,
+          primary: thirdColor,
           padding: EdgeInsets.symmetric(vertical: 8),
         ),
         child: const Text(

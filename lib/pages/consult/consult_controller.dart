@@ -1,8 +1,9 @@
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
+import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class ConsultController extends GetxController {
   TextEditingController textIdentification = TextEditingController();
@@ -27,9 +28,7 @@ class ConsultController extends GetxController {
       if (response.statusCode == 200) {
         Get.offAllNamed('/consultDetail', arguments: response.body);
       } else {
-        showDialog(
-            context: context,
-            builder: getContext(formatName(response.body['message']), true));
+        ResultDialog.show(context, response.body['message'], true);
       }
     }
   }

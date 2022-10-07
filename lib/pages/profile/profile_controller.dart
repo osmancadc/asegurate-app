@@ -1,10 +1,13 @@
+import 'dart:convert';
+
+import 'package:app_asegurate/data/authentication_client.dart';
+import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:app_asegurate/models/user_get_id.dart';
 import 'package:app_asegurate/providers/user_get_id_provider.dart';
-import 'package:app_asegurate/utils.dart';
 
 class ProfilePageController extends GetxController {
   RxString id = "".obs;
@@ -14,12 +17,14 @@ class ProfilePageController extends GetxController {
   RxString photo = "".obs;
   RxString document = "".obs;
   RxString gender = "empty".obs;
+  final _authenticationClient = GetIt.instance<AuthenticationClient>();
 
   UserByGetIdProviders userByGetIdProviders = UserByGetIdProviders();
 
   void getUserById(context) async {
-    UserGetId userGetId =
-        UserGetId(id: JwtDecoder.decode(GetStorage().read('token'))[id]);
+    final tokenDecoded = await _authenticationClient.getUserInformation();
+
+    UserGetId userGetId = UserGetId(id: tokenDecoded![id]);
     var response = await userByGetIdProviders.getUserById(userGetId);
     if (response.statusCode == 200) {
       gender.value = response.body['gender'];
@@ -30,9 +35,7 @@ class ProfilePageController extends GetxController {
       document.value = response.body['document'];
     }
     if (response.statusCode == 500) {
-      showDialog(
-          context: context,
-          builder: getContext(response.body['message'], true));
+      ResultDialog.show(context, response.body['message'], true);
     }
   }
 }

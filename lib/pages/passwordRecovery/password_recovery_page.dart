@@ -1,7 +1,7 @@
 import 'package:app_asegurate/pages/passwordRecovery/password_recovery_controller.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 import 'package:get/get.dart';
 
 class PasswordRecoveryPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class PasswordRecoveryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -92,7 +92,7 @@ class PasswordRecoveryPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          primary: colorOnPrimaryVariant,
+          primary: thirdColor,
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
         child: const Text(
@@ -118,7 +118,7 @@ class PasswordRecoveryPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          primary: colorOnSecondaryVariant,
+          primary: Colors.grey.shade600,
           padding: const EdgeInsets.symmetric(vertical: 4),
         ),
         child: const Text(

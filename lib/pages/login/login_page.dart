@@ -3,7 +3,7 @@ import 'package:app_asegurate/pages/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
     return SafeArea(
         child: Obx(
       () => Scaffold(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -124,14 +124,14 @@ class LoginPage extends StatelessWidget {
             left: MediaQuery.of(context).size.width * 0.73,
           ),
           child: TextButton(
-            onPressed: con.toggle,
+            onPressed: () => con.obscureText.value = !con.obscureText.value,
             style: ElevatedButton.styleFrom(
               primary: Colors.transparent,
               padding: EdgeInsets.symmetric(vertical: 15),
             ),
             child: Icon(
               con.obscureText.value ? Icons.visibility_off : Icons.visibility,
-              color: Colors.black,
+              color: firstColor,
             ),
           ),
         ),
@@ -150,7 +150,7 @@ class LoginPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          primary: colorOnPrimaryVariant,
+          primary: thirdColor,
           padding: EdgeInsets.symmetric(vertical: 8),
         ),
         child: const Text(
@@ -166,17 +166,16 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buttonRegister(BuildContext context) {
-    LoginController con = Get.put(LoginController());
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 95, vertical: 4),
       child: ElevatedButton(
-        onPressed: () => con.gotoRegisterPage(),
+        onPressed: () => Get.toNamed('/register'),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          primary: colorOnSecondaryVariant,
+          primary: Colors.grey.shade600,
           padding: EdgeInsets.symmetric(vertical: 4),
         ),
         child: const Text(
@@ -191,9 +190,8 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _recoverPassword(context) {
-    LoginController con = Get.put(LoginController());
     return GestureDetector(
-      onTap: con.goToRecoverdPassword,
+      onTap: () => Get.toNamed('/passwordRecovery'),
       child: Container(
         margin: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * 0.05,
@@ -205,7 +203,7 @@ class LoginPage extends StatelessWidget {
             Text(
               '¿Olvidaste tu contraseña?',
               style: TextStyle(
-                color: colorFont,
+                color: fifthColor,
                 fontSize: 16,
               ),
             ),

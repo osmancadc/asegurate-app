@@ -1,40 +1,31 @@
+// To parse this JSON data, do
+//
+//     final login = loginFromJson(jsonString);
+
 import 'dart:convert';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
-String userToJson(User data) => json.encode(data.toJson());
+String userToJson(User user) => json.encode(user.toJson());
 
 class User {
-  String? document;
-  String? expeditionDate;
-  String? email;
-  String? phone;
-  String? role;
-  String? password;
   User({
     this.document,
-    this.expeditionDate,
-    this.email,
-    this.phone,
-    this.role,
     this.password,
   });
 
+  String? document;
+  String? password;
+
   factory User.fromJson(Map<String, dynamic> json) => User(
-        document: json["document"],
-        expeditionDate: json["expeditionDate"],
-        email: json["email"],
-        phone: json["phone"],
-        role: json["role"],
-        password: json["password"],
+        document:
+            json.containsKey('document') ? json['document'] as String : null,
+        password:
+            json.containsKey('password') ? json['password'] as String : null,
       );
 
   Map<String, dynamic> toJson() => {
         "document": document,
-        "expedition_date": expeditionDate,
-        "email": email,
-        "phone": phone,
-        "role": role,
         "password": password,
       };
 }

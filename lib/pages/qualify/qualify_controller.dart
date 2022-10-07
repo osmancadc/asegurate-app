@@ -1,6 +1,7 @@
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/dialogs.dart';
+import 'package:app_asegurate/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -60,10 +61,9 @@ class QualifyController extends GetxController {
       switch (response.statusCode) {
         case 200:
           {
-            showDialog(
-                context: context,
-                builder: getContext(
-                    'La calificación ha sido enviada con exito', false));
+            ResultDialog.show(
+                context, 'La calificación ha sido enviada con exito', false);
+
             Future.delayed(Duration(seconds: 1), () {
               clear();
             });
@@ -71,9 +71,7 @@ class QualifyController extends GetxController {
           break;
         case 500:
           {
-            showDialog(
-                context: context,
-                builder: getContext(response.body['message'], true));
+            ResultDialog.show(context, response.body['message'], true);
           }
           break;
       }

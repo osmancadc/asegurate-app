@@ -19,6 +19,10 @@ dependencies:
   blur: ^3.1.0
   intl: ^0.17.0
   flutter_rating_bar: ^4.0.1
+  flutter_secure_storage: ^5.1.0
+  dio: ^4.0.6
+  logger: ^1.1.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -26,18 +30,17 @@ dev_dependencies:
 
   flutter_lints: ^1.0.0
   get: ^4.6.5
-  http: ^0.13.5
   file_picker: ^4.6.1
   flutter_carousel_slider: ^1.0.9
   image_picker: ^0.8.5+3
   get_storage: ^2.0.3
-  password_field_validator: ^0.0.1
 
   flutter_dotenv: ^5.0.2
   encrypt: ^5.0.1
   jwt_decoder: ^2.0.1
   hexcolor: ^2.0.5
   sn_progress_dialog: ^1.0.8
+  dart_code_metrics: ^4.19.1
 flutter:
   uses-material-design: true
   

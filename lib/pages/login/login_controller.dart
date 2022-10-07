@@ -1,99 +1,47 @@
-import 'package:app_asegurate/enviroment/enviroment.dart';
+import 'package:app_asegurate/api/authentication_api.dart';
+import 'package:app_asegurate/data/authentication_client.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
-import 'package:flutter/material.dart';
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:app_asegurate/utils/dialogs.dart';
+import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
+  // final _authenticationApi = AuthenticationApi();
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usersProvider = UsersProvider();
+  final _authenticationApi = GetIt.instance<AuthenticationApi>();
+  final _authenticationClient = GetIt.instance<AuthenticationClient>();
+
   var obscureText = true.obs;
-
-  void toggle() {
-    obscureText.value = !obscureText.value;
-  }
-
-  String readToken = GetStorage().read('token') ?? "";
-
-  String token = GetStorage().read('token') ?? "";
-
-  logout() {
-    GetStorage().remove('token');
-    GetStorage().remove('user');
-    Get.offAllNamed('/login');
-  }
-
-  goToRecoverdPassword() {
-    Get.toNamed('/passwordRecovery');
-  }
-
-  TextEditingController userController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final String encryptionKey = Environment.ENCRYPTION_KEY;
-
-  _encrypt(String text) {
-    final key = encrypt.Key.fromUtf8(encryptionKey);
-    final iv = encrypt.IV.fromLength(16);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    final encrypted = encrypter.encrypt(text, iv: iv);
-    return encrypted.base64;
-  }
-
-  UsersProvider usersProvider = UsersProvider();
-  void logouts(BuildContext context) async {
-    ProgressDialog progressDialog = ProgressDialog(context: context);
-    progressDialog.show(
-      max: 100,
-      msg: 'Cerrando sesión',
-    );
-
-    progressDialog.close();
-    if (token != "") {
-      GetStorage().remove('token');
-      Get.offAllNamed('/login');
-    } else {
-      Get.snackbar('Error', 'No se pudo cerrar sesión');
-    }
-  }
-
-  void gotoRegisterPage() {
-    Get.toNamed('/register');
-  }
-
   void authenticateUser(BuildContext context) async {
     String username = userController.text.trim();
     String password = passwordController.text.trim();
 
-    if (isvalidForm(
-      username,
-      password,
-    )) {
-      Login login = Login(
+    if (validateForm(username, password)) {
+      User user = User(
         document: username,
-        password: _encrypt(password),
+        password: encryptText(password),
       );
 
-      Response response = await usersProvider.login(login);
-
-      if (response.statusCode == 200) {
-        GetStorage().write('token', response.body["token"]);
-
-        Get.offAllNamed('/profile');
-      } else {
-        showDialog(
-            context: context,
-            builder: getContext('Usuario o contraseña incorrectos', true));
+      final response = await _authenticationApi.login(user);
+      switch (response.statusCode) {
+        case 200:
+          await _authenticationClient.saveSession(response.data);
+          Get.offAllNamed('/profile');
+          break;
+        default:
+          ResultDialog.show(context, 'Usuario o contraseña incorrectos', true);
       }
     }
   }
 
-  bool isvalidForm(
-    String user,
-    String password,
-  ) {
+  bool validateForm(String user, String password) {
     if (user.isEmpty) {
       userController.text = '';
       userController.selection = TextSelection.fromPosition(
@@ -113,8 +61,11 @@ class LoginController extends GetxController {
     }
     return true;
   }
-}
 
-void gotoInitiPage() {
-  Get.toNamed('/');
+  logout() {
+    //TODO REPLACE FOR SECURE REMOVAL OF THE DATA
+    GetStorage().remove('token');
+    GetStorage().remove('user');
+    Get.offAllNamed('/login');
+  }
 }

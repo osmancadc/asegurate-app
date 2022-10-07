@@ -3,7 +3,7 @@ import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class QualifyPage extends StatelessWidget {
   const QualifyPage({Key? key}) : super(key: key);
@@ -13,25 +13,25 @@ class QualifyPage extends StatelessWidget {
     Get.put(QualifyController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(
               Icons.menu,
-              color: colorFontIcon,
+              color: fifthColor,
               size: MediaQuery.of(context).size.width * 0.12,
             ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
         title: textTitle,
-        titleSpacing: 00.3,
+        titleSpacing: 0,
         centerTitle: true,
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
       ),
       drawer: MenuDrawer().menuDrawer(context),
-      backgroundColor: colorPrimary,
+      backgroundColor: firstColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -218,7 +218,7 @@ Widget _buttonSearch(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        primary: colorOnPrimaryVariant,
+        primary: thirdColor,
         padding: const EdgeInsets.symmetric(vertical: 10),
       ),
       child: const Text(
