@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import "package:get_storage/get_storage.dart";
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'profile_controller.dart';
-import 'package:app_asegurate/utils.dart';
-import 'package:app_asegurate/models/user_model.dart';
+import 'package:app_asegurate/utils/utils.dart';
+import 'package:app_asegurate/models/person.dart';
 import 'package:app_asegurate/providers/update_user_provider.dart';
 
 Map<String, dynamic> decodedToken =
@@ -41,7 +41,7 @@ class ProfilePageEditController extends GetxController {
     String email = emailController.text.trim();
     String phone = phoneController.text.trim();
     if (isValidForm(email, phone)) {
-      User user = User(
+      Person user = Person(
         email: email,
         phone: phone,
       );

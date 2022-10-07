@@ -1,44 +1,28 @@
-import 'package:app_asegurate/enviroment/enviroment.dart';
+import 'package:app_asegurate/api/authentication_api.dart';
 import 'package:app_asegurate/models/models.dart';
 import 'package:app_asegurate/providers/providers.dart';
+import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
+import 'package:get_it/get_it.dart';
 
 class RegisterPageController extends GetxController {
-  TextEditingController userController = TextEditingController();
-  TextEditingController identificationController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmController = TextEditingController();
+  final userController = TextEditingController();
+  final identificationController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfirmController = TextEditingController();
+  final usersProvider = UsersProvider();
+  final dateController = TextEditingController().obs;
+  final _authenticationApi = GetIt.instance<AuthenticationApi>();
 
-  var obscureText = true.obs;
   bool agreeTermsAndConditions = false;
-  void toggle() {
-    obscureText.value = !obscureText.value;
-  }
-
-  UsersProvider usersProvider = UsersProvider();
-  String encryptionKey = Environment.ENCRYPTION_KEY;
-
-  _encrypt(String text) {
-    final key = encrypt.Key.fromUtf8(encryptionKey);
-    final iv = encrypt.IV.fromLength(16);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    final encrypted = encrypter.encrypt(text, iv: iv);
-    return encrypted.base64;
-  }
-
-  var date = DateTime.now().obs;
-  var dateController = TextEditingController().obs;
-  var selectedRadio = "".obs;
-  onChangedRadio(var value) {
-    selectedRadio.value = value;
-  }
+  RxBool hidePassword = true.obs;
+  RxString selectedRadio = "".obs;
 
   void register(BuildContext context) async {
     String document = identificationController.text.trim();
@@ -48,92 +32,71 @@ class RegisterPageController extends GetxController {
     String password = passwordController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
 
-    if (isvalidForm(
-      document,
-      dateControllers,
-      email,
-      phone,
-      password,
-      passwordConfirm,
-      selectedRadio.value,
-    )) {
-      User user2 = User(
-        document: document,
-        expeditionDate: dateController.value.text,
-        email: email,
-        phone: phone,
-        password: _encrypt(password),
-        role: selectedRadio.value,
+    if (validateForm(document, dateControllers, email, phone, password,
+        passwordConfirm, selectedRadio.value)) {
+      LoadingDialog.show(context);
+
+      final response = await _authenticationApi.register(
+        Person(
+          document: document,
+          expeditionDate: dateController.value.text,
+          email: email,
+          phone: phone,
+          password: encryptText(password),
+          role: selectedRadio.value,
+        ),
       );
+      LoadingDialog.dismiss(context);
 
-      Response response = await usersProvider.create(user2);
-
-      if (response.statusCode == 200) {
-        showDialog(
-            context: context,
-            builder: getContext(
-                'La cuenta de ${formatName(response.body['name'])} \nha sido creada con exito',
-                false));
-
-        Future.delayed(Duration(seconds: 2), () => Get.offAllNamed('/login'));
-      } else {
-        showDialog(
-            context: context,
-            builder: getContext(formatName(response.body['message']), true));
+      switch (response.statusCode) {
+        case 200:
+          ResultDialog.show(
+              context,
+              'La cuenta de ${formatName(response.data['name'])} ha sido creada con exito',
+              false);
+          Get.offNamedUntil('/logout', (route) => false);
+          break;
+        default:
+          ResultDialog.show(context, response.data['message'], true);
       }
     }
   }
 
-  void gotoLoginPage() {
-    Get.offNamedUntil('/logout', (route) => false);
-  }
-
-  void changeTermsAndConditionsState(bool? state) {
-    agreeTermsAndConditions = state ?? false;
-  }
-
-  bool isvalidForm(
-    String document,
-    String dateControllers,
-    String email,
-    String phone,
-    String password,
-    String confirmPassword,
-    String role,
-  ) {
+  bool validateForm(String document, String dateControllers, String email,
+      String phone, String password, String confirmPassword, String role) {
     if (document.isEmpty ||
         dateControllers.isEmpty ||
         email.isEmpty ||
         phone.isEmpty ||
-        selectedRadio.value == "" ||
-        password == '') {
+        selectedRadio.value.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       showSnackbar('Todos los campos son obligatorios');
       return false;
     }
 
-    if (!document.contains(RegExp(r'^[0-9]{8,10}$'))) {
+    if (validateDocument(document) != null) {
       showSnackbar('Ingresa un número de cédula válido');
       return false;
     }
 
-    if (!email.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
+    if (validateEmail(email) != null) {
       showSnackbar('Ingresa un correo electronico válido');
       return false;
     }
 
-    if (!phone.contains(RegExp(r'3[0-9]{9}'))) {
+    if (validatePhone(phone) != null) {
       showSnackbar('Ingresa un número de celular válido');
       return false;
     }
 
-    if (!password.contains(RegExp(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'))) {
+    if (validatePassword(password) != null) {
       showSnackbar(
           'La contraseña debe tener al menos una mayúscula y un caracter especial');
       return false;
     }
 
-    if (password != confirmPassword) {
+    if (validateMatchingPasswords(confirmPassword) != null) {
       showSnackbar('Las contraseñas no coinciden');
       return false;
     }

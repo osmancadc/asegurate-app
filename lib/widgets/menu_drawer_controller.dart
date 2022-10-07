@@ -1,10 +1,11 @@
+import 'package:app_asegurate/data/authentication_client.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get_it/get_it.dart';
 
 class MenuDrawerController extends GetxController {
+  final _authenticationClient = GetIt.instance<AuthenticationClient>();
   logout() {
-    GetStorage().remove('token');
-    GetStorage().remove('user');
+    _authenticationClient.signOut();
     Get.offAllNamed('/login');
   }
 }
@@ -17,24 +18,8 @@ void gotoQualififyPage() {
   Get.toNamed('/qualify');
 }
 
-void gotoReportPage() {
-  Get.toNamed('/report');
-}
-
-void gotoNewsPage() {
-  Get.toNamed('/news');
-}
-
 void gotoProfilePage(context) {
   Get.toNamed('/profile');
-}
-
-void gotoSettingsPage() {
-  Get.toNamed('/settings');
-}
-
-void gotoLogoutPage() {
-  Get.toNamed('/logout');
 }
 
 void gotoHelpPage() {

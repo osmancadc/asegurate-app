@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 import 'menu_drawer_controller.dart';
 import 'dart:ui' show ImageFilter;
 
@@ -11,7 +11,7 @@ class MenuDrawer extends GetxController {
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child: Drawer(
-        backgroundColor: colorSecondary.withOpacity(0.3),
+        backgroundColor: secondColor.withOpacity(0.3),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
@@ -56,13 +56,13 @@ class MenuDrawer extends GetxController {
         children: [
           Icon(
             icon,
-            color: colorFontIcon,
+            color: fifthColor,
             size: MediaQuery.of(context).size.width * 0.20,
           ),
           Text(
             text,
             style: TextStyle(
-              color: colorFontIcon,
+              color: fifthColor,
               fontSize: 20,
             ),
           ),

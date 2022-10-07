@@ -1,7 +1,7 @@
 import 'package:app_asegurate/pages/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          backgroundColor: colorPrimary,
+          backgroundColor: firstColor,
           body: SingleChildScrollView(
             child: Stack(children: [
               Column(
@@ -174,13 +174,13 @@ class _RegisterPageState extends State<RegisterPage> {
           title: Text("Acepto términos y condiciones",
               style: TextStyle(color: Colors.white)),
           dense: true,
-          activeColor: colorOnSurface,
+          activeColor: Colors.black,
           controlAffinity: ListTileControlAffinity.leading,
           value: agree,
           side: BorderSide(color: Colors.white, width: 2.0),
           secondary: Icon(Icons.admin_panel_settings, color: Colors.white),
           onChanged: (value) {
-            con.changeTermsAndConditionsState(value);
+            con.agreeTermsAndConditions = value ?? false;
             setState(() {
               agree = value ?? false;
             });
@@ -203,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Text('Cual es tu Perfil Principal ' '',
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: colorFont,
+                  color: fifthColor,
                 )),
           ),
           Row(
@@ -216,7 +216,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     value: "seller",
                     groupValue: con.selectedRadio.value,
                     onChanged: (value) {
-                      con.onChangedRadio(value);
+                      con.selectedRadio.value = value as String;
                     },
                     activeColor: Colors.blue.shade300,
                     fillColor: MaterialStateProperty.all(Colors.white),
@@ -239,7 +239,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     value: "buyer",
                     groupValue: con.selectedRadio.value,
                     onChanged: (value) {
-                      con.onChangedRadio(value);
+                      con.selectedRadio.value = value as String;
                     },
                     activeColor: Colors.blue.shade300,
                     fillColor: MaterialStateProperty.all(Colors.white),
@@ -369,7 +369,7 @@ Widget _textPassword(context) {
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextFormField(
-          obscureText: con.obscureText.value,
+          obscureText: con.hidePassword.value,
           controller: con.passwordController,
           decoration: InputDecoration(
             labelText: 'Contraseña',
@@ -387,14 +387,14 @@ Widget _textPassword(context) {
           left: MediaQuery.of(context).size.width * 0.7,
         ),
         child: TextButton(
-          onPressed: con.toggle,
+          onPressed: () => con.hidePassword.value = !con.hidePassword.value,
           style: ElevatedButton.styleFrom(
             primary: Colors.transparent,
             padding: EdgeInsets.symmetric(vertical: 15),
           ),
           child: Icon(
-            con.obscureText.value ? Icons.visibility_off : Icons.visibility,
-            color: Colors.black54,
+            con.hidePassword.value ? Icons.visibility_off : Icons.visibility,
+            color: firstColor,
           ),
         ),
       ),
@@ -409,7 +409,7 @@ Widget _textConfirmPassword(context) {
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextFormField(
-          obscureText: con.obscureText.value,
+          obscureText: con.hidePassword.value,
           controller: con.passwordConfirmController,
           decoration: InputDecoration(
             labelText: 'Confirmar Contraseña',
@@ -427,14 +427,14 @@ Widget _textConfirmPassword(context) {
           left: MediaQuery.of(context).size.width * 0.7,
         ),
         child: TextButton(
-          onPressed: con.toggle,
+          onPressed: () => con.hidePassword.value = !con.hidePassword.value,
           style: ElevatedButton.styleFrom(
             primary: Colors.transparent,
             padding: EdgeInsets.symmetric(vertical: 15),
           ),
           child: Icon(
-            con.obscureText.value ? Icons.visibility_off : Icons.visibility,
-            color: colorPrimary,
+            con.hidePassword.value ? Icons.visibility_off : Icons.visibility,
+            color: firstColor,
           ),
         ),
       ),
@@ -454,7 +454,7 @@ Widget _buttonRegister(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        primary: colorOnPrimaryVariant,
+        primary: thirdColor,
         padding: const EdgeInsets.symmetric(vertical: 0),
       ),
       child: const Text(
@@ -470,24 +470,22 @@ Widget _buttonRegister(BuildContext context) {
 }
 
 Widget _buttonReturn(BuildContext context) {
-  RegisterPageController con = Get.put(RegisterPageController());
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 95, vertical: 0),
+    margin: EdgeInsets.symmetric(horizontal: 95),
     child: ElevatedButton(
-      onPressed: () => con.gotoLoginPage(),
+      onPressed: () => Get.offNamedUntil('/login', (route) => false),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        primary: colorOnSecondaryVariant,
-        padding: const EdgeInsets.symmetric(vertical: 4),
+        primary: Colors.grey.shade600,
+        padding: EdgeInsets.symmetric(vertical: 4),
       ),
       child: const Text(
         'Regresar',
         style: TextStyle(
           color: Colors.white,
-          fontWeight: FontWeight.bold,
           fontSize: 17,
         ),
       ),

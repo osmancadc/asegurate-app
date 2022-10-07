@@ -1,4 +1,4 @@
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class HelpPage extends StatefulWidget {
@@ -58,13 +58,13 @@ class _HelpPageState extends State<HelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         title: Text('HelpPage'),
       ),
       body: Center(
         child: Container(
             decoration: BoxDecoration(
-              color: colorSecondary,
+              color: secondColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(

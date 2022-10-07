@@ -1,7 +1,7 @@
 import 'package:app_asegurate/pages/profile/edit_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils.dart';
+import 'package:app_asegurate/utils/utils.dart';
 
 class ProfilePageEdit extends StatelessWidget {
   ProfilePageEdit({Key? key}) : super(key: key);
@@ -11,13 +11,13 @@ class ProfilePageEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorPrimary,
+      backgroundColor: firstColor,
       appBar: AppBar(
-        backgroundColor: colorPrimary,
+        backgroundColor: firstColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: colorFontIcon,
+            color: fifthColor,
             size: MediaQuery.of(context).size.width * 0.12,
           ),
           onPressed: () {
@@ -25,7 +25,7 @@ class ProfilePageEdit extends StatelessWidget {
           },
         ),
         title: textTitle,
-        titleSpacing: 00.3,
+        titleSpacing: 0,
         centerTitle: true,
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
@@ -156,7 +156,7 @@ class ProfilePageEdit extends StatelessWidget {
     return Text(
       'Bogotá, Colombia',
       style: TextStyle(
-        color: colorFont,
+        color: fifthColor,
         fontSize: 15,
       ),
     );
@@ -166,7 +166,7 @@ class ProfilePageEdit extends StatelessWidget {
     return Text(
       nameToken,
       style: TextStyle(
-        color: colorFont,
+        color: fifthColor,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
@@ -183,7 +183,7 @@ class ProfilePageEdit extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          primary: colorOnPrimaryVariant,
+          primary: thirdColor,
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
         child: const Text(
