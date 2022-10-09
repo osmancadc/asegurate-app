@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/consult/consult_controller.dart';
+import 'package:app_asegurate/pages/search/search_controller.dart';
 import 'package:app_asegurate/widgets/widgets.dart';
 
 import 'package:flutter/material.dart';
@@ -93,7 +93,7 @@ Widget _textIdentification(context) {
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
         keyboardType: TextInputType.number,
-        controller: con.textIdentification,
+        controller: con.identificationValue,
         decoration: const InputDecoration(
           labelText: 'Número de documento o celular',
           labelStyle: TextStyle(
@@ -120,9 +120,7 @@ Widget _radioButton(context) {
             Obx(() => Radio(
                   value: "CC",
                   groupValue: con.selectedRadio.value,
-                  onChanged: (value) {
-                    con.onChangedRadio(value);
-                  },
+                  onChanged: (value) => con.selectedRadio.value = value as String,
                   activeColor: Colors.blue.shade300,
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),
@@ -140,9 +138,7 @@ Widget _radioButton(context) {
             Obx(() => Radio(
                   value: "PHONE",
                   groupValue: con.selectedRadio.value,
-                  onChanged: (value) {
-                    con.onChangedRadio(value);
-                  },
+                  onChanged: (value) => con.selectedRadio.value = value as String,
                   activeColor: Colors.blue.shade300,
                   fillColor: MaterialStateProperty.all(Colors.white),
                 )),

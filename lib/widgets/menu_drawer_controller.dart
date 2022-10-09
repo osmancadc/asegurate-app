@@ -11,7 +11,7 @@ class MenuDrawerController extends GetxController {
 }
 
 void gotoConsultPage() {
-  Get.toNamed('/consult');
+  Get.toNamed('/search');
 }
 
 void gotoQualififyPage() {

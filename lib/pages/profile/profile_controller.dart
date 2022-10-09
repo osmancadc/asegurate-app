@@ -1,13 +1,10 @@
-import 'dart:convert';
-
-import 'package:app_asegurate/data/authentication_client.dart';
+import 'package:app_asegurate/api/account_api.dart';
+import 'package:app_asegurate/data/account_client.dart';
+import 'package:app_asegurate/models/user.dart';
 import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:app_asegurate/models/user_get_id.dart';
-import 'package:app_asegurate/providers/user_get_id_provider.dart';
 
 class ProfilePageController extends GetxController {
   RxString id = "".obs;
@@ -17,25 +14,34 @@ class ProfilePageController extends GetxController {
   RxString photo = "".obs;
   RxString document = "".obs;
   RxString gender = "empty".obs;
-  final _authenticationClient = GetIt.instance<AuthenticationClient>();
 
-  UserByGetIdProviders userByGetIdProviders = UserByGetIdProviders();
+  void getUserInformation(context) async {
+    final _accountApi = GetIt.instance<AccountApi>();
+    final _accountClient = GetIt.instance<AccountClient>();
 
-  void getUserById(context) async {
-    final tokenDecoded = await _authenticationClient.getUserInformation();
+    User? savedUser = await _accountClient.userData;
+    if (savedUser == null) {
+      final response = await _accountApi.getUserInfo();
 
-    UserGetId userGetId = UserGetId(id: tokenDecoded![id]);
-    var response = await userByGetIdProviders.getUserById(userGetId);
-    if (response.statusCode == 200) {
-      gender.value = response.body['gender'];
-      name.value = response.body['name'];
-      email.value = response.body['email'];
-      phone.value = response.body['phone'];
-      photo.value = response.body['photo'];
-      document.value = response.body['document'];
+      switch (response.statusCode) {
+        case 200:
+          savedUser = response.data;
+          await _accountClient.saveUser(savedUser!);
+          break;
+        case 401:
+          ResultDialog.show(context, 'Usuario no autorizado', true);
+          break;
+        default:
+          ResultDialog.show(context, response.errorMessage, true);
+      }
     }
-    if (response.statusCode == 500) {
-      ResultDialog.show(context, response.body['message'], true);
+    if (savedUser != null) {
+      gender.value = savedUser.gender;
+      photo.value = savedUser.photo;
+      name.value = savedUser.name;
+      email.value = savedUser.email;
+      phone.value = savedUser.phone;
+      document.value = savedUser.document;
     }
   }
 }

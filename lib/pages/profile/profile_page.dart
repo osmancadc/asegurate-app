@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    con.getUserById(context);
+    con.getUserInformation(context);
     return Obx(() => Scaffold(
           backgroundColor: firstColor,
           appBar: AppBar(
@@ -39,7 +39,7 @@ class ProfilePage extends StatelessWidget {
               _profileBackgroundImage(context),
               Column(
                 children: [
-                  _profileUserPicture(context),
+                  _userAvatar(context),
                   _userName(),
                   _userDocument(),
                   Column(
@@ -47,16 +47,12 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          _profileSocialImage(context,
-                              Image.asset('assets/images/instagram.png')),
-                          _profileSocialImage(context,
-                              Image.asset('assets/images/facebook.png')),
-                          _profileSocialImage(context,
-                              Image.asset('assets/images/twitter.png')),
+                          _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
+                          _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
+                          _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
                         ],
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.04),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                       _boxFormEmail(context),
                       _boxFormCellPhone(context),
                       _buttonProfileEdit(context),
@@ -74,24 +70,21 @@ class ProfilePage extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
-          ? Image.asset('assets/images/${con.gender.value}.png',
-                  fit: BoxFit.cover)
+          ? Image.asset('assets/images/${con.gender.value}.png', fit: BoxFit.cover)
               .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12)
           : Image.network(con.photo.value, fit: BoxFit.cover)
               .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12),
     );
   }
 
-  Widget _profileUserPicture(BuildContext context) {
+  Widget _userAvatar(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
       width: MediaQuery.of(context).size.width * 0.50,
       height: MediaQuery.of(context).size.height * 0.26,
       child: CircleAvatar(
         backgroundImage: con.photo.value == ''
-            ? AssetImage('assets/images/${con.gender.value}.png')
-                as ImageProvider
-            // ? AssetImage('assets/images/default_picture.png') as ImageProvider
+            ? AssetImage('assets/images/${con.gender.value}.png') as ImageProvider
             : NetworkImage(con.photo.value),
       ),
     );

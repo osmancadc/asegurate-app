@@ -1,3 +1,4 @@
+import 'package:app_asegurate/models/person_score.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class DetailpageController extends GetxController {
     }
   }
 
-  var arguments = Get.arguments;
+  PersonScore? scoreData = Get.arguments;
   RxString name = "".obs;
   RxString document = "".obs;
   RxInt score = 0.obs;
@@ -25,13 +26,13 @@ class DetailpageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    name.value = arguments['name'];
-    document.value = arguments['document'];
-    stars.value = arguments['stars'];
-    reputation.value = arguments['reputation'];
-    score.value = arguments['score'];
-    certified.value = arguments['certified'];
-    photo.value = arguments['photo'];
-    gender.value = arguments['gender'];
+    gender.value = scoreData!.gender;
+    photo.value = scoreData!.photo;
+    certified.value = scoreData!.certified;
+    name.value = scoreData!.name;
+    document.value = scoreData!.document;
+    stars.value = scoreData!.stars;
+    reputation.value = scoreData!.reputation;
+    score.value = scoreData!.score;
   }
 }

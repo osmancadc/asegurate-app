@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils/utils.dart';
 
-class ProfilePageEdit extends StatelessWidget {
-  ProfilePageEdit({Key? key}) : super(key: key);
+class ProfilePageEdit extends StatefulWidget {
+  const ProfilePageEdit({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePageEdit> createState() => _ProfilePageEditState();
+}
+
+class _ProfilePageEditState extends State<ProfilePageEdit> {
   final con = Get.put(ProfilePageEditController());
 
   @override
   Widget build(BuildContext context) {
+    con.getUserInformation().then((value) => setState(() {}));
+    // con.getUserInformation();
+
     return Scaffold(
       backgroundColor: firstColor,
       appBar: AppBar(
@@ -34,24 +42,21 @@ class ProfilePageEdit extends StatelessWidget {
         child: Stack(children: [
           Column(
             children: [
-              _imageUser(context),
-              _profileName(),
-              _profileCityCountryText(),
+              _userAvatar(context),
+              _userFullName(),
+              _userDocument(),
               Column(
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/instagram.png')),
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/facebook.png')),
-                      _profileSocialImage(
-                          context, Image.asset('assets/images/twitter.png')),
+                      _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
+                      _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
+                      _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
                     ],
                   ),
                   _boxFormEmail(context),
-                  _boxFormCellPhone(context),
+                  _boxFormPhone(context),
                   _buttonProfileEdit(context)
                 ],
               )
@@ -59,6 +64,72 @@ class ProfilePageEdit extends StatelessWidget {
           ),
         ]),
       ),
+    );
+  }
+
+  Widget _userAvatar(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: 70, right: 70, top: 15),
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.height * 0.26,
+      child: Stack(children: <Widget>[
+        CircleAvatar(
+          radius: 90.0,
+          backgroundImage: con.getAvatar(),
+        ),
+        Positioned(
+          bottom: 20.0,
+          right: 20.0,
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: ((builder) => FractionallySizedBox(
+                      heightFactor: 0.35,
+                      child: Scaffold(
+                        body: con.sourceSelector(context),
+                      ),
+                    )),
+              );
+              setState(() {});
+            },
+            child: Icon(
+              Icons.camera_alt,
+              color: thirdColor,
+              size: 28.0,
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget _userFullName() {
+    return Text(
+      (con.user != null) ? formatName(con.user!.name) : '',
+      style: TextStyle(
+        color: fifthColor,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _userDocument() {
+    return Text(
+      con.user != null ? formatDocument(con.user!.document) : '',
+      style: TextStyle(
+        color: fifthColor,
+        fontSize: 19,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _profileSocialImage(BuildContext context, Image image) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.15,
+      child: Padding(padding: const EdgeInsets.all(5.0), child: image),
     );
   }
 
@@ -80,12 +151,12 @@ class ProfilePageEdit extends StatelessWidget {
         ],
       ),
       child: Column(
-        children: [_textIEmailAddress(context)],
+        children: [_textEmailAddress(context)],
       ),
     );
   }
 
-  Widget _boxFormCellPhone(context) {
+  Widget _boxFormPhone(context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(
@@ -109,7 +180,7 @@ class ProfilePageEdit extends StatelessWidget {
     );
   }
 
-  Widget _textIEmailAddress(context) {
+  Widget _textEmailAddress(context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
@@ -121,7 +192,7 @@ class ProfilePageEdit extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        validator: (value) => con.validateEmail(value),
+        validator: (value) => validateEmail(value),
         autovalidateMode: AutovalidateMode.always,
       ),
     );
@@ -140,35 +211,7 @@ class ProfilePageEdit extends StatelessWidget {
           ),
         ),
         autovalidateMode: AutovalidateMode.always,
-        validator: (value) => con.validatePhone(value),
-      ),
-    );
-  }
-
-  Widget _profileSocialImage(BuildContext context, Image image) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.15,
-      child: Padding(padding: const EdgeInsets.all(5.0), child: image),
-    );
-  }
-
-  Widget _profileCityCountryText() {
-    return Text(
-      'Bogotá, Colombia',
-      style: TextStyle(
-        color: fifthColor,
-        fontSize: 15,
-      ),
-    );
-  }
-
-  Widget _profileName() {
-    return Text(
-      nameToken,
-      style: TextStyle(
-        color: fifthColor,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
+        validator: (value) => validatePhone(value),
       ),
     );
   }
@@ -176,7 +219,7 @@ class ProfilePageEdit extends StatelessWidget {
   Widget _buttonProfileEdit(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 80, vertical: 40),
       child: ElevatedButton(
         onPressed: () => con.updateInfo(context),
         style: ElevatedButton.styleFrom(
@@ -184,43 +227,17 @@ class ProfilePageEdit extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           primary: thirdColor,
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(),
         ),
         child: const Text(
-          'Confirmar',
+          'Actualizar',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
       ),
-    );
-  }
-
-  Widget _imageUser(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.29,
-      child: GestureDetector(
-          onTap: () => con.showAlertDialog(context),
-          child: GetBuilder<ProfilePageEditController>(
-            builder: (value) => Container(
-              margin: EdgeInsets.only(top: 20, left: 70, right: 70, bottom: 0),
-              height: MediaQuery.of(context).size.height * 0.2,
-              child: con.imageFile == null
-                  ? Image.asset(
-                      'assets/images/no_image.png',
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                    )
-                  : Image.file(
-                      con.imageFile!,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                    ),
-            ),
-          )),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:app_asegurate/pages/consult/consult_result_controller.dart';
+import 'package:app_asegurate/pages/search/search_result_controller.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,8 +65,7 @@ class ConsultPageDetail extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
-          ? Image.asset('assets/images/${con.gender.value}.png',
-                  fit: BoxFit.cover)
+          ? Image.asset('assets/images/${con.gender.value}.png', fit: BoxFit.cover)
               .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12)
           : Image.network(con.photo.value, fit: BoxFit.cover)
               .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
@@ -80,8 +79,7 @@ class ConsultPageDetail extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.26,
       child: CircleAvatar(
         backgroundImage: con.photo.value == ''
-            ? AssetImage('assets/images/${con.gender.value}.png')
-                as ImageProvider
+            ? AssetImage('assets/images/${con.gender.value}.png') as ImageProvider
             : NetworkImage(con.photo.value),
       ),
     );
@@ -91,14 +89,11 @@ class ConsultPageDetail extends StatelessWidget {
     return con.name.value == ''
         ? Container()
         : Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(Get.context!).size.height * 0.02),
+            margin: EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.02),
             child: Text(
               con.name.value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
             ),
           );
   }
@@ -142,8 +137,7 @@ class ConsultPageDetail extends StatelessWidget {
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 1.05),
         child: const Text(
           'Reputación',
-          style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
+          style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
         ),
       ),
       SizedBox(
@@ -162,8 +156,7 @@ class ConsultPageDetail extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(
             reputation.toString(),
-            style: const TextStyle(
-                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
+            style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
           ),
         ),
       ]),
@@ -177,8 +170,7 @@ class ConsultPageDetail extends StatelessWidget {
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * 1.05),
         child: const Text(
           'Calificación',
-          style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
+          style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
         ),
       ),
       SizedBox(
@@ -197,8 +189,7 @@ class ConsultPageDetail extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(
             score.toString(),
-            style: const TextStyle(
-                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
+            style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.w900),
           ),
         ),
       ]),
@@ -207,8 +198,7 @@ class ConsultPageDetail extends StatelessWidget {
 
   Widget _badgeCertified(BuildContext context) {
     return Container(
-      margin:
-          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.06),
+      margin: EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.06),
       child: con.certified.value
           ? Image.asset('assets/images/certified.png', width: 500, height: 320)
           : null,

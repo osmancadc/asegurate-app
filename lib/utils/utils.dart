@@ -22,15 +22,35 @@ var textTitle = Row(mainAxisAlignment: MainAxisAlignment.center, children: [
   )
 ]);
 
+void showSnackbar(String message, bool isError) {
+  final color = isError
+      ? Colors.redAccent.shade700.withOpacity(0.5)
+      : Colors.greenAccent.shade700.withOpacity(0.5);
+
+  final title = isError ? '¡Atención!' : '¡Genial!';
+
+  final icon = isError ? Icons.warning : Icons.published_with_changes_outlined;
+
+  Get.snackbar(
+    title,
+    message,
+    colorText: Colors.white,
+    barBlur: 15,
+    backgroundColor: color,
+    icon: Icon(
+      icon,
+      color: Colors.white,
+    ),
+  );
+}
+
 String formatDocument(String document) {
   if (document.isEmpty) {
     return "";
   }
 
   int documentNumber = int.parse(document);
-  return intl.NumberFormat.decimalPattern()
-      .format(documentNumber)
-      .replaceAll(",", ".");
+  return intl.NumberFormat.decimalPattern().format(documentNumber).replaceAll(",", ".");
 }
 
 String formatName(String name) {
@@ -47,20 +67,6 @@ String formatName(String name) {
   return formatedName;
 }
 
-void showSnackbar(String message) {
-  Get.snackbar(
-    '¡Atención!',
-    message,
-    colorText: Colors.white,
-    barBlur: 15,
-    backgroundColor: Colors.redAccent.shade700.withOpacity(0.5),
-    icon: Icon(
-      Icons.warning,
-      color: Colors.white,
-    ),
-  );
-}
-
 String encryptText(String text) {
   final String encryptionKey = Environment.ENCRYPTION_KEY;
 
@@ -70,4 +76,61 @@ String encryptText(String text) {
   final encrypted = encrypter.encrypt(text, iv: iv);
 
   return encrypted.base64;
+}
+
+String? validateDocument(String? value) {
+  if (value!.isNotEmpty && !value.contains(RegExp(r'^[0-9]{8,10}$'))) {
+    return 'Ingresa un documento válido';
+  }
+  return null;
+}
+
+String? validateEmail(String? value) {
+  if (value!.isNotEmpty && !value.contains(RegExp(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,4}$'))) {
+    return 'Ingresa un correo electronico válido';
+  }
+  return null;
+}
+
+String? validatePhone(String? value) {
+  if (value!.isNotEmpty && !RegExp(r'^3[0-9]{9}$').hasMatch(value)) {
+    return 'Ingresa un número de celular válido';
+  }
+
+  return null;
+}
+
+String? validatePassword(String? value) {
+  if (!value!.isNotEmpty) {
+    return null;
+  }
+
+  if (value.length < 8) {
+    return "La contraseña debe tener minimo 8 caracteres";
+  }
+
+  if (value.contains(RegExp(r'[\s]'))) {
+    return "La contraseña no debe tener espacios en blanco";
+  }
+
+  if (!value.contains(RegExp(r'.*[A-Z].*'))) {
+    return "La contraseña debe tener al menos una Mayuscula";
+  }
+
+  if (!value.contains(RegExp(r'.*[a-z].*'))) {
+    return "La contraseña debe tener al menos una minuscula";
+  }
+
+  if (!value.contains(RegExp(r'.*[0-9].*'))) {
+    return "La contraseña debe tener al menos un numero";
+  }
+  if (!value.contains(RegExp(r'.*[@$!%*?&].*'))) {
+    return "La contraseña debe tener minimo uno de los \nsiguientes caracteres especiales @ \$ ! % * ? &";
+  }
+
+  return null;
+}
+
+String? validateMatchingPasswords(String? value1, String? value2) {
+  return value1! == value2! ? null : "Las contraseñas no coinciden";
 }

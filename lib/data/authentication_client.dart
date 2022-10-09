@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_asegurate/models/authentication_response.dart';
 import 'package:app_asegurate/models/session.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -18,20 +19,21 @@ class AuthenticationClient {
     return "";
   }
 
-  Future<Map<String, dynamic>?> getUserInformation() async {
+  Future<String> getUserId() async {
     final data = await _secureStorage.read(key: 'SESSION');
     if (data != null) {
       final session = Session.fromJson(jsonDecode(data));
-      return JwtDecoder.decode(session.token);
+      return JwtDecoder.decode(session.token)['id'];
     }
-    return null;
+    return '';
   }
 
-  Future<void> saveSession(dynamic response) async {
+  Future<void> saveSession(AuthenticationResponse response) async {
     final Session session = Session(
-        token: response["token"],
-        expiresIn: response["expiresIn"],
-        createdAt: DateTime.now());
+      token: response.token,
+      expiresIn: response.expiresIn,
+      createdAt: DateTime.now(),
+    );
 
     final data = jsonEncode(session.toJson());
 
