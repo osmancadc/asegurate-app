@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushNamed(context, '/login');
       return;
     } else {
-      Navigator.pushNamed(context, '/consult');
+      Navigator.pushNamed(context, '/profile');
     }
   }
 

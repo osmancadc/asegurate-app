@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:blur/blur.dart';
 import 'package:app_asegurate/utils/utils.dart';
+import 'package:liquid_progress_indicator_ns/liquid_progress_indicator.dart';
 
 abstract class ResultDialog {
   static show(BuildContext context, String message, bool isError) {
@@ -43,18 +45,35 @@ abstract class ResultDialog {
 }
 
 abstract class LoadingDialog {
-  static show(BuildContext context) {
+  static show(BuildContext context) async {
     showCupertinoModalPopup(
         context: context,
         builder: (_) {
           return WillPopScope(
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               height: double.infinity,
-              color: secondColor.withOpacity(0.7),
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.white),
+            ).blurred(
+              colorOpacity: 0.5,
+              blur: 8,
+              blurColor: secondColor,
+              overlay: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.width * 0.4,
+                child: LiquidCircularProgressIndicator(
+                  value: 0.75,
+                  borderColor: fifthColor,
+                  borderWidth: 1,
+                  backgroundColor: fifthColor,
+                  valueColor: AlwaysStoppedAnimation(fourthColor),
+                  center: Icon(
+                    Icons.admin_panel_settings_outlined,
+                    color: Colors.black,
+                    size: MediaQuery.of(context).size.width * 0.2,
+                  ),
+                ),
               ),
+              // CircularProgressIndicator(color: Colors.white),
             ),
             onWillPop: () async => false,
           );
@@ -62,6 +81,6 @@ abstract class LoadingDialog {
   }
 
   static dismiss(BuildContext context) {
-    Navigator.pop(context);
+    Navigator.of(context, rootNavigator: true).pop("Discard");
   }
 }

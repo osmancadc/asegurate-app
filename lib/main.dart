@@ -1,5 +1,5 @@
 import 'package:app_asegurate/helpers/dependency_injection.dart';
-import 'package:app_asegurate/pages/consult/consult_result_controller.dart';
+import 'package:app_asegurate/pages/search/search_result_controller.dart';
 import 'package:app_asegurate/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,7 +12,7 @@ Future main() async {
   await dotenv.load(fileName: ".env");
   DependencyInjection.initialize();
   runApp(const MaterialApp(
-    debugShowCheckedModeBanner: true,
+    debugShowCheckedModeBanner: false,
     home: MyApp(),
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
@@ -41,10 +41,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/', page: () => const SplashPage()),
-        GetPage(
-            name: '/consult',
-            page: () => ConsultPage(),
-            arguments: DetailpageController()),
+        GetPage(name: '/search', page: () => ConsultPage(), arguments: DetailpageController()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
         GetPage(name: '/login', page: () => const LoginPage()),

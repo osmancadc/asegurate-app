@@ -94,7 +94,8 @@ Widget _radioButton(context) {
                   value: "CC",
                   groupValue: con.typeRadio.value,
                   onChanged: (value) {
-                    con.onChangedRadio(value);
+                    con.typeRadio.value = value as String;
+                    con.getFullName();
                   },
                   activeColor: Colors.blue.shade300,
                   fillColor: MaterialStateProperty.all(Colors.white),
@@ -114,7 +115,8 @@ Widget _radioButton(context) {
                   value: "PHONE",
                   groupValue: con.typeRadio.value,
                   onChanged: (value) {
-                    con.onChangedRadio(value);
+                    con.typeRadio.value = value as String;
+                    con.getFullName();
                   },
                   activeColor: Colors.blue.shade300,
                   fillColor: MaterialStateProperty.all(Colors.white),
@@ -163,7 +165,7 @@ Widget _scoreSelector(BuildContext context) {
       shadows: const [Shadow(color: Colors.white, blurRadius: 20)],
     ),
     onRatingUpdate: (double value) {
-      con.onChangedScore(value);
+      con.scoreValue = (value * 20).round();
     },
   );
 }
@@ -250,8 +252,6 @@ Widget _textIdentification(context) {
             fontSize: 15,
           ),
         ),
-        // validator: (value) => con.validateDocument(value),
-        // autovalidateMode: AutovalidateMode.always,
       ),
     ),
   );

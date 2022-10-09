@@ -1,6 +1,5 @@
 import 'package:app_asegurate/api/authentication_api.dart';
-import 'package:app_asegurate/models/models.dart';
-import 'package:app_asegurate/providers/providers.dart';
+import 'package:app_asegurate/models/person.dart';
 import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,6 @@ class RegisterPageController extends GetxController {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmController = TextEditingController();
-  final usersProvider = UsersProvider();
   final dateController = TextEditingController().obs;
   final _authenticationApi = GetIt.instance<AuthenticationApi>();
 
@@ -24,7 +22,7 @@ class RegisterPageController extends GetxController {
   RxBool hidePassword = true.obs;
   RxString selectedRadio = "".obs;
 
-  void register(BuildContext context) async {
+  Future<void> register(BuildContext context) async {
     String document = identificationController.text.trim();
     String dateControllers = dateController.value.text.trim();
     String email = emailController.text.trim();
@@ -32,10 +30,9 @@ class RegisterPageController extends GetxController {
     String password = passwordController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
 
-    if (validateForm(document, dateControllers, email, phone, password,
-        passwordConfirm, selectedRadio.value)) {
-      LoadingDialog.show(context);
-
+    if (validateForm(
+        document, dateControllers, email, phone, password, passwordConfirm, selectedRadio.value)) {
+      await LoadingDialog.show(context);
       final response = await _authenticationApi.register(
         Person(
           document: document,
@@ -46,24 +43,22 @@ class RegisterPageController extends GetxController {
           role: selectedRadio.value,
         ),
       );
-      LoadingDialog.dismiss(context);
 
+      LoadingDialog.dismiss(context);
       switch (response.statusCode) {
         case 200:
-          ResultDialog.show(
-              context,
-              'La cuenta de ${formatName(response.data['name'])} ha sido creada con exito',
-              false);
-          Get.offNamedUntil('/logout', (route) => false);
+          ResultDialog.show(context,
+              'La cuenta de ${formatName(response.data!)} ha sido creada con exito', false);
+          Get.offAllNamed('/login');
           break;
         default:
-          ResultDialog.show(context, response.data['message'], true);
+          ResultDialog.show(context, response.errorMessage, true);
       }
     }
   }
 
-  bool validateForm(String document, String dateControllers, String email,
-      String phone, String password, String confirmPassword, String role) {
+  bool validateForm(String document, String dateControllers, String email, String phone,
+      String password, String confirmPassword, String role) {
     if (document.isEmpty ||
         dateControllers.isEmpty ||
         email.isEmpty ||
@@ -71,91 +66,39 @@ class RegisterPageController extends GetxController {
         selectedRadio.value.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      showSnackbar('Todos los campos son obligatorios');
+      showSnackbar('Todos los campos son obligatorios', true);
       return false;
     }
 
     if (validateDocument(document) != null) {
-      showSnackbar('Ingresa un número de cédula válido');
+      showSnackbar('Ingresa un número de cédula válido', true);
       return false;
     }
 
     if (validateEmail(email) != null) {
-      showSnackbar('Ingresa un correo electronico válido');
+      showSnackbar('Ingresa un correo electronico válido', true);
       return false;
     }
 
     if (validatePhone(phone) != null) {
-      showSnackbar('Ingresa un número de celular válido');
+      showSnackbar('Ingresa un número de celular válido', true);
       return false;
     }
 
     if (validatePassword(password) != null) {
-      showSnackbar(
-          'La contraseña debe tener al menos una mayúscula y un caracter especial');
+      showSnackbar('La contraseña debe tener al menos una mayúscula y un caracter especial', true);
       return false;
     }
 
     if (validateMatchingPasswords(confirmPassword) != null) {
-      showSnackbar('Las contraseñas no coinciden');
+      showSnackbar('Las contraseñas no coinciden', true);
       return false;
     }
 
     return true;
   }
 
-  String? validateDocument(String? value) {
-    if (value!.isNotEmpty && !value.contains(RegExp(r'^[0-9]{8,10}$'))) {
-      return 'Ingresa un documento válido';
-    }
-    return null;
-  }
-
-  String? validateEmail(String? value) {
-    if (value!.isNotEmpty &&
-        !value.contains(RegExp(r'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'))) {
-      return 'Ingresa un correo electronico válido';
-    }
-    return null;
-  }
-
-  String? validatePhone(String? value) {
-    if (value!.isNotEmpty && !RegExp(r'3[0-9]{9}').hasMatch(value)) {
-      return 'Ingresa un número de celular válido';
-    }
-
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (!value!.isNotEmpty) {
-      return null;
-    }
-
-    if (value.length < 8) {
-      return "La contraseña debe tener minimo 8 caracteres";
-    }
-    if (!value.contains(RegExp(r'.*[A-Z].*'))) {
-      return "La contraseña debe tener al menos una Mayuscula";
-    }
-
-    if (!value.contains(RegExp(r'.*[a-z].*'))) {
-      return "La contraseña debe tener al menos una minuscula";
-    }
-
-    if (!value.contains(RegExp(r'.*[0-9].*'))) {
-      return "La contraseña debe tener al menos un numero";
-    }
-    if (!value.contains(RegExp(r'.*[@$!%*?&].*'))) {
-      return "La contraseña debe tener minimo uno de los \nsiguientes caracteres especiales @ \$ ! % * ? &";
-    }
-
-    return null;
-  }
-
   String? validateMatchingPasswords(String? value) {
-    return value! == passwordController.text
-        ? null
-        : "Las contraseñas no coinciden";
+    return value! == passwordController.text ? null : "Las contraseñas no coinciden";
   }
 }

@@ -171,8 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
           right: 30,
         ),
         child: CheckboxListTile(
-          title: Text("Acepto términos y condiciones",
-              style: TextStyle(color: Colors.white)),
+          title: Text("Acepto términos y condiciones", style: TextStyle(color: Colors.white)),
           dense: true,
           activeColor: Colors.black,
           controlAffinity: ListTileControlAffinity.leading,
@@ -275,7 +274,7 @@ Widget _textIdentification(context) {
         ),
       ),
       autovalidateMode: AutovalidateMode.always,
-      validator: (value) => con.validateDocument(value),
+      validator: (value) => validateDocument(value),
     ),
   );
 }
@@ -309,8 +308,7 @@ Widget _textFormDatePicker(context) {
               routeSettings: RouteSettings(name: 'datePicker'),
             );
             if (picked != null) {
-              con.dateController.value.text =
-                  picked.toString().substring(0, 10);
+              con.dateController.value.text = picked.toString().substring(0, 10);
             }
           },
           icon: Icon(
@@ -337,7 +335,7 @@ Widget _textFormRegisterPhone(context) {
         ),
       ),
       autovalidateMode: AutovalidateMode.always,
-      validator: (value) => con.validatePhone(value),
+      validator: (value) => validatePhone(value),
     ),
   );
 }
@@ -355,7 +353,7 @@ Widget _textFormRegisterEmail(context) {
           fontSize: 14,
         ),
       ),
-      validator: (value) => con.validateEmail(value),
+      validator: (value) => validateEmail(value),
       autovalidateMode: AutovalidateMode.always,
     ),
   );
@@ -377,7 +375,7 @@ Widget _textPassword(context) {
               fontSize: 14,
             ),
           ),
-          validator: (value) => con.validatePassword(value),
+          validator: (value) => validatePassword(value),
           autovalidateMode: AutovalidateMode.always,
         ),
       ),
@@ -448,8 +446,7 @@ Widget _buttonRegister(BuildContext context) {
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
     child: ElevatedButton(
-      onPressed:
-          con.agreeTermsAndConditions ? () => con.register(context) : null,
+      onPressed: con.agreeTermsAndConditions ? () => con.register(context) : null,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
