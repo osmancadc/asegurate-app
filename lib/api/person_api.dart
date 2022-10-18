@@ -36,7 +36,7 @@ class PersonApi {
     final _authenticationClient = GetIt.instance<AuthenticationClient>();
     final data = await _authenticationClient.getUserId();
 
-    if (data.isEmpty) {
+    if (data.isNotEmpty) {
       score.author = data;
     }
 

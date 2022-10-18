@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils/utils.dart';
 import 'menu_drawer_controller.dart';
+import 'package:app_asegurate/utils/utils.dart';
 import 'dart:ui' show ImageFilter;
 
 class MenuDrawer extends GetxController {
@@ -15,8 +15,7 @@ class MenuDrawer extends GetxController {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
             child: GridView(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -25,12 +24,10 @@ class MenuDrawer extends GetxController {
               children: [
                 GestureDetector(
                     onTap: () => gotoConsultPage(),
-                    child: _iconMenu(
-                        Icons.person_search_sharp, 'Consultar', context)),
+                    child: _iconMenu(Icons.person_search_sharp, 'Consultar', context)),
                 GestureDetector(
                     onTap: () => gotoQualififyPage(),
-                    child: _iconMenu(
-                        Icons.rate_review_outlined, 'Calificar', context)),
+                    child: _iconMenu(Icons.rate_review_outlined, 'Calificar', context)),
                 GestureDetector(
                   onTap: () => gotoProfilePage(context),
                   child: _iconMenu(Icons.person_pin, 'Perfil', context),

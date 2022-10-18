@@ -10,7 +10,7 @@ class QualifyController extends GetxController {
   int scoreValue = 60;
   RxString typeRadio = "".obs;
 
-  final valueController = TextEditingController();
+  final objectiveController = TextEditingController();
   final nameController = TextEditingController();
   final commentsController = TextEditingController();
   final _personApi = GetIt.instance<PersonApi>();
@@ -19,7 +19,7 @@ class QualifyController extends GetxController {
     if (validateForm()) {
       Score score = Score(
         type: typeRadio.value,
-        value: valueController.text,
+        objective: objectiveController.text,
         score: scoreValue,
         comments: commentsController.text,
       );
@@ -40,7 +40,7 @@ class QualifyController extends GetxController {
   }
 
   bool validateForm() {
-    final value = valueController.text;
+    final value = objectiveController.text;
     final comments = commentsController.text;
     final type = typeRadio.value;
 
@@ -70,7 +70,7 @@ class QualifyController extends GetxController {
   }
 
   void getFullName() async {
-    final response = await _personApi.getPersonName(typeRadio.value, valueController.text);
+    final response = await _personApi.getPersonName(typeRadio.value, objectiveController.text);
 
     switch (response.statusCode) {
       case 200:
@@ -83,7 +83,7 @@ class QualifyController extends GetxController {
   }
 
   void clear() {
-    valueController.clear();
+    objectiveController.clear();
     nameController.clear();
     commentsController.clear();
     typeRadio.value = "";

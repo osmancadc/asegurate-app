@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils/utils.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPageController extends GetxController {
   final userController = TextEditingController();
@@ -22,25 +23,29 @@ class RegisterPageController extends GetxController {
   RxBool hidePassword = true.obs;
   RxString selectedRadio = "".obs;
 
+  void setDate(DateTime date) {
+    dateController.value.text = DateFormat('dd/MM/yyyy').format(date);
+  }
+
   Future<void> register(BuildContext context) async {
     String document = identificationController.text.trim();
-    String dateControllers = dateController.value.text.trim();
+    String date = dateController.value.text;
     String email = emailController.text.trim();
     String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
     String passwordConfirm = passwordConfirmController.text.trim();
+    String role = selectedRadio.value;
 
-    if (validateForm(
-        document, dateControllers, email, phone, password, passwordConfirm, selectedRadio.value)) {
+    if (validateForm(document, date, email, phone, password, passwordConfirm, role)) {
       await LoadingDialog.show(context);
       final response = await _authenticationApi.register(
         Person(
           document: document,
-          expeditionDate: dateController.value.text,
+          expeditionDate: date,
           email: email,
           phone: phone,
           password: encryptText(password),
-          role: selectedRadio.value,
+          role: role,
         ),
       );
 

@@ -2,21 +2,21 @@ class Score {
   Score({
     this.author,
     required this.type,
-    required this.value,
+    required this.objective,
     required this.score,
     required this.comments,
   });
 
   String? author;
   final String type;
-  final String value;
+  final String objective;
   final int score;
   final String comments;
 
   factory Score.fromJson(Map<String, dynamic> json) => Score(
         author: json["author"],
         type: json["type"],
-        value: json["value"],
+        objective: json["objective"],
         score: json["score"],
         comments: json["comments"],
       );
@@ -24,7 +24,7 @@ class Score {
   Map<String, dynamic> toJson() => {
         "author": author,
         "type": type,
-        "value": value,
+        "objective": objective,
         "score": score,
         "comments": comments,
       };

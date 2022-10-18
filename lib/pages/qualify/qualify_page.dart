@@ -245,7 +245,7 @@ Widget _textIdentification(context) {
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         keyboardType: TextInputType.number,
-        controller: con.valueController,
+        controller: con.objectiveController,
         decoration: const InputDecoration(
           labelText: 'Número de documento o celular *',
           labelStyle: TextStyle(

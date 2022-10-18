@@ -308,7 +308,7 @@ Widget _textFormDatePicker(context) {
               routeSettings: RouteSettings(name: 'datePicker'),
             );
             if (picked != null) {
-              con.dateController.value.text = picked.toString().substring(0, 10);
+              con.setDate(picked);
             }
           },
           icon: Icon(
