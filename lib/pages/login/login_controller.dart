@@ -23,6 +23,7 @@ class LoginController extends GetxController {
 
     if (validateForm(document, password)) {
       final response = await _authenticationApi.login(document, password);
+      LoadingDialog.dismiss(context);
       switch (response.statusCode) {
         case 200:
           await _authenticationClient.saveSession(response.data!);
@@ -31,7 +32,6 @@ class LoginController extends GetxController {
         default:
           ResultDialog.show(context, 'Usuario o contraseña incorrectos', true);
       }
-      LoadingDialog.dismiss(context);
     }
   }
 

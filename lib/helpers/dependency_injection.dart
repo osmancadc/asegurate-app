@@ -23,7 +23,7 @@ abstract class DependencyInjection {
     Http _http = Http(
       dio: dio,
       logger: logger,
-      logsEnabled: true,
+      logsEnabled: false,
     );
 
     final FlutterSecureStorage _secureStorage = FlutterSecureStorage();

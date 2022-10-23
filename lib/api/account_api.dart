@@ -1,7 +1,7 @@
 import 'package:app_asegurate/data/authentication_client.dart';
 import 'package:app_asegurate/helpers/http.dart';
 import 'package:app_asegurate/helpers/http_response.dart';
-import 'package:app_asegurate/models/avatar_response.dart';
+import 'package:app_asegurate/models/update_response.dart';
 import 'package:app_asegurate/models/user.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,25 +21,19 @@ class AccountApi {
     );
   }
 
-  Future<HttpResponse<User>> updateUserInfo(String email, String phone) async {
-    final _authenticationClient = GetIt.instance<AuthenticationClient>();
-    final userId = await _authenticationClient.getUserId();
-
-    return _http.request<User>(
-      '/user/profile/$userId',
-      method: 'GET',
-      parser: (data) => User.fromJson(data),
-    );
-  }
-
-  Future<HttpResponse<AvatarResponse>> updateAvatar(String imageBase64) async {
-    return _http.request<AvatarResponse>(
-      '/user/update-avatar',
+  Future<HttpResponse<UpdateResponse>> updateUser(
+      String imageBase64, String imageName, String document, String email, String phone) async {
+    return _http.request<UpdateResponse>(
+      '/user/update-user',
       method: 'POST',
       data: {
-        'avatar': imageBase64,
+        'image': imageBase64,
+        'name': imageName,
+        'document': document,
+        'email': email,
+        'phone': phone,
       },
-      parser: (data) => AvatarResponse.fromJson(data),
+      parser: (data) => UpdateResponse.fromJson(data),
     );
   }
 }

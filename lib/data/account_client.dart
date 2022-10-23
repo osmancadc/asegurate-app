@@ -8,12 +8,16 @@ class AccountClient {
   AccountClient(this._secureStorage);
 
   Future<User?> get userData async {
-    final data = await _secureStorage.read(key: 'USER');
-    if (data != null) {
-      final user = User.fromJson(jsonDecode(data));
-      return user;
+    try {
+      final data = await _secureStorage.read(key: 'USER');
+      if (data != null) {
+        final user = User.fromJson(jsonDecode(data));
+        return user;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 
   Future<void> saveUser(User user) async {

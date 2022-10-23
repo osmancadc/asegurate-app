@@ -14,6 +14,7 @@ class ProfilePageEditController extends GetxController {
   User? user;
   String temporalAvatar = '';
   String _imageBase64 = '';
+  String _imageName = '';
   bool alreadyLoaded = false;
 
   final emailController = TextEditingController();
@@ -24,22 +25,23 @@ class ProfilePageEditController extends GetxController {
     final email = emailController.text;
     final phone = phoneController.text;
     final _accountApi = GetIt.instance<AccountApi>();
+    final _accountClient = GetIt.instance<AccountClient>();
 
     if (validateForm(email, phone)) {
-      if (_imageBase64.isNotEmpty) {
-        temporalAvatar = '';
-        LoadingDialog.show(context);
-        final responseAvatar = await _accountApi.updateAvatar(_imageBase64);
-        // final responseInformation = await _accountApi.updateUserInfo(email, phone);
+      temporalAvatar = '';
+      LoadingDialog.show(context);
+      final updateResponse =
+          await _accountApi.updateUser(_imageBase64, _imageName, user!.document, email, phone);
+      LoadingDialog.dismiss(context);
 
-        switch (responseAvatar.statusCode) {
-          case 200:
-            showSnackbar('La imagen de perfil se ha actualizado correctamente', false);
-            break;
-          default:
-            ResultDialog.show(context, responseAvatar.errorMessage, true);
-        }
-        LoadingDialog.dismiss(context);
+      switch (updateResponse.statusCode) {
+        case 200:
+          showSnackbar('El usuario ha sido actualizado correctamente', false);
+          _accountClient.removeUser();
+          Get.offAllNamed('/profile');
+          break;
+        default:
+          ResultDialog.show(context, updateResponse.errorMessage, true);
       }
     }
   }
@@ -85,6 +87,7 @@ class ProfilePageEditController extends GetxController {
       Navigator.pop(context);
       final _imageBytes = await pickedFile.readAsBytes();
       _imageBase64 = base64.encode(_imageBytes);
+      _imageName = pickedFile.name;
 
       temporalAvatar = pickedFile.path;
       update();

@@ -11,12 +11,16 @@ class AuthenticationClient {
   AuthenticationClient(this._secureStorage);
 
   Future<String> get accessToken async {
-    final data = await _secureStorage.read(key: 'SESSION');
-    if (data != null) {
-      final session = Session.fromJson(jsonDecode(data));
-      return session.token;
+    try {
+      final data = await _secureStorage.read(key: 'SESSION');
+      if (data != null) {
+        final session = Session.fromJson(jsonDecode(data));
+        return session.token;
+      }
+      return "";
+    } catch (e) {
+      return "";
     }
-    return "";
   }
 
   Future<String> getUserId() async {
