@@ -158,7 +158,7 @@ class _QualifyPageState extends State<QualifyPage> {
         shapeFocus: ShapeFocus.square,
         children: [
           Text(
-            'Es muy importante que dejes un comentario que sea valioso para los demás usuarios que consulten a esta personas',
+            'Es muy importante que dejes un comentario que sea valioso para los demás usuarios que consulten a esta persona',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,

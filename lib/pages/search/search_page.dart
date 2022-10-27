@@ -133,7 +133,7 @@ class _ConsultPageState extends State<ConsultPage> {
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: 270,
+            height: 120,
           )
         ],
         widgetNext: Text(
