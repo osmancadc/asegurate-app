@@ -29,6 +29,9 @@ class _SplashPageState extends State<SplashPage> {
       return;
     } else {
       Navigator.pushNamed(context, '/profile');
+      // Navigator.pushNamed(context, '/edit');
+      // Navigator.pushNamed(context, '/search');
+      // Navigator.pushNamed(context, '/qualify');
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:app_asegurate/pages/profile/edit_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils/utils.dart';
+import 'package:app_tutorial/app_tutorial.dart';
 
 class ProfilePageEdit extends StatefulWidget {
   const ProfilePageEdit({Key? key}) : super(key: key);
@@ -12,17 +13,186 @@ class ProfilePageEdit extends StatefulWidget {
 
 class _ProfilePageEditState extends State<ProfilePageEdit> {
   final con = Get.put(ProfilePageEditController());
+  List<TutorialItems> items = [];
+
+  GlobalKey emailKey = GlobalKey();
+  GlobalKey avatarKey = GlobalKey();
+  GlobalKey phoneKey = GlobalKey();
+  GlobalKey updateKey = GlobalKey();
+  GlobalKey returnKey = GlobalKey();
+
+  @override
+  void initState() {
+    Color backgroundColor = Colors.black26.withOpacity(0.8);
+    items.addAll({
+      TutorialItems(
+        globalKey: avatarKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.roundedSquare,
+        children: [
+          Text(
+            'Puedes editar tu foto de perfil, si no te gusta el avatar que elegimos para ti',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: emailKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Acá podrás editar tu correo electrónico',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: phoneKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Si cambiaste tu número de celular puedes actualizarlo también',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 70,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: updateKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Cuando estés satisfecho con los cambios, usa este botón para guardarlos',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 220,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: returnKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Para regresar a tu perfil puedes presionar aquí',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 220,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+    });
+
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Tutorial.showTutorial(context, items);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     con.getUserInformation().then((value) => setState(() {}));
-    // con.getUserInformation();
 
     return Scaffold(
       backgroundColor: firstColor,
       appBar: AppBar(
         backgroundColor: firstColor,
         leading: IconButton(
+          key: returnKey,
           icon: Icon(
             Icons.arrow_back,
             color: fifthColor,
@@ -45,21 +215,9 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
               _userAvatar(context),
               _userFullName(),
               _userDocument(),
-              Column(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
-                      _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
-                      _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
-                    ],
-                  ),
-                  _boxFormEmail(context),
-                  _boxFormPhone(context),
-                  _buttonProfileEdit(context)
-                ],
-              )
+              _boxFormEmail(context),
+              _boxFormPhone(context),
+              _buttonProfileEdit(context)
             ],
           ),
         ]),
@@ -74,6 +232,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
       height: MediaQuery.of(context).size.height * 0.26,
       child: Stack(children: <Widget>[
         CircleAvatar(
+          key: avatarKey,
           radius: 90.0,
           backgroundImage: con.getAvatar(),
         ),
@@ -126,12 +285,12 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
     );
   }
 
-  Widget _profileSocialImage(BuildContext context, Image image) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.15,
-      child: Padding(padding: const EdgeInsets.all(5.0), child: image),
-    );
-  }
+  // Widget _profileSocialImage(BuildContext context, Image image) {
+  //   return SizedBox(
+  //     width: MediaQuery.of(context).size.width * 0.15,
+  //     child: Padding(padding: const EdgeInsets.all(5.0), child: image),
+  //   );
+  // }
 
   Widget _boxFormEmail(context) {
     return Container(
@@ -142,13 +301,6 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
       ),
       decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          ),
-        ],
       ),
       child: Column(
         children: [_textEmailAddress(context)],
@@ -182,6 +334,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
 
   Widget _textEmailAddress(context) {
     return Container(
+      key: emailKey,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         controller: con.emailController,
@@ -200,6 +353,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
 
   Widget _textCellPhone(context) {
     return Container(
+      key: phoneKey,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         controller: con.phoneController,
@@ -221,11 +375,9 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 80, vertical: 40),
       child: ElevatedButton(
+        key: updateKey,
         onPressed: () => con.updateInfo(context),
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
           primary: thirdColor,
           padding: EdgeInsets.symmetric(),
         ),

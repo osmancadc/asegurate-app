@@ -6,6 +6,7 @@ class User {
     required this.phone,
     required this.photo,
     required this.gender,
+    required this.role,
   });
 
   final String document;
@@ -14,6 +15,7 @@ class User {
   final String phone;
   String photo;
   final String gender;
+  final String role;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         document: json["document"],
@@ -22,6 +24,7 @@ class User {
         phone: json["phone"],
         photo: json["photo"],
         gender: json["gender"],
+        role: json["role"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,5 +34,6 @@ class User {
         "phone": phone,
         "photo": photo,
         "gender": gender,
+        "role": role,
       };
 }

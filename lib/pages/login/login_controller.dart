@@ -19,11 +19,11 @@ class LoginController extends GetxController {
     String document = userController.text.trim();
     String password = passwordController.text.trim();
 
-    LoadingDialog.show(context);
-
     if (validateForm(document, password)) {
+      LoadingDialog.show(context);
       final response = await _authenticationApi.login(document, password);
       LoadingDialog.dismiss(context);
+
       switch (response.statusCode) {
         case 200:
           await _authenticationClient.saveSession(response.data!);

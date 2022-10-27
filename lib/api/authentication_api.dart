@@ -37,4 +37,16 @@ class AuthenticationApi {
       parser: (data) => AuthenticationResponse.fromJson(data),
     );
   }
+
+  Future<HttpResponse<String>> recoverPassword(String document) {
+    return _http.request('/recover-password',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          'document': document,
+        },
+        parser: (data) => hideEmailAddress(data['email']));
+  }
 }

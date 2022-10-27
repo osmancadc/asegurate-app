@@ -105,7 +105,7 @@ class ProfilePageEditController extends GetxController {
       return false;
     }
 
-    if (!phone.contains(RegExp(r'3[0-9]{9}'))) {
+    if (validatePhone(phone) != null) {
       showSnackbar('Ingresa un número de celular válido', true);
       return false;
     }

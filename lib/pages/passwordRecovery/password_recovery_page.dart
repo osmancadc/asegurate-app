@@ -4,8 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:app_asegurate/utils/utils.dart';
 import 'package:get/get.dart';
 
-class PasswordRecoveryPage extends StatelessWidget {
+class PasswordRecoveryPage extends StatefulWidget {
   const PasswordRecoveryPage({Key? key}) : super(key: key);
+
+  @override
+  State<PasswordRecoveryPage> createState() => _PasswordRecoveryPageState();
+}
+
+class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
+  PasswordRecoveryController con = Get.put(PasswordRecoveryController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,8 +74,11 @@ class PasswordRecoveryPage extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        child: TextField(
+        child: TextFormField(
+          controller: con.documentController,
           keyboardType: TextInputType.number,
+          validator: (value) => validateDocument(value),
+          autovalidateMode: AutovalidateMode.always,
           decoration: const InputDecoration(
             labelText: 'Número de documento',
             labelStyle: TextStyle(

@@ -6,10 +6,23 @@ import 'package:blur/blur.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:app_asegurate/utils/utils.dart';
 
-class ConsultPageDetail extends StatelessWidget {
-  ConsultPageDetail({Key? key}) : super(key: key);
+class ConsultPageResult extends StatefulWidget {
+  ConsultPageResult({Key? key}) : super(key: key);
 
+  @override
+  State<ConsultPageResult> createState() => _ConsultPageResultState();
+}
+
+class _ConsultPageResultState extends State<ConsultPageResult> {
   final DetailpageController con = Get.put(DetailpageController());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      con.showCertificationMessage(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +57,7 @@ class ConsultPageDetail extends StatelessWidget {
                   SizedBox(height: 5),
                   _personDocument(),
                   SizedBox(height: 5),
+                  SizedBox(height: 5),
                   _ratingBar(),
                   _badgeCertified(context),
                 ],
@@ -54,7 +68,7 @@ class ConsultPageDetail extends StatelessWidget {
                   _reputation(context),
                   _score(context),
                 ],
-              )
+              ),
             ]),
           ),
         ));
@@ -66,9 +80,9 @@ class ConsultPageDetail extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
           ? Image.asset('assets/images/${con.gender.value}.png', fit: BoxFit.cover)
-              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12)
+              .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12)
           : Image.network(con.photo.value, fit: BoxFit.cover)
-              .blurred(colorOpacity: 0.5, blur: 8, blurColor: Colors.black12),
+              .blurred(colorOpacity: 0.7, blur: 8, blurColor: Colors.black12),
     );
   }
 

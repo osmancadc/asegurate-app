@@ -26,9 +26,9 @@ class QualifyController extends GetxController {
       LoadingDialog.show(context);
       final response = await _personApi.uploadScore(score);
 
+      LoadingDialog.dismiss(context);
       switch (response.statusCode) {
         case 200:
-          LoadingDialog.dismiss(context);
           ResultDialog.show(context, 'La calificación ha sido enviada con exito', false);
           clear();
           break;
@@ -51,6 +51,21 @@ class QualifyController extends GetxController {
 
     if (type.isEmpty) {
       showSnackbar('Debes seleccionar si es cédula o número de celular', true);
+      return false;
+    }
+
+    if (nameController.text.isEmpty) {
+      showSnackbar('¡No tan rápido tiro al blanco!', true);
+      return false;
+    }
+
+    if (nameController.text == 'el usuario no se pudo encontrar' && type == 'PHONE') {
+      showSnackbar('No hay ninguna persona asociada a ese número de celular', true);
+      return false;
+    }
+
+    if (nameController.text == 'el usuario no se pudo encontrar' && type == 'CC') {
+      showSnackbar('Ingresa un número de identificación real', true);
       return false;
     }
 

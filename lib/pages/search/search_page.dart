@@ -1,13 +1,156 @@
 import 'package:app_asegurate/pages/search/search_controller.dart';
 import 'package:app_asegurate/widgets/widgets.dart';
-
+import 'package:app_asegurate/utils/utils.dart';
+import 'package:app_tutorial/app_tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:app_asegurate/utils/utils.dart';
-
-class ConsultPage extends StatelessWidget {
+class ConsultPage extends StatefulWidget {
   const ConsultPage({Key? key}) : super(key: key);
+
+  @override
+  State<ConsultPage> createState() => _ConsultPageState();
+}
+
+class _ConsultPageState extends State<ConsultPage> {
+  List<TutorialItems> items = [];
+
+  GlobalKey generalKey = GlobalKey();
+  GlobalKey inputKey = GlobalKey();
+  GlobalKey radioKey = GlobalKey();
+  GlobalKey searchKey = GlobalKey();
+
+  @override
+  void initState() {
+    Color backgroundColor = Colors.black26.withOpacity(0.8);
+
+    items.addAll({
+      TutorialItems(
+        globalKey: generalKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'En esta página podrás consultar a cualquier persona usando su número de cédula o celular',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: inputKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Primero ingresa el número de cédula o celular que deseas consultar',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: radioKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Selecciona si estás consultando una cédula o una cuenta de nequi/daviplata',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: searchKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Por último presiona el botón de buscar',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 270,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+    });
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Tutorial.showTutorial(context, items);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,57 +186,50 @@ class ConsultPage extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _consultTitle(context) {
-  return Container(
-    margin: EdgeInsets.only(top: 50),
-    child: Text(
-      'CONSULTAR UNA PERSONA',
-      style: TextStyle(
-        fontFamily: 'TradeGothicInline',
-        color: fifthColor,
-        fontSize: MediaQuery.of(context).size.width * 0.06,
-        fontWeight: FontWeight.bold,
+  Widget _consultTitle(context) {
+    return Container(
+      margin: EdgeInsets.only(top: 50),
+      child: Text(
+        'CONSULTAR UNA PERSONA',
+        key: generalKey,
+        style: TextStyle(
+          fontFamily: 'TradeGothicInline',
+          color: fifthColor,
+          fontSize: MediaQuery.of(context).size.width * 0.06,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _boxForm(BuildContext context) {
-  return Container(
-    height: MediaQuery.of(context).size.height * 0.08,
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.16,
-      left: 30,
-      right: 30,
-    ),
-    decoration: const BoxDecoration(
-      color: Colors.white,
-    ),
-    child: SingleChildScrollView(
+  Widget _boxForm(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.05,
+        left: 30,
+        right: 30,
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
       child: Column(
-        children: [
-          _textIdentification(context),
-        ],
+        children: [_textIdentification(context)],
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _textIdentification(context) {
-  ConsultController con = Get.put(ConsultController());
+  Widget _textIdentification(context) {
+    ConsultController con = Get.put(ConsultController());
 
-  return Container(
-    decoration: const BoxDecoration(
-      color: Colors.white,
-      boxShadow: <BoxShadow>[],
-    ),
-    child: Container(
+    return Container(
+      key: inputKey,
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: TextField(
+      child: TextFormField(
         keyboardType: TextInputType.number,
         controller: con.identificationValue,
+        validator: (value) => con.validateInput(value),
+        autovalidateMode: AutovalidateMode.always,
         decoration: const InputDecoration(
           labelText: 'Número de documento o celular',
           labelStyle: TextStyle(
@@ -101,83 +237,85 @@ Widget _textIdentification(context) {
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _radioButton(context) {
-  ConsultController con = Get.put(ConsultController());
-  return Container(
-    margin: EdgeInsets.only(
-      top: MediaQuery.of(context).size.height * 0.04,
-      left: MediaQuery.of(context).size.width * 0.2,
-      right: MediaQuery.of(context).size.width * 0.1,
-    ),
-    child: Column(
-      children: [
-        Row(
-          children: [
-            Obx(() => Radio(
-                  value: "CC",
-                  groupValue: con.selectedRadio.value,
-                  onChanged: (value) => con.selectedRadio.value = value as String,
-                  activeColor: Colors.blue.shade300,
-                  fillColor: MaterialStateProperty.all(Colors.white),
-                )),
-            const Text(
-              'Cédula de Ciudadanía',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
+  Widget _radioButton(context) {
+    ConsultController con = Get.put(ConsultController());
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.04,
+        left: MediaQuery.of(context).size.width * 0.2,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+      child: Column(
+        key: radioKey,
+        children: [
+          Row(
+            children: [
+              Obx(() => Radio(
+                    value: "CC",
+                    groupValue: con.selectedRadio.value,
+                    onChanged: (value) => con.selectedRadio.value = value as String,
+                    activeColor: Colors.blue.shade300,
+                    fillColor: MaterialStateProperty.all(Colors.white),
+                  )),
+              const Text(
+                'Cédula de Ciudadanía',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Obx(() => Radio(
-                  value: "PHONE",
-                  groupValue: con.selectedRadio.value,
-                  onChanged: (value) => con.selectedRadio.value = value as String,
-                  activeColor: Colors.blue.shade300,
-                  fillColor: MaterialStateProperty.all(Colors.white),
-                )),
-            const Text(
-              'Nequi o Daviplata',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
+            ],
+          ),
+          Row(
+            children: [
+              Obx(() => Radio(
+                    value: "PHONE",
+                    groupValue: con.selectedRadio.value,
+                    onChanged: (value) => con.selectedRadio.value = value as String,
+                    activeColor: Colors.blue.shade300,
+                    fillColor: MaterialStateProperty.all(Colors.white),
+                  )),
+              const Text(
+                'Nequi o Daviplata',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
-Widget _buttonSearch(BuildContext context) {
-  ConsultController con = Get.put(ConsultController());
-  return Container(
-    width: double.infinity,
-    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-    child: ElevatedButton(
-      onPressed: () => con.consult(context),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+  Widget _buttonSearch(BuildContext context) {
+    ConsultController con = Get.put(ConsultController());
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: ElevatedButton(
+        key: searchKey,
+        onPressed: () => con.consult(context),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          primary: thirdColor,
+          padding: const EdgeInsets.symmetric(vertical: 15),
         ),
-        primary: thirdColor,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-      ),
-      child: const Text(
-        'Buscar',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 22,
+        child: const Text(
+          'Buscar',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -13,6 +13,7 @@ class ProfilePageController extends GetxController {
   RxString phone = "".obs;
   RxString photo = "".obs;
   RxString document = "".obs;
+  RxString role = "".obs;
   RxString gender = "empty".obs;
 
   void getUserInformation(context) async {
@@ -42,6 +43,7 @@ class ProfilePageController extends GetxController {
       email.value = savedUser.email;
       phone.value = savedUser.phone;
       document.value = savedUser.document;
+      role.value = (savedUser.role == 'seller') ? 'Vendedor' : 'Comprador';
     }
   }
 }

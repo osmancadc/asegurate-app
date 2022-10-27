@@ -55,8 +55,8 @@ String formatDocument(String document) {
 
 String formatName(String name) {
   String formatedName = "";
-  if (name.isEmpty) {
-    return formatedName;
+  if (name.isEmpty || name == ' ') {
+    return 'el usuario no se pudo encontrar';
   }
 
   List<String> fullName = name.split(" ");
@@ -86,7 +86,8 @@ String? validateDocument(String? value) {
 }
 
 String? validateEmail(String? value) {
-  if (value!.isNotEmpty && !value.contains(RegExp(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,4}$'))) {
+  if (value!.isNotEmpty &&
+      !value.contains(RegExp(r'^[^@\s]+@(hotmail|gmail|live|outlook|yahoo)\.[a-zA-Z]{2,4}$'))) {
     return 'Ingresa un correo electronico válido';
   }
   return null;
@@ -133,4 +134,27 @@ String? validatePassword(String? value) {
 
 String? validateMatchingPasswords(String? value1, String? value2) {
   return value1! == value2! ? null : "Las contraseñas no coinciden";
+}
+
+String hideEmailAddress(String email) {
+  final splittedEmail = email.split('@');
+  final splittedBefore = splittedEmail[0].split('');
+  final splittedAfter = splittedEmail[1];
+  int shownBefore = 0;
+
+  String finalEmail = '';
+
+  for (var c in splittedBefore) {
+    if (shownBefore < 3) {
+      finalEmail += c;
+    } else {
+      finalEmail += '*****';
+      break;
+    }
+    shownBefore += 1;
+  }
+
+  finalEmail += '@' + splittedAfter;
+
+  return finalEmail;
 }

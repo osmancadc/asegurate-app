@@ -4,21 +4,197 @@ import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
 import 'package:get/get.dart';
 import 'package:app_asegurate/utils/utils.dart';
+import 'package:app_tutorial/app_tutorial.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final con = Get.put(ProfilePageController());
+  List<TutorialItems> items = [];
+
+  GlobalKey dataKey = GlobalKey();
+  GlobalKey emailKey = GlobalKey();
+  GlobalKey phoneKey = GlobalKey();
+  GlobalKey buttonKey = GlobalKey();
+  GlobalKey menuKey = GlobalKey();
+
+  @override
+  void initState() {
+    Color backgroundColor = Colors.black26.withOpacity(0.8);
+
+    items.addAll({
+      TutorialItems(
+        globalKey: dataKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            "Este es tu perfil, acá podrás ver tu información personal",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: emailKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Este es el correo electrónico asociado a tu cuenta',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 100,
+          )
+        ],
+        widgetNext: Text(
+          'Toque para continuar',
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: phoneKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        children: [
+          Text(
+            'Este es el número de celular asociado a tu cuenta',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 40,
+          )
+        ],
+        shapeFocus: ShapeFocus.square,
+        widgetNext: Text(
+          'Toque para continuar',
+          overflow: TextOverflow.fade,
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: buttonKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Si deseas editar tu perfil, lo puedes hacer presionando este botón',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 200,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      TutorialItems(
+        globalKey: menuKey,
+        touchScreen: true,
+        bottom: 50,
+        left: 25,
+        color: backgroundColor,
+        borderRadius: Radius.circular(25.0),
+        shapeFocus: ShapeFocus.square,
+        children: [
+          Text(
+            'Aquí encontrarás el menú donde puedes acceder a todas las funcionalidades que ofrece la aplicación',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 200,
+          )
+        ],
+        widgetNext: Text(
+          "Toque para continuar",
+          style: TextStyle(
+            color: thirdColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ),
+    });
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Tutorial.showTutorial(context, items);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     con.getUserInformation(context);
+
     return Obx(() => Scaffold(
           backgroundColor: firstColor,
           appBar: AppBar(
             backgroundColor: firstColor,
             leading: Builder(
               builder: (context) => IconButton(
+                key: menuKey,
                 icon: Icon(
                   Icons.menu,
                   color: fifthColor,
@@ -42,22 +218,11 @@ class ProfilePage extends StatelessWidget {
                   _userAvatar(context),
                   _userName(),
                   _userDocument(),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
-                          _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
-                          _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
-                        ],
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                      _boxFormEmail(context),
-                      _boxFormCellPhone(context),
-                      _buttonProfileEdit(context),
-                    ],
-                  )
+                  _userRole(),
+                  SizedBox(height: 40),
+                  _boxFormEmail(context),
+                  _boxFormCellPhone(context),
+                  _buttonProfileEdit(context),
                 ],
               ),
             ]),
@@ -67,6 +232,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _profileBackgroundImage(BuildContext context) {
     return SizedBox(
+      key: dataKey,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.47,
       child: con.photo.value == ''
@@ -118,16 +284,39 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _profileSocialImage(BuildContext context, Image image) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.15,
-      child: Padding(padding: const EdgeInsets.all(7.0), child: image),
+  Widget _userRole() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
+      child: Text(
+        con.role.value,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
+  // Widget _profileSocialImage(BuildContext context, Image image) {
+  //   return SizedBox(
+  //     width: MediaQuery.of(context).size.width * 0.15,
+  //     child: image,
+  //   );
+  // }
+
+  // Widget _socialNetworks(context) {
+  //   return Row(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: <Widget>[
+  //       _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
+  //       _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
+  //       _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
+  //     ],
+  //   );
+  // }
 
   Widget _boxFormEmail(context) {
     return Container(
-      width: double.infinity,
       margin: EdgeInsets.only(
         top: 0,
         left: 30,
@@ -175,6 +364,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textIEmailAddress(context) {
     return Container(
+      key: emailKey,
       color: secondColor,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
@@ -192,6 +382,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _textCellPhone(context) {
     return Container(
+      key: phoneKey,
       color: secondColor,
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.05,
@@ -212,6 +403,7 @@ class ProfilePage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
       child: ElevatedButton(
+        key: buttonKey,
         onPressed: () => gotoProfilePageEdit(context),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

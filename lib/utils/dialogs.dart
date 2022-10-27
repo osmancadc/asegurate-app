@@ -44,6 +44,46 @@ abstract class ResultDialog {
   }
 }
 
+abstract class CertificationDialog {
+  static show(BuildContext context, String message, bool isCertified) {
+    var icon = isCertified ? Icons.done_all_sharp : Icons.warning_amber;
+    var color = isCertified ? Colors.green.shade600 : Colors.amber.shade900;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(
+                icon,
+                size: MediaQuery.of(context).size.width * 0.15,
+                color: color,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static dismiss(BuildContext context) {
+    Navigator.pop(context);
+  }
+}
+
 abstract class LoadingDialog {
   static show(BuildContext context) async {
     showCupertinoModalPopup(

@@ -17,6 +17,7 @@ class ConsultController extends GetxController {
         identificationValue.text,
         selectedRadio.value,
       );
+      LoadingDialog.dismiss(context);
 
       switch (response.statusCode) {
         case 200:
@@ -26,18 +27,29 @@ class ConsultController extends GetxController {
           ResultDialog.show(context, 'Usuario no autorizado', true);
           break;
         default:
-          ResultDialog.show(context, response.errorMessage, true);
+          ResultDialog.show(context, 'Usuario no encontrado', true);
       }
-      LoadingDialog.dismiss(context);
     }
+  }
+
+  String? validateInput(String? value) {
+    if (value!.isNotEmpty && !value.contains(RegExp(r'^[0-9]{8,10}$'))) {
+      return 'Ingresa un número de identificación válido';
+    }
+    return null;
   }
 
   bool validateForm() {
     if (identificationValue.text.isEmpty || selectedRadio.value.isEmpty) {
       showSnackbar('Todos los campos son obligatorios', true);
-
       return false;
     }
+
+    if (validateInput(identificationValue.text) != null) {
+      showSnackbar('Ingresa un número de identificación válido', true);
+      return false;
+    }
+
     return true;
   }
 }

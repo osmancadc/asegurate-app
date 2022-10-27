@@ -56,6 +56,12 @@ class RegisterPageController extends GetxController {
               'La cuenta de ${formatName(response.data!)} ha sido creada con exito', false);
           Get.offAllNamed('/login');
           break;
+        case 500:
+          String message = (response.errorMessage != 'person not found')
+              ? 'El usuario ya se encuentra registrado'
+              : 'No se pudo encontrar una persona asociada al número de documento, intenta nuevamente';
+          ResultDialog.show(context, message, true);
+          break;
         default:
           ResultDialog.show(context, response.errorMessage, true);
       }

@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
-        GetPage(name: '/consultDetail', page: () => ConsultPageDetail()),
+        GetPage(name: '/consultDetail', page: () => ConsultPageResult()),
         GetPage(name: '/passwordRecovery', page: () => PasswordRecoveryPage()),
       ],
       theme: ThemeData(

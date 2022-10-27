@@ -32,11 +32,6 @@ class MenuDrawer extends GetxController {
                   onTap: () => gotoProfilePage(context),
                   child: _iconMenu(Icons.person_pin, 'Perfil', context),
                 ),
-                // GestureDetector(
-                //   onTap: () => gotoHelpPage(),
-                //   child:
-                //       _iconMenu(Icons.info_outline_rounded, 'Ayuda', context),
-                // ),
                 GestureDetector(
                   onTap: () => con.logout(),
                   child: _iconMenu(Icons.exit_to_app, 'Cerrar sesión', context),
