@@ -1,7 +1,9 @@
 import 'package:app_asegurate/pages/register/register_controller.dart';
+import 'package:app_asegurate/utils/dialogs.dart';
+import 'package:app_asegurate/utils/utils.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app_asegurate/utils/utils.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -171,12 +173,27 @@ class _RegisterPageState extends State<RegisterPage> {
           right: 30,
         ),
         child: CheckboxListTile(
-          title: Text("Acepto términos y condiciones", style: TextStyle(color: Colors.white)),
+          title: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(text: 'Acepto'),
+                TextSpan(
+                  text: ' términos y condiciones',
+                  style: TextStyle(color: thirdColor),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => {
+                          TermsAndConditions.show(context),
+                        },
+                ),
+              ],
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           dense: true,
           activeColor: Colors.black,
           controlAffinity: ListTileControlAffinity.leading,
           value: agree,
-          side: BorderSide(color: Colors.white, width: 2.0),
+          side: BorderSide(color: Colors.white, width: 3.0),
           secondary: Icon(Icons.admin_panel_settings, color: Colors.white),
           onChanged: (value) {
             con.agreeTermsAndConditions = value ?? false;

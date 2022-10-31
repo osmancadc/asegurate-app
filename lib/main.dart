@@ -42,13 +42,13 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         GetPage(name: '/', page: () => const SplashPage()),
         GetPage(name: '/search', page: () => ConsultPage(), arguments: DetailpageController()),
+        GetPage(name: '/searchResult', page: () => ConsultPageResult()),
         GetPage(name: '/qualify', page: () => QualifyPage()),
         GetPage(name: '/profile', page: () => ProfilePage()),
+        GetPage(name: '/editProfile', page: () => ProfilePageEdit()),
         GetPage(name: '/login', page: () => const LoginPage()),
-        GetPage(name: '/edit', page: () => ProfilePageEdit()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/help', page: () => HelpPage()),
-        GetPage(name: '/consultDetail', page: () => ConsultPageResult()),
         GetPage(name: '/passwordRecovery', page: () => PasswordRecoveryPage()),
       ],
       theme: ThemeData(

@@ -297,23 +297,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-  // Widget _profileSocialImage(BuildContext context, Image image) {
-  //   return SizedBox(
-  //     width: MediaQuery.of(context).size.width * 0.15,
-  //     child: image,
-  //   );
-  // }
-
-  // Widget _socialNetworks(context) {
-  //   return Row(
-  //     mainAxisSize: MainAxisSize.min,
-  //     children: <Widget>[
-  //       _profileSocialImage(context, Image.asset('assets/images/instagram.png')),
-  //       _profileSocialImage(context, Image.asset('assets/images/facebook.png')),
-  //       _profileSocialImage(context, Image.asset('assets/images/twitter.png')),
-  //     ],
-  //   );
-  // }
 
   Widget _boxFormEmail(context) {
     return Container(

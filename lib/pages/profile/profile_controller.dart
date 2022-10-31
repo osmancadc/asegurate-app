@@ -49,5 +49,5 @@ class ProfilePageController extends GetxController {
 }
 
 void gotoProfilePageEdit(BuildContext context) async {
-  Get.toNamed('/edit');
+  Get.toNamed('/editProfile');
 }

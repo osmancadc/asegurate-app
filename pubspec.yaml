@@ -26,6 +26,7 @@ dependencies:
   liquid_progress_indicator_ns: ^1.0.0
   tutorial_coach_mark: ^1.2.4
   app_tutorial: ^0.3.2
+  flutter_markdown: ^0.6.12
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ flutter:
   uses-material-design: true
   
   assets:
+    - assets/privacy_policy.md
     - assets/images/
     - .env
 

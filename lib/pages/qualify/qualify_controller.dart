@@ -1,4 +1,5 @@
 import 'package:app_asegurate/api/person_api.dart';
+import 'package:app_asegurate/data/authentication_client.dart';
 import 'package:app_asegurate/models/score.dart';
 import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:app_asegurate/utils/utils.dart';
@@ -16,7 +17,8 @@ class QualifyController extends GetxController {
   final _personApi = GetIt.instance<PersonApi>();
 
   void upload(BuildContext context) async {
-    if (validateForm()) {
+    final isValid = await validateForm();
+    if (isValid) {
       Score score = Score(
         type: typeRadio.value,
         objective: objectiveController.text,
@@ -39,43 +41,51 @@ class QualifyController extends GetxController {
     }
   }
 
-  bool validateForm() {
-    final value = objectiveController.text;
-    final comments = commentsController.text;
-    final type = typeRadio.value;
+  Future<bool> validateForm() async {
+    final _value = objectiveController.text;
+    final _comments = commentsController.text;
+    final _type = typeRadio.value;
+    final _name = nameController.text;
+    final _authenticationClient = GetIt.instance<AuthenticationClient>();
+    final _author = await _authenticationClient.getUserId();
 
-    if (value.isEmpty || comments.isEmpty) {
+    if (_value.isEmpty || _comments.isEmpty) {
       showSnackbar('Debes llenar todos los campos', true);
       return false;
     }
 
-    if (type.isEmpty) {
+    if (_type.isEmpty) {
       showSnackbar('Debes seleccionar si es cédula o número de celular', true);
       return false;
     }
 
-    if (nameController.text.isEmpty) {
+    if (_name.isEmpty) {
       showSnackbar('¡No tan rápido tiro al blanco!', true);
       return false;
     }
 
-    if (nameController.text == 'el usuario no se pudo encontrar' && type == 'PHONE') {
+    if (_name == 'el usuario no se pudo encontrar' && _type == 'PHONE') {
       showSnackbar('No hay ninguna persona asociada a ese número de celular', true);
       return false;
     }
 
-    if (nameController.text == 'el usuario no se pudo encontrar' && type == 'CC') {
+    if (_name == 'el usuario no se pudo encontrar' && _type == 'CC') {
       showSnackbar('Ingresa un número de identificación real', true);
       return false;
     }
 
-    if (type == "CC") {
-      if (validateDocument(value) != null) {
+    if (_author == _value) {
+      showSnackbar('No te puedes calificar a ti mismo', true);
+      return false;
+    }
+
+    if (_type == "CC") {
+      if (validateDocument(_value) != null) {
         showSnackbar('Debes ingresar un número de cédula válido', true);
         return false;
       }
-    } else if (type == "PHONE") {
-      if (validatePhone(value) != null) {
+    } else if (_type == "PHONE") {
+      if (validatePhone(_value) != null) {
         showSnackbar('Ingresa un número de celular válido', true);
         return false;
       }

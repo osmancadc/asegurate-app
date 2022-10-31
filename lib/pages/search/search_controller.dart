@@ -21,7 +21,7 @@ class ConsultController extends GetxController {
 
       switch (response.statusCode) {
         case 200:
-          Get.offAllNamed('/consultDetail', arguments: response.data);
+          Get.offAllNamed('/searchResult', arguments: response.data);
           break;
         case 401:
           ResultDialog.show(context, 'Usuario no autorizado', true);

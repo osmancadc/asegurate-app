@@ -1,6 +1,7 @@
 import 'package:app_asegurate/data/authentication_client.dart';
 import 'package:app_asegurate/helpers/http.dart';
 import 'package:app_asegurate/helpers/http_response.dart';
+import 'package:app_asegurate/models/comment.dart';
 import 'package:app_asegurate/models/person_score.dart';
 import 'package:app_asegurate/models/score.dart';
 import 'package:get_it/get_it.dart';
@@ -48,6 +49,14 @@ class PersonApi {
       },
       data: score.toJson(),
       parser: (data) => data,
+    );
+  }
+
+  Future<HttpResponse<Comment>> getComments(String document) async {
+    return _http.request(
+      '/get-score/$document/comments',
+      method: 'GET',
+      parser: (data) => Comment.fromJson(data),
     );
   }
 }

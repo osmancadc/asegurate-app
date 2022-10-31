@@ -1,7 +1,10 @@
+import 'package:app_asegurate/api/person_api.dart';
+import 'package:app_asegurate/models/comment.dart';
 import 'package:app_asegurate/models/person_score.dart';
 import 'package:app_asegurate/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
 class DetailpageController extends GetxController {
   Color getColorScale(int score) {
@@ -26,6 +29,7 @@ class DetailpageController extends GetxController {
   RxInt stars = 0.obs;
   RxInt reputation = 0.obs;
   RxBool certified = true.obs;
+  List<CommentElement> comments = [];
 
   @override
   void onInit() async {
@@ -41,6 +45,18 @@ class DetailpageController extends GetxController {
     stars.value = scoreData!.stars;
     reputation.value = scoreData!.reputation;
     score.value = scoreData!.score;
+  }
+
+  void loadComments() async {
+    final _personApi = GetIt.instance<PersonApi>();
+    final data = await _personApi.getComments(document.value);
+    if (data.data != null) {
+      comments.addAll(data.data!.comments);
+    }
+  }
+
+  void showComments(BuildContext context) {
+    Comments.show(context, comments);
   }
 
   void showCertificationMessage(BuildContext context) {
