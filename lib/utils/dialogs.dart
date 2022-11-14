@@ -282,6 +282,7 @@ abstract class TermsAndConditions {
                             }),
                           );
                         }
+                        return null;
                       }),
                     )
                   ],

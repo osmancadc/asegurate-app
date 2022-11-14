@@ -1,3 +1,4 @@
+import 'package:app_asegurate/data/tutorial_client.dart';
 import 'package:app_asegurate/pages/qualify/qualify_controller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
@@ -5,6 +6,7 @@ import 'package:app_tutorial/app_tutorial.dart';
 import 'package:app_asegurate/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
 class QualifyPage extends StatefulWidget {
   const QualifyPage({Key? key}) : super(key: key);
@@ -211,8 +213,19 @@ class _QualifyPageState extends State<QualifyPage> {
     });
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Tutorial.showTutorial(context, items);
+      _showTutorial(context, items);
     });
+  }
+
+  Future<void> _showTutorial(BuildContext context, List<TutorialItems> items) async {
+    TutorialClient _tutorialClient = GetIt.instance<TutorialClient>();
+
+    final alreadyShowed = await _tutorialClient.viewedQualify;
+
+    if (!alreadyShowed) {
+      Tutorial.showTutorial(context, items);
+      await _tutorialClient.saveState('VIEWED_QUALIFY');
+    }
   }
 
   @override

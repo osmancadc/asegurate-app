@@ -1,3 +1,4 @@
+import 'package:app_asegurate/data/tutorial_client.dart';
 import 'package:app_asegurate/pages/search/search_result_controller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:app_asegurate/widgets/menu_drawer.dart';
@@ -6,6 +7,7 @@ import 'package:app_tutorial/app_tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:blur/blur.dart';
+import 'package:get_it/get_it.dart';
 
 class ConsultPageResult extends StatefulWidget {
   const ConsultPageResult({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class _ConsultPageResultState extends State<ConsultPageResult> {
         shapeFocus: ShapeFocus.square,
         children: [
           Text(
-            'Cuanto consultes a una persona, podrás ver sus datos personales  y una calificación otorgada de 1 a 5 estrellas',
+            'Cuando consultes a una persona, podrás ver sus datos personales  y una calificación otorgada de 1 a 5 estrellas',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -181,10 +183,21 @@ class _ConsultPageResultState extends State<ConsultPageResult> {
     });
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Tutorial.showTutorial(context, items);
+      _showTutorial(context, items);
       con.showCertificationMessage(context);
       con.loadComments();
     });
+  }
+
+  Future<void> _showTutorial(BuildContext context, List<TutorialItems> items) async {
+    TutorialClient _tutorialClient = GetIt.instance<TutorialClient>();
+
+    final alreadyShowed = await _tutorialClient.viewedSearchResult;
+
+    if (!alreadyShowed) {
+      Tutorial.showTutorial(context, items);
+      await _tutorialClient.saveState('VIEWED_SEARCH_RESULT');
+    }
   }
 
   @override
