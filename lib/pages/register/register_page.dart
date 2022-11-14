@@ -216,7 +216,7 @@ class _RegisterPageState extends State<RegisterPage> {
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: Text('Cuál es tu Perfil Principal ',
+            child: Text('¿Cuál es tu Perfil Principal?',
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: fifthColor,

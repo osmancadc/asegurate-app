@@ -3,7 +3,7 @@
 
 
     <application 
-        android:label="app_asegurate" 
+        android:label="ASEGUR4TE" 
         android:name="${applicationName}" 
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"

@@ -35,7 +35,7 @@ void showSnackbar(String message, bool isError) {
     title,
     message,
     colorText: Colors.white,
-    barBlur: 15,
+    barBlur: 8,
     backgroundColor: color,
     icon: Icon(
       icon,
@@ -56,7 +56,7 @@ String formatDocument(String document) {
 String formatName(String name) {
   String formatedName = "";
   if (name.isEmpty || name == ' ') {
-    return 'el usuario no se pudo encontrar';
+    return '';
   }
 
   List<String> fullName = name.split(" ");
@@ -88,7 +88,7 @@ String? validateDocument(String? value) {
 String? validateEmail(String? value) {
   if (value!.isNotEmpty &&
       !value.contains(RegExp(r'^[^@\s]+@(hotmail|gmail|live|outlook|yahoo)\.[a-zA-Z]{2,4}$'))) {
-    return 'Ingresa un correo electronico válido';
+    return 'Ingresa un correo electrónico válido';
   }
   return null;
 }
@@ -107,26 +107,26 @@ String? validatePassword(String? value) {
   }
 
   if (value.length < 8) {
-    return "La contraseña debe tener minimo 8 caracteres";
+    return '';
   }
 
   if (value.contains(RegExp(r'[\s]'))) {
-    return "La contraseña no debe tener espacios en blanco";
+    return 'La contraseña no debe tener espacios en blanco';
   }
 
   if (!value.contains(RegExp(r'.*[A-Z].*'))) {
-    return "La contraseña debe tener al menos una Mayuscula";
+    return 'La contraseña debe tener al menos una Mayúscula';
   }
 
   if (!value.contains(RegExp(r'.*[a-z].*'))) {
-    return "La contraseña debe tener al menos una minuscula";
+    return 'La contraseña debe tener al menos una minúscula';
   }
 
   if (!value.contains(RegExp(r'.*[0-9].*'))) {
-    return "La contraseña debe tener al menos un numero";
+    return 'La contraseña debe tener al menos un número';
   }
   if (!value.contains(RegExp(r'.*[@$!%*?&].*'))) {
-    return "La contraseña debe tener minimo uno de los \nsiguientes caracteres especiales @ \$ ! % * ? &";
+    return 'La contraseña debe tener minimo uno de los \nsiguientes caracteres especiales @ \$ ! % * ? &';
   }
 
   return null;

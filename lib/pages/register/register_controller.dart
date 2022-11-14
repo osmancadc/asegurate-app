@@ -53,7 +53,7 @@ class RegisterPageController extends GetxController {
       switch (response.statusCode) {
         case 200:
           ResultDialog.show(context,
-              'La cuenta de ${formatName(response.data!)} ha sido creada con exito', false);
+              'La cuenta de ${formatName(response.data!)} ha sido creada con éxito', false);
           Get.offAllNamed('/login');
           break;
         case 500:

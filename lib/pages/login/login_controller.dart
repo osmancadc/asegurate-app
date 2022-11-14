@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  // final _authenticationApi = AuthenticationApi();
   final userController = TextEditingController();
   final passwordController = TextEditingController();
   final _authenticationApi = GetIt.instance<AuthenticationApi>();
@@ -29,8 +28,14 @@ class LoginController extends GetxController {
           await _authenticationClient.saveSession(response.data!);
           Get.offAllNamed('/profile');
           break;
+        case 404:
+          ResultDialog.show(context, 'El usuario no se encuentra registrado', true);
+          break;
+        case 401:
+          ResultDialog.show(context, 'La contraseña es incorrecta', true);
+          break;
         default:
-          ResultDialog.show(context, 'Usuario o contraseña incorrectos', true);
+          ResultDialog.show(context, 'Ocurrió un error inesperado, intenta nuevamente', true);
       }
     }
   }

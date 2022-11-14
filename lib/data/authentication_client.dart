@@ -27,7 +27,7 @@ class AuthenticationClient {
     final data = await _secureStorage.read(key: 'SESSION');
     if (data != null) {
       final session = Session.fromJson(jsonDecode(data));
-      return JwtDecoder.decode(session.token)['id'];
+      return JwtDecoder.decode(session.token)['jti'];
     }
     return '';
   }

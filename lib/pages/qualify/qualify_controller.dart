@@ -31,8 +31,14 @@ class QualifyController extends GetxController {
       LoadingDialog.dismiss(context);
       switch (response.statusCode) {
         case 200:
-          ResultDialog.show(context, 'La calificación ha sido enviada con exito', false);
+          ResultDialog.show(context, 'La calificación ha sido enviada con éxito', false);
           clear();
+          break;
+        case 404:
+          ResultDialog.show(context, 'No se encontró el usuario', true);
+          break;
+        case 405:
+          showSnackbar('No te puedes calificar a ti mismo', true);
           break;
         case 500:
           ResultDialog.show(context, response.errorMessage, true);

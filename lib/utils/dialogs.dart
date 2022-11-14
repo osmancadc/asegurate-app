@@ -133,6 +133,7 @@ abstract class Comments {
   static show(BuildContext context, List<CommentElement> comments) async {
     if (comments.isEmpty) {
       showSnackbar('No se encontraron comentarios para esta persona', true);
+      return;
     }
 
     showCupertinoModalPopup(

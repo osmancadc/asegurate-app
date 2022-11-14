@@ -70,17 +70,14 @@ class LoginPage extends StatelessWidget {
         boxShadow: <BoxShadow>[],
       ),
       margin: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.05,
-          left: 30,
-          right: 30,
-          bottom: 10),
+          top: MediaQuery.of(context).size.height * 0.05, left: 30, right: 30, bottom: 10),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
           keyboardType: TextInputType.number,
           controller: con.userController,
           decoration: const InputDecoration(
-            labelText: 'Numero de documento',
+            labelText: 'Número de documento',
             labelStyle: TextStyle(
               fontSize: 14,
             ),

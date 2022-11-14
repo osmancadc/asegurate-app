@@ -18,7 +18,7 @@ class PasswordRecoveryController extends GetxController {
         case 200:
           ResultDialog.show(
               context,
-              'Hemos enviado un correo electronico a ' + response.data! + ' con los pasos a seguir',
+              'Hemos enviado un correo electrónico a ' + response.data! + ' con los pasos a seguir',
               false);
           break;
         default:

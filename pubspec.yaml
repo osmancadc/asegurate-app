@@ -8,12 +8,15 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.15.0 <3.0.0"
 
+
+
+  
+
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations: 
     sdk: flutter
-  
 
   cupertino_icons: ^1.0.2
   blur: ^3.1.0
@@ -27,6 +30,7 @@ dependencies:
   tutorial_coach_mark: ^1.2.4
   app_tutorial: ^0.3.2
   flutter_markdown: ^0.6.12
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +49,8 @@ dev_dependencies:
   hexcolor: ^2.0.5
   sn_progress_dialog: ^1.0.8
   dart_code_metrics: ^4.19.1
+  
+
 flutter:
   uses-material-design: true
   
@@ -53,12 +59,13 @@ flutter:
     - assets/images/
     - .env
 
-
-  
-
   fonts:
     - family: TradeGothicInline
       fonts:
         - asset: assets/fonts/TradeGothicInline-Light.ttf
         - asset: assets/fonts/TradeGothicInline-Regular.ttf
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"  
